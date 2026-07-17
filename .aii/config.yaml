@@ -1,13 +1,22 @@
-# AII sidecar — InstituteOS metadata. Schema: instituteos.platform.aii_sidecar
+# AII sidecar — InstituteOS metadata for this repository.
+# Schema: aii-sidecar/v1
+schema: aii-sidecar/v1
 meta:
-  updated: '2026-06-30'
+  sidecar_version: 1.0.0
+  updated: '2026-07-17'
 repo:
   name: AEOS
   slug: aeos
   full_name: ActiveInferenceInstitute/AEOS
-  description: Active Entity Ontology for Science
+  description: >-
+    A portable, versioned ontology of active and informational entities,
+    roles, affordances, states, and scientific interaction motifs.
+  default_branch: main
+  homepage: https://coda.io/@active-inference-institute/active-entity-ontology-for-science-aeos
 institute:
+  affiliation: institute
   category: ontology
+  status: active
   maturity: released
   steward: Active Inference Institute
 ecosystem:
@@ -24,22 +33,109 @@ artifacts:
 - path: README.md
   kind: doc
   description: Repository overview.
+- path: data/aeos.yaml
+  kind: source
+  description: Canonical human-editable AEOS source.
+- path: aeos.json
+  kind: export
+  description: Deterministic machine-readable AEOS export.
+- path: schema/aeos.schema.json
+  kind: model
+  description: JSON Schema and structural data contract.
+- path: releases.json
+  kind: doc
+  description: Release and provenance manifest.
+- path: docs/
+  kind: doc
+  description: Model, integration, fork, curation, and publication documentation.
+- path: paper/
+  kind: doc
+  description: Maintained publication source and artifact notes.
+- path: paper/aeos.md
+  kind: source
+  description: Maintained editable publication source.
+- path: paper/aeos-local.pdf
+  kind: export
+  description: Reproducible local PDF generated from the maintained source.
+- path: paper/aeos-local.docx
+  kind: export
+  description: Editable DOCX generated from the maintained source.
+- path: paper/aeos-local.html
+  kind: export
+  description: Accessible browser-readable export generated from the maintained source.
+- path: paper/aeos-2022-v2.pdf
+  kind: export
+  description: Warning-free normalized PDF of the preserved 2022/v2 paper.
+- path: paper/aeos-2022-v2.docx
+  kind: export
+  description: Editable copy of the preserved 2022/v2 paper.
+- path: archive/2022-v2/
+  kind: doc
+  description: Preserved 2022/v2 publication snapshot.
+- path: archive/2022-v2/checksums.json
+  kind: other
+  description: Machine-readable checksums for the preserved historical binaries.
 - path: LICENSE
   kind: doc
   description: License.
 provenance:
-  license: CC0-1.0
+  license: CC-BY-4.0
   citation:
-    text: Active Inference Institute — AEOS.
+    doi: https://doi.org/10.5281/zenodo.7484994
+    text: Active Inference Institute — AEOS, version 1.0.0.
+  current_release: v1.0.0
+  releases_manifest: releases.json
 instituteos:
+  dashboard_mode: repos
+  registries: []
   tags:
   - aeos
   - entity
   - ontology
   - science
 capabilities:
-- documentation
+- ontology-source
+- schema-validation
+- json-export
+- release-manifest
+- publication-source
 tasks:
-  inventory:
-    cmd: git ls-files
-    description: List tracked files.
+  validate:
+    cmd: python -m aeos validate --format json
+    description: Validate the canonical AEOS source.
+    cwd: .
+  build:
+    cmd: python -m aeos build
+    description: Build the deterministic JSON export.
+    cwd: .
+  check:
+    cmd: python -m aeos build --check
+    description: Verify that the generated JSON export is current.
+    cwd: .
+  report:
+    cmd: python -m aeos report --format json
+    description: Produce a machine-readable validation report.
+    cwd: .
+  test:
+    cmd: python -m pytest
+    description: Run the ontology and CLI test suite.
+    cwd: .
+  lint:
+    cmd: ruff check src tests scripts
+    description: Run the repository Python lint gate.
+    cwd: .
+  release-check:
+    cmd: python scripts/check_release.py
+    description: Run ontology, sidecar, archive, document, and rendering release gates.
+    cwd: .
+  render:
+    cmd: python scripts/render_artifacts.py
+    description: Render every maintained PDF and DOCX page to PNG for inspection.
+    cwd: .
+integration:
+  analytics: true
+  dashboard: true
+  sync: pull
+docs:
+- README.md
+- AGENTS.md

@@ -1,0 +1,2462 @@
+{
+  "affordances": [
+    {
+      "actors": [
+        "type-academic-university",
+        "type-computer-system",
+        "type-organization"
+      ],
+      "areas": [
+        "area-communication"
+      ],
+      "description": "Sends a message or artifact for later receipt or response.",
+      "id": "affordance-communicates-asynchronously-to",
+      "label": "Communicates Asynchronously To",
+      "objects": [
+        "type-knowledge-artifact",
+        "type-metadata"
+      ],
+      "targets": [
+        "type-human",
+        "type-lab",
+        "type-organization",
+        "type-team"
+      ]
+    },
+    {
+      "actors": [
+        "type-computer-system",
+        "type-human"
+      ],
+      "areas": [
+        "area-communication"
+      ],
+      "description": "Exchanges information in a shared interaction interval.",
+      "id": "affordance-communicates-synchronously-to",
+      "label": "Communicates Synchronously To",
+      "objects": [
+        "type-knowledge-artifact",
+        "type-metadata"
+      ],
+      "targets": [
+        "type-computer-system",
+        "type-human"
+      ]
+    },
+    {
+      "actors": [
+        "type-community",
+        "type-dao",
+        "type-organization"
+      ],
+      "areas": [
+        "area-cryptographic-relationship",
+        "area-funding"
+      ],
+      "description": "Makes or participates in decisions about a resource or process.",
+      "id": "affordance-engages-in-governance",
+      "label": "Engages in Governance",
+      "objects": [
+        "type-blockchain",
+        "type-smart-contract"
+      ],
+      "targets": [
+        "type-grant",
+        "type-organization",
+        "type-project-catechism"
+      ]
+    },
+    {
+      "actors": [
+        "type-computer-system",
+        "type-human",
+        "type-organization"
+      ],
+      "areas": [
+        "area-communication",
+        "area-cryptographic-relationship"
+      ],
+      "description": "Changes an informational resource under an authorized role and context.",
+      "id": "affordance-modifies-resource",
+      "label": "Modifies Resource",
+      "objects": [],
+      "targets": [
+        "type-code",
+        "type-knowledge-artifact",
+        "type-metadata",
+        "type-project-catechism"
+      ]
+    },
+    {
+      "actors": [
+        "type-dao",
+        "type-funding-agency",
+        "type-organization"
+      ],
+      "areas": [
+        "area-funding"
+      ],
+      "description": "Provides requirements, boundaries, or conditions for research.",
+      "id": "affordance-provides-constraints-for-researcher",
+      "label": "Provides Constraints for Researcher",
+      "objects": [
+        "type-grant"
+      ],
+      "targets": [
+        "type-human",
+        "type-lab",
+        "type-research-investigator",
+        "type-team"
+      ]
+    },
+    {
+      "actors": [
+        "type-dao",
+        "type-funding-agency",
+        "type-human"
+      ],
+      "areas": [
+        "area-funding"
+      ],
+      "description": "Directly provides funding to a recipient research entity.",
+      "id": "affordance-provides-funding-to",
+      "label": "Provides Funding To",
+      "objects": [
+        "type-fungible-asset",
+        "type-grant"
+      ],
+      "targets": [
+        "type-lab",
+        "type-research-investigator",
+        "type-team"
+      ]
+    },
+    {
+      "actors": [
+        "type-dao",
+        "type-funding-agency",
+        "type-organization"
+      ],
+      "areas": [
+        "area-funding"
+      ],
+      "description": "Provides an opportunity or enabling condition for research.",
+      "id": "affordance-provides-opportunity-for-researcher",
+      "label": "Provides Opportunity for Researcher",
+      "objects": [
+        "type-grant"
+      ],
+      "targets": [
+        "type-human",
+        "type-lab",
+        "type-research-investigator",
+        "type-team"
+      ]
+    },
+    {
+      "actors": [
+        "type-lab",
+        "type-research-investigator",
+        "type-team"
+      ],
+      "areas": [
+        "area-communication",
+        "area-cryptographic-relationship"
+      ],
+      "description": "Provides progress or outcome information to a funding entity.",
+      "id": "affordance-provides-updates-to-funder",
+      "label": "Provides Updates to Funder",
+      "objects": [
+        "type-knowledge-artifact",
+        "type-metadata"
+      ],
+      "targets": [
+        "type-dao",
+        "type-funding-agency",
+        "type-human"
+      ]
+    },
+    {
+      "actors": [
+        "type-dao",
+        "type-human",
+        "type-lab",
+        "type-research-investigator",
+        "type-team"
+      ],
+      "areas": [
+        "area-publishing",
+        "area-research-analysis"
+      ],
+      "description": "Makes a knowledge artifact available through a publication context.",
+      "id": "affordance-publishes-knowledge-artifact",
+      "label": "Publishes Knowledge Artifact",
+      "objects": [
+        "type-grant",
+        "type-knowledge-artifact",
+        "type-paper",
+        "type-preprint"
+      ],
+      "targets": [
+        "type-dao",
+        "type-journal-publisher",
+        "type-knowledge-market"
+      ]
+    },
+    {
+      "actors": [
+        "type-lab",
+        "type-research-investigator",
+        "type-team"
+      ],
+      "areas": [
+        "area-funding"
+      ],
+      "description": "Requests resources for a scientific activity or artifact.",
+      "id": "affordance-requests-funding-from",
+      "label": "Requests Funding From",
+      "objects": [
+        "type-grant"
+      ],
+      "targets": [
+        "type-dao",
+        "type-funding-agency"
+      ]
+    },
+    {
+      "actors": [
+        "type-dao",
+        "type-journal-publisher",
+        "type-knowledge-market"
+      ],
+      "areas": [
+        "area-scientific-review"
+      ],
+      "description": "Requests assessment of a knowledge artifact from qualified entities.",
+      "id": "affordance-requests-scientific-review",
+      "label": "Requests Scientific Review",
+      "objects": [
+        "type-knowledge-artifact",
+        "type-paper",
+        "type-preprint"
+      ],
+      "targets": [
+        "type-human",
+        "type-lab",
+        "type-research-investigator",
+        "type-team"
+      ]
+    },
+    {
+      "actors": [
+        "type-dao",
+        "type-human",
+        "type-lab",
+        "type-research-investigator",
+        "type-team"
+      ],
+      "areas": [
+        "area-research-analysis",
+        "area-scientific-review"
+      ],
+      "description": "Evaluates a scientific artifact or proposal.",
+      "id": "affordance-scientifically-assesses",
+      "label": "Scientifically Assesses",
+      "objects": [],
+      "targets": [
+        "type-grant",
+        "type-knowledge-artifact",
+        "type-paper",
+        "type-preprint"
+      ]
+    },
+    {
+      "actors": [
+        "type-dao",
+        "type-funding-agency",
+        "type-human",
+        "type-knowledge-market"
+      ],
+      "areas": [
+        "area-cryptographic-relationship",
+        "area-funding"
+      ],
+      "description": "Transfers an interchangeable asset to another entity.",
+      "id": "affordance-sends-fungible-asset",
+      "label": "Sends Fungible Asset",
+      "objects": [
+        "type-fungible-asset"
+      ],
+      "targets": [
+        "type-dao",
+        "type-human",
+        "type-lab",
+        "type-research-investigator",
+        "type-team"
+      ]
+    },
+    {
+      "actors": [
+        "type-organization",
+        "type-research-investigator",
+        "type-team"
+      ],
+      "areas": [
+        "area-cryptographic-relationship"
+      ],
+      "description": "Transfers an intellectual property resource to another entity.",
+      "id": "affordance-transfers-intellectual-property",
+      "label": "Transfers Intellectual Property",
+      "objects": [
+        "type-intellectual-property",
+        "type-non-fungible-asset"
+      ],
+      "targets": [
+        "type-cryptographic-identity",
+        "type-dao",
+        "type-organization"
+      ]
+    }
+  ],
+  "areas_of_concern": [
+    {
+      "description": "Synchronous and asynchronous exchange among scientific entities.",
+      "id": "area-communication",
+      "label": "Communication"
+    },
+    {
+      "description": "Identity, authorization, ownership, and transfer mediated cryptographically.",
+      "id": "area-cryptographic-relationship",
+      "label": "Cryptographic Relationship"
+    },
+    {
+      "description": "Allocation, receipt, governance, and accountability of research resources.",
+      "id": "area-funding",
+      "label": "Funding"
+    },
+    {
+      "description": "Public release and distribution of knowledge artifacts.",
+      "id": "area-publishing",
+      "label": "Publishing"
+    },
+    {
+      "description": "Investigation, analysis, synthesis, and publication of scientific work.",
+      "id": "area-research-analysis",
+      "label": "Research and Analysis"
+    },
+    {
+      "description": "Assessment, critique, and feedback on knowledge artifacts.",
+      "id": "area-scientific-review",
+      "label": "Scientific Review"
+    }
+  ],
+  "entity_classes": [
+    {
+      "description": "An entity with agency that selects policies and enacts affordances in a niche through perception, cognition, and action.",
+      "id": "class-active",
+      "label": "Active Entity"
+    },
+    {
+      "description": "A computational datum or epistemic resource that contains information and is acted upon by active entities.",
+      "id": "class-informational",
+      "label": "Informational Entity"
+    }
+  ],
+  "entity_types": [
+    {
+      "class": "class-active",
+      "description": "An academic organization participating in research and communication.",
+      "id": "type-academic-university",
+      "label": "Academic University"
+    },
+    {
+      "class": "class-informational",
+      "description": "A cryptographically linked record of transactions or state.",
+      "id": "type-blockchain",
+      "label": "Blockchain"
+    },
+    {
+      "class": "class-informational",
+      "description": "A software artifact used by or produced within scientific work.",
+      "id": "type-code",
+      "label": "Code"
+    },
+    {
+      "class": "class-active",
+      "description": "A community of practice or other social grouping.",
+      "id": "type-community",
+      "label": "Community"
+    },
+    {
+      "class": "class-active",
+      "description": "A computational system that mediates or enacts ecosystem activity.",
+      "id": "type-computer-system",
+      "label": "Computer System"
+    },
+    {
+      "class": "class-informational",
+      "description": "A digital identity used to authenticate or authorize interaction.",
+      "id": "type-cryptographic-identity",
+      "label": "Cryptographic Identity"
+    },
+    {
+      "class": "class-active",
+      "description": "A decentralized autonomous organization coordinating digital activity.",
+      "id": "type-dao",
+      "label": "DAO"
+    },
+    {
+      "class": "class-informational",
+      "description": "A structured collection of observations or other data.",
+      "id": "type-dataset",
+      "label": "Dataset"
+    },
+    {
+      "class": "class-active",
+      "description": "An organization that provides research funding and constraints.",
+      "id": "type-funding-agency",
+      "label": "Funding Agency"
+    },
+    {
+      "class": "class-informational",
+      "description": "An interchangeable asset used in an ecosystem interaction.",
+      "id": "type-fungible-asset",
+      "label": "Fungible Asset"
+    },
+    {
+      "class": "class-informational",
+      "description": "A funding proposal, award, or related knowledge artifact.",
+      "id": "type-grant",
+      "label": "Grant"
+    },
+    {
+      "class": "class-active",
+      "description": "A human participant with agency in a scientific ecosystem.",
+      "id": "type-human",
+      "label": "Human"
+    },
+    {
+      "class": "class-informational",
+      "description": "A legally or socially recognized intellectual resource.",
+      "id": "type-intellectual-property",
+      "label": "Intellectual Property"
+    },
+    {
+      "class": "class-active",
+      "description": "An entity that publishes knowledge artifacts and coordinates review.",
+      "id": "type-journal-publisher",
+      "label": "Journal or Publisher"
+    },
+    {
+      "class": "class-informational",
+      "description": "An informational artifact that contributes to an epistemic commons.",
+      "id": "type-knowledge-artifact",
+      "label": "Knowledge Artifact"
+    },
+    {
+      "class": "class-active",
+      "description": "A market-like active system that lists and coordinates knowledge artifacts.",
+      "id": "type-knowledge-market",
+      "label": "Knowledge Market"
+    },
+    {
+      "class": "class-active",
+      "description": "A research laboratory or comparable scientific working group.",
+      "id": "type-lab",
+      "label": "Lab"
+    },
+    {
+      "class": "class-informational",
+      "description": "Information describing another informational entity.",
+      "id": "type-metadata",
+      "label": "Metadata"
+    },
+    {
+      "class": "class-informational",
+      "description": "A uniquely identified asset representing a specific resource or claim.",
+      "id": "type-non-fungible-asset",
+      "label": "Non-Fungible Asset"
+    },
+    {
+      "class": "class-active",
+      "description": "A group of active entities organized around a purpose.",
+      "id": "type-organization",
+      "label": "Organization"
+    },
+    {
+      "class": "class-informational",
+      "description": "A scientific paper or comparable scholarly publication.",
+      "id": "type-paper",
+      "label": "Paper"
+    },
+    {
+      "class": "class-informational",
+      "description": "A paper shared before formal publication or review.",
+      "id": "type-preprint",
+      "label": "Preprint"
+    },
+    {
+      "class": "class-informational",
+      "description": "A structured statement of a project's questions, commitments, or norms.",
+      "id": "type-project-catechism",
+      "label": "Project Catechism"
+    },
+    {
+      "class": "class-active",
+      "description": "An investigator or research group conducting scientific work.",
+      "id": "type-research-investigator",
+      "label": "Research Investigator"
+    },
+    {
+      "class": "class-informational",
+      "description": "Executable code governing a digitally mediated agreement or process.",
+      "id": "type-smart-contract",
+      "label": "Smart Contract"
+    },
+    {
+      "class": "class-active",
+      "description": "A coordinated group working on a scientific activity or artifact.",
+      "id": "type-team",
+      "label": "Team"
+    }
+  ],
+  "graph": {
+    "edges": [
+      {
+        "relation": "actor",
+        "source": "affordance-communicates-asynchronously-to",
+        "target": "type-academic-university"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-communicates-asynchronously-to",
+        "target": "type-computer-system"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-communicates-asynchronously-to",
+        "target": "type-organization"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-communicates-asynchronously-to",
+        "target": "area-communication"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-communicates-asynchronously-to",
+        "target": "type-knowledge-artifact"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-communicates-asynchronously-to",
+        "target": "type-metadata"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-communicates-asynchronously-to",
+        "target": "type-human"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-communicates-asynchronously-to",
+        "target": "type-lab"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-communicates-asynchronously-to",
+        "target": "type-organization"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-communicates-asynchronously-to",
+        "target": "type-team"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-communicates-synchronously-to",
+        "target": "type-computer-system"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-communicates-synchronously-to",
+        "target": "type-human"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-communicates-synchronously-to",
+        "target": "area-communication"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-communicates-synchronously-to",
+        "target": "type-knowledge-artifact"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-communicates-synchronously-to",
+        "target": "type-metadata"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-communicates-synchronously-to",
+        "target": "type-computer-system"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-communicates-synchronously-to",
+        "target": "type-human"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-engages-in-governance",
+        "target": "type-community"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-engages-in-governance",
+        "target": "type-dao"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-engages-in-governance",
+        "target": "type-organization"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-engages-in-governance",
+        "target": "area-cryptographic-relationship"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-engages-in-governance",
+        "target": "area-funding"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-engages-in-governance",
+        "target": "type-blockchain"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-engages-in-governance",
+        "target": "type-smart-contract"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-engages-in-governance",
+        "target": "type-grant"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-engages-in-governance",
+        "target": "type-organization"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-engages-in-governance",
+        "target": "type-project-catechism"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-modifies-resource",
+        "target": "type-computer-system"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-modifies-resource",
+        "target": "type-human"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-modifies-resource",
+        "target": "type-organization"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-modifies-resource",
+        "target": "area-communication"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-modifies-resource",
+        "target": "area-cryptographic-relationship"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-modifies-resource",
+        "target": "type-code"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-modifies-resource",
+        "target": "type-knowledge-artifact"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-modifies-resource",
+        "target": "type-metadata"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-modifies-resource",
+        "target": "type-project-catechism"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-constraints-for-researcher",
+        "target": "type-dao"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-constraints-for-researcher",
+        "target": "type-funding-agency"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-constraints-for-researcher",
+        "target": "type-organization"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-provides-constraints-for-researcher",
+        "target": "area-funding"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-provides-constraints-for-researcher",
+        "target": "type-grant"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-constraints-for-researcher",
+        "target": "type-human"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-constraints-for-researcher",
+        "target": "type-lab"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-constraints-for-researcher",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-constraints-for-researcher",
+        "target": "type-team"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-funding-to",
+        "target": "type-dao"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-funding-to",
+        "target": "type-funding-agency"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-funding-to",
+        "target": "type-human"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-provides-funding-to",
+        "target": "area-funding"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-provides-funding-to",
+        "target": "type-fungible-asset"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-provides-funding-to",
+        "target": "type-grant"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-funding-to",
+        "target": "type-lab"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-funding-to",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-funding-to",
+        "target": "type-team"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-opportunity-for-researcher",
+        "target": "type-dao"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-opportunity-for-researcher",
+        "target": "type-funding-agency"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-opportunity-for-researcher",
+        "target": "type-organization"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-provides-opportunity-for-researcher",
+        "target": "area-funding"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-provides-opportunity-for-researcher",
+        "target": "type-grant"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-opportunity-for-researcher",
+        "target": "type-human"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-opportunity-for-researcher",
+        "target": "type-lab"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-opportunity-for-researcher",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-opportunity-for-researcher",
+        "target": "type-team"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-updates-to-funder",
+        "target": "type-lab"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-updates-to-funder",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-provides-updates-to-funder",
+        "target": "type-team"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-provides-updates-to-funder",
+        "target": "area-communication"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-provides-updates-to-funder",
+        "target": "area-cryptographic-relationship"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-provides-updates-to-funder",
+        "target": "type-knowledge-artifact"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-provides-updates-to-funder",
+        "target": "type-metadata"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-updates-to-funder",
+        "target": "type-dao"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-updates-to-funder",
+        "target": "type-funding-agency"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-provides-updates-to-funder",
+        "target": "type-human"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-dao"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-human"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-lab"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-team"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "area-publishing"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "area-research-analysis"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-grant"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-knowledge-artifact"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-paper"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-preprint"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-dao"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-journal-publisher"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-publishes-knowledge-artifact",
+        "target": "type-knowledge-market"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-requests-funding-from",
+        "target": "type-lab"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-requests-funding-from",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-requests-funding-from",
+        "target": "type-team"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-requests-funding-from",
+        "target": "area-funding"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-requests-funding-from",
+        "target": "type-grant"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-requests-funding-from",
+        "target": "type-dao"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-requests-funding-from",
+        "target": "type-funding-agency"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-requests-scientific-review",
+        "target": "type-dao"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-requests-scientific-review",
+        "target": "type-journal-publisher"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-requests-scientific-review",
+        "target": "type-knowledge-market"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-requests-scientific-review",
+        "target": "area-scientific-review"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-requests-scientific-review",
+        "target": "type-knowledge-artifact"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-requests-scientific-review",
+        "target": "type-paper"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-requests-scientific-review",
+        "target": "type-preprint"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-requests-scientific-review",
+        "target": "type-human"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-requests-scientific-review",
+        "target": "type-lab"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-requests-scientific-review",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-requests-scientific-review",
+        "target": "type-team"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-scientifically-assesses",
+        "target": "type-dao"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-scientifically-assesses",
+        "target": "type-human"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-scientifically-assesses",
+        "target": "type-lab"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-scientifically-assesses",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-scientifically-assesses",
+        "target": "type-team"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-scientifically-assesses",
+        "target": "area-research-analysis"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-scientifically-assesses",
+        "target": "area-scientific-review"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-scientifically-assesses",
+        "target": "type-grant"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-scientifically-assesses",
+        "target": "type-knowledge-artifact"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-scientifically-assesses",
+        "target": "type-paper"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-scientifically-assesses",
+        "target": "type-preprint"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-sends-fungible-asset",
+        "target": "type-dao"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-sends-fungible-asset",
+        "target": "type-funding-agency"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-sends-fungible-asset",
+        "target": "type-human"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-sends-fungible-asset",
+        "target": "type-knowledge-market"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-sends-fungible-asset",
+        "target": "area-cryptographic-relationship"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-sends-fungible-asset",
+        "target": "area-funding"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-sends-fungible-asset",
+        "target": "type-fungible-asset"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-sends-fungible-asset",
+        "target": "type-dao"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-sends-fungible-asset",
+        "target": "type-human"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-sends-fungible-asset",
+        "target": "type-lab"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-sends-fungible-asset",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-sends-fungible-asset",
+        "target": "type-team"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-transfers-intellectual-property",
+        "target": "type-organization"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-transfers-intellectual-property",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "actor",
+        "source": "affordance-transfers-intellectual-property",
+        "target": "type-team"
+      },
+      {
+        "relation": "concerns",
+        "source": "affordance-transfers-intellectual-property",
+        "target": "area-cryptographic-relationship"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-transfers-intellectual-property",
+        "target": "type-intellectual-property"
+      },
+      {
+        "relation": "object",
+        "source": "affordance-transfers-intellectual-property",
+        "target": "type-non-fungible-asset"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-transfers-intellectual-property",
+        "target": "type-cryptographic-identity"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-transfers-intellectual-property",
+        "target": "type-dao"
+      },
+      {
+        "relation": "target",
+        "source": "affordance-transfers-intellectual-property",
+        "target": "type-organization"
+      },
+      {
+        "id": "relationship-active-mediated-by-computer-system",
+        "relation": "mediated-by",
+        "source": "class-active",
+        "target": "type-computer-system"
+      },
+      {
+        "id": "relationship-active-partitioned-from-niche",
+        "relation": "partitioned-from",
+        "source": "class-active",
+        "target": "state-sense"
+      },
+      {
+        "id": "relationship-informational-acted-upon-by-active",
+        "relation": "acted-upon-by",
+        "source": "class-informational",
+        "target": "class-active"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-administrator",
+        "target": "type-computer-system"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-administrator",
+        "target": "type-human"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-administrator",
+        "target": "type-organization"
+      },
+      {
+        "relation": "enables",
+        "source": "role-administrator",
+        "target": "affordance-modifies-resource"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-community-of-practice",
+        "target": "type-community"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-community-of-practice",
+        "target": "type-dao"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-community-of-practice",
+        "target": "type-team"
+      },
+      {
+        "relation": "enables",
+        "source": "role-community-of-practice",
+        "target": "affordance-publishes-knowledge-artifact"
+      },
+      {
+        "relation": "enables",
+        "source": "role-community-of-practice",
+        "target": "affordance-scientifically-assesses"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-donor",
+        "target": "type-human"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-donor",
+        "target": "type-organization"
+      },
+      {
+        "relation": "enables",
+        "source": "role-donor",
+        "target": "affordance-sends-fungible-asset"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-funding-provider",
+        "target": "type-dao"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-funding-provider",
+        "target": "type-funding-agency"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-funding-provider",
+        "target": "type-human"
+      },
+      {
+        "relation": "enables",
+        "source": "role-funding-provider",
+        "target": "affordance-provides-funding-to"
+      },
+      {
+        "relation": "enables",
+        "source": "role-funding-provider",
+        "target": "affordance-sends-fungible-asset"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-publisher",
+        "target": "type-dao"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-publisher",
+        "target": "type-journal-publisher"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-publisher",
+        "target": "type-knowledge-market"
+      },
+      {
+        "relation": "enables",
+        "source": "role-publisher",
+        "target": "affordance-publishes-knowledge-artifact"
+      },
+      {
+        "relation": "enables",
+        "source": "role-publisher",
+        "target": "affordance-requests-scientific-review"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-research-investigator",
+        "target": "type-human"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-research-investigator",
+        "target": "type-lab"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-research-investigator",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-research-investigator",
+        "target": "type-team"
+      },
+      {
+        "relation": "enables",
+        "source": "role-research-investigator",
+        "target": "affordance-publishes-knowledge-artifact"
+      },
+      {
+        "relation": "enables",
+        "source": "role-research-investigator",
+        "target": "affordance-scientifically-assesses"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-reviewer",
+        "target": "type-human"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-reviewer",
+        "target": "type-lab"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-reviewer",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "applies-to",
+        "source": "role-reviewer",
+        "target": "type-team"
+      },
+      {
+        "relation": "enables",
+        "source": "role-reviewer",
+        "target": "affordance-scientifically-assesses"
+      },
+      {
+        "motif": "motif-communication-cesci",
+        "object": "type-computer-system",
+        "relation": "affordance-communicates-asynchronously-to",
+        "sequence": 1,
+        "source": "type-academic-university",
+        "target": "type-lab"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-academic-university",
+        "target": "class-active"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-blockchain",
+        "target": "class-informational"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-code",
+        "target": "class-informational"
+      },
+      {
+        "motif": "motif-research-analysis-desci",
+        "relation": "affordance-publishes-knowledge-artifact",
+        "sequence": 2,
+        "source": "type-community",
+        "target": "type-knowledge-artifact"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-community",
+        "target": "class-active"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-computer-system",
+        "target": "class-active"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-cryptographic-identity",
+        "target": "class-informational"
+      },
+      {
+        "motif": "motif-funding-desci",
+        "relation": "affordance-engages-in-governance",
+        "sequence": 4,
+        "source": "type-dao",
+        "target": "type-grant"
+      },
+      {
+        "motif": "motif-funding-desci",
+        "relation": "affordance-scientifically-assesses",
+        "sequence": 3,
+        "source": "type-dao",
+        "target": "type-grant"
+      },
+      {
+        "motif": "motif-funding-desci",
+        "object": "type-fungible-asset",
+        "relation": "affordance-sends-fungible-asset",
+        "sequence": 5,
+        "source": "type-dao",
+        "target": "type-team"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-dao",
+        "target": "class-active"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-dataset",
+        "target": "class-informational"
+      },
+      {
+        "motif": "motif-funding-cesci",
+        "relation": "affordance-scientifically-assesses",
+        "sequence": 3,
+        "source": "type-funding-agency",
+        "target": "type-grant"
+      },
+      {
+        "motif": "motif-funding-cesci",
+        "object": "type-fungible-asset",
+        "relation": "affordance-sends-fungible-asset",
+        "sequence": 4,
+        "source": "type-funding-agency",
+        "target": "type-team"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-funding-agency",
+        "target": "class-active"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-fungible-asset",
+        "target": "class-informational"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-grant",
+        "target": "class-informational"
+      },
+      {
+        "motif": "motif-communication-desci",
+        "object": "type-computer-system",
+        "relation": "affordance-communicates-synchronously-to",
+        "sequence": 1,
+        "source": "type-human",
+        "target": "type-human"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-human",
+        "target": "class-active"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-intellectual-property",
+        "target": "class-informational"
+      },
+      {
+        "motif": "motif-publishing-cesci",
+        "object": "type-paper",
+        "relation": "affordance-requests-scientific-review",
+        "sequence": 1,
+        "source": "type-journal-publisher",
+        "target": "type-research-investigator"
+      },
+      {
+        "motif": "motif-review-cesci",
+        "object": "type-paper",
+        "relation": "affordance-requests-scientific-review",
+        "sequence": 3,
+        "source": "type-journal-publisher",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-journal-publisher",
+        "target": "class-active"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-knowledge-artifact",
+        "target": "class-informational"
+      },
+      {
+        "motif": "motif-review-desci",
+        "object": "type-fungible-asset",
+        "relation": "affordance-sends-fungible-asset",
+        "sequence": 2,
+        "source": "type-knowledge-market",
+        "target": "type-research-investigator"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-knowledge-market",
+        "target": "class-active"
+      },
+      {
+        "motif": "motif-research-analysis-cesci",
+        "relation": "affordance-publishes-knowledge-artifact",
+        "sequence": 2,
+        "source": "type-lab",
+        "target": "type-knowledge-artifact"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-lab",
+        "target": "class-active"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-metadata",
+        "target": "class-informational"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-non-fungible-asset",
+        "target": "class-informational"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-organization",
+        "target": "class-active"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-paper",
+        "target": "class-informational"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-preprint",
+        "target": "class-informational"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-project-catechism",
+        "target": "class-informational"
+      },
+      {
+        "motif": "motif-publishing-cesci",
+        "object": "type-paper",
+        "relation": "affordance-publishes-knowledge-artifact",
+        "sequence": 2,
+        "source": "type-research-investigator",
+        "target": "type-journal-publisher"
+      },
+      {
+        "motif": "motif-review-cesci",
+        "object": "type-paper",
+        "relation": "affordance-publishes-knowledge-artifact",
+        "sequence": 2,
+        "source": "type-research-investigator",
+        "target": "type-journal-publisher"
+      },
+      {
+        "motif": "motif-publishing-desci",
+        "object": "type-paper",
+        "relation": "affordance-publishes-knowledge-artifact",
+        "sequence": 1,
+        "source": "type-research-investigator",
+        "target": "type-knowledge-market"
+      },
+      {
+        "motif": "motif-review-desci",
+        "object": "type-paper",
+        "relation": "affordance-publishes-knowledge-artifact",
+        "sequence": 1,
+        "source": "type-research-investigator",
+        "target": "type-knowledge-market"
+      },
+      {
+        "motif": "motif-research-analysis-cesci",
+        "relation": "affordance-scientifically-assesses",
+        "sequence": 1,
+        "source": "type-research-investigator",
+        "target": "type-knowledge-artifact"
+      },
+      {
+        "motif": "motif-research-analysis-desci",
+        "relation": "affordance-scientifically-assesses",
+        "sequence": 1,
+        "source": "type-research-investigator",
+        "target": "type-knowledge-artifact"
+      },
+      {
+        "motif": "motif-review-cesci",
+        "object": "type-fungible-asset",
+        "relation": "affordance-sends-fungible-asset",
+        "sequence": 1,
+        "source": "type-research-investigator",
+        "target": "type-journal-publisher"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-research-investigator",
+        "target": "class-active"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-smart-contract",
+        "target": "class-informational"
+      },
+      {
+        "motif": "motif-funding-cesci",
+        "relation": "affordance-publishes-knowledge-artifact",
+        "sequence": 1,
+        "source": "type-team",
+        "target": "type-grant"
+      },
+      {
+        "motif": "motif-funding-desci",
+        "relation": "affordance-publishes-knowledge-artifact",
+        "sequence": 1,
+        "source": "type-team",
+        "target": "type-grant"
+      },
+      {
+        "motif": "motif-funding-desci",
+        "object": "type-grant",
+        "relation": "affordance-requests-funding-from",
+        "sequence": 2,
+        "source": "type-team",
+        "target": "type-dao"
+      },
+      {
+        "motif": "motif-funding-cesci",
+        "object": "type-grant",
+        "relation": "affordance-requests-funding-from",
+        "sequence": 2,
+        "source": "type-team",
+        "target": "type-funding-agency"
+      },
+      {
+        "relation": "member-of",
+        "source": "type-team",
+        "target": "class-active"
+      }
+    ],
+    "nodes": [
+      {
+        "description": "Sends a message or artifact for later receipt or response.",
+        "id": "affordance-communicates-asynchronously-to",
+        "label": "Communicates Asynchronously To",
+        "type": "affordances"
+      },
+      {
+        "description": "Exchanges information in a shared interaction interval.",
+        "id": "affordance-communicates-synchronously-to",
+        "label": "Communicates Synchronously To",
+        "type": "affordances"
+      },
+      {
+        "description": "Makes or participates in decisions about a resource or process.",
+        "id": "affordance-engages-in-governance",
+        "label": "Engages in Governance",
+        "type": "affordances"
+      },
+      {
+        "description": "Changes an informational resource under an authorized role and context.",
+        "id": "affordance-modifies-resource",
+        "label": "Modifies Resource",
+        "type": "affordances"
+      },
+      {
+        "description": "Provides requirements, boundaries, or conditions for research.",
+        "id": "affordance-provides-constraints-for-researcher",
+        "label": "Provides Constraints for Researcher",
+        "type": "affordances"
+      },
+      {
+        "description": "Directly provides funding to a recipient research entity.",
+        "id": "affordance-provides-funding-to",
+        "label": "Provides Funding To",
+        "type": "affordances"
+      },
+      {
+        "description": "Provides an opportunity or enabling condition for research.",
+        "id": "affordance-provides-opportunity-for-researcher",
+        "label": "Provides Opportunity for Researcher",
+        "type": "affordances"
+      },
+      {
+        "description": "Provides progress or outcome information to a funding entity.",
+        "id": "affordance-provides-updates-to-funder",
+        "label": "Provides Updates to Funder",
+        "type": "affordances"
+      },
+      {
+        "description": "Makes a knowledge artifact available through a publication context.",
+        "id": "affordance-publishes-knowledge-artifact",
+        "label": "Publishes Knowledge Artifact",
+        "type": "affordances"
+      },
+      {
+        "description": "Requests resources for a scientific activity or artifact.",
+        "id": "affordance-requests-funding-from",
+        "label": "Requests Funding From",
+        "type": "affordances"
+      },
+      {
+        "description": "Requests assessment of a knowledge artifact from qualified entities.",
+        "id": "affordance-requests-scientific-review",
+        "label": "Requests Scientific Review",
+        "type": "affordances"
+      },
+      {
+        "description": "Evaluates a scientific artifact or proposal.",
+        "id": "affordance-scientifically-assesses",
+        "label": "Scientifically Assesses",
+        "type": "affordances"
+      },
+      {
+        "description": "Transfers an interchangeable asset to another entity.",
+        "id": "affordance-sends-fungible-asset",
+        "label": "Sends Fungible Asset",
+        "type": "affordances"
+      },
+      {
+        "description": "Transfers an intellectual property resource to another entity.",
+        "id": "affordance-transfers-intellectual-property",
+        "label": "Transfers Intellectual Property",
+        "type": "affordances"
+      },
+      {
+        "description": "Synchronous and asynchronous exchange among scientific entities.",
+        "id": "area-communication",
+        "label": "Communication",
+        "type": "areas_of_concern"
+      },
+      {
+        "description": "Identity, authorization, ownership, and transfer mediated cryptographically.",
+        "id": "area-cryptographic-relationship",
+        "label": "Cryptographic Relationship",
+        "type": "areas_of_concern"
+      },
+      {
+        "description": "Allocation, receipt, governance, and accountability of research resources.",
+        "id": "area-funding",
+        "label": "Funding",
+        "type": "areas_of_concern"
+      },
+      {
+        "description": "Public release and distribution of knowledge artifacts.",
+        "id": "area-publishing",
+        "label": "Publishing",
+        "type": "areas_of_concern"
+      },
+      {
+        "description": "Investigation, analysis, synthesis, and publication of scientific work.",
+        "id": "area-research-analysis",
+        "label": "Research and Analysis",
+        "type": "areas_of_concern"
+      },
+      {
+        "description": "Assessment, critique, and feedback on knowledge artifacts.",
+        "id": "area-scientific-review",
+        "label": "Scientific Review",
+        "type": "areas_of_concern"
+      },
+      {
+        "description": "An entity with agency that selects policies and enacts affordances in a niche through perception, cognition, and action.",
+        "id": "class-active",
+        "label": "Active Entity",
+        "type": "entity_classes"
+      },
+      {
+        "description": "A computational datum or epistemic resource that contains information and is acted upon by active entities.",
+        "id": "class-informational",
+        "label": "Informational Entity",
+        "type": "entity_classes"
+      },
+      {
+        "description": "An entity authorized to manage a system or resource in context.",
+        "id": "role-administrator",
+        "label": "Administrator",
+        "type": "roles"
+      },
+      {
+        "description": "A community role coordinating shared scientific inquiry and learning.",
+        "id": "role-community-of-practice",
+        "label": "Community of Practice",
+        "type": "roles"
+      },
+      {
+        "description": "An entity that contributes resources to a research funding pool.",
+        "id": "role-donor",
+        "label": "Donor",
+        "type": "roles"
+      },
+      {
+        "description": "An entity that provides funding to a research team or project.",
+        "id": "role-funding-provider",
+        "label": "Funding Provider",
+        "type": "roles"
+      },
+      {
+        "description": "An entity that coordinates or releases knowledge artifacts.",
+        "id": "role-publisher",
+        "label": "Publisher",
+        "type": "roles"
+      },
+      {
+        "description": "An entity that investigates, assesses, and publishes scientific work.",
+        "id": "role-research-investigator",
+        "label": "Research Investigator",
+        "type": "roles"
+      },
+      {
+        "description": "An entity that evaluates a knowledge artifact for a stated purpose.",
+        "id": "role-reviewer",
+        "label": "Reviewer",
+        "type": "roles"
+      },
+      {
+        "description": "Outgoing statistical dependencies enacted through action selection.",
+        "id": "state-active",
+        "label": "Active State",
+        "type": "states"
+      },
+      {
+        "description": "State inside the entity, including its modeled generative process.",
+        "id": "state-internal",
+        "label": "Internal State",
+        "type": "states"
+      },
+      {
+        "description": "Incoming statistical dependencies from the entity's niche.",
+        "id": "state-sense",
+        "label": "Sense State",
+        "type": "states"
+      },
+      {
+        "description": "An academic organization participating in research and communication.",
+        "id": "type-academic-university",
+        "label": "Academic University",
+        "type": "entity_types"
+      },
+      {
+        "description": "A cryptographically linked record of transactions or state.",
+        "id": "type-blockchain",
+        "label": "Blockchain",
+        "type": "entity_types"
+      },
+      {
+        "description": "A software artifact used by or produced within scientific work.",
+        "id": "type-code",
+        "label": "Code",
+        "type": "entity_types"
+      },
+      {
+        "description": "A community of practice or other social grouping.",
+        "id": "type-community",
+        "label": "Community",
+        "type": "entity_types"
+      },
+      {
+        "description": "A computational system that mediates or enacts ecosystem activity.",
+        "id": "type-computer-system",
+        "label": "Computer System",
+        "type": "entity_types"
+      },
+      {
+        "description": "A digital identity used to authenticate or authorize interaction.",
+        "id": "type-cryptographic-identity",
+        "label": "Cryptographic Identity",
+        "type": "entity_types"
+      },
+      {
+        "description": "A decentralized autonomous organization coordinating digital activity.",
+        "id": "type-dao",
+        "label": "DAO",
+        "type": "entity_types"
+      },
+      {
+        "description": "A structured collection of observations or other data.",
+        "id": "type-dataset",
+        "label": "Dataset",
+        "type": "entity_types"
+      },
+      {
+        "description": "An organization that provides research funding and constraints.",
+        "id": "type-funding-agency",
+        "label": "Funding Agency",
+        "type": "entity_types"
+      },
+      {
+        "description": "An interchangeable asset used in an ecosystem interaction.",
+        "id": "type-fungible-asset",
+        "label": "Fungible Asset",
+        "type": "entity_types"
+      },
+      {
+        "description": "A funding proposal, award, or related knowledge artifact.",
+        "id": "type-grant",
+        "label": "Grant",
+        "type": "entity_types"
+      },
+      {
+        "description": "A human participant with agency in a scientific ecosystem.",
+        "id": "type-human",
+        "label": "Human",
+        "type": "entity_types"
+      },
+      {
+        "description": "A legally or socially recognized intellectual resource.",
+        "id": "type-intellectual-property",
+        "label": "Intellectual Property",
+        "type": "entity_types"
+      },
+      {
+        "description": "An entity that publishes knowledge artifacts and coordinates review.",
+        "id": "type-journal-publisher",
+        "label": "Journal or Publisher",
+        "type": "entity_types"
+      },
+      {
+        "description": "An informational artifact that contributes to an epistemic commons.",
+        "id": "type-knowledge-artifact",
+        "label": "Knowledge Artifact",
+        "type": "entity_types"
+      },
+      {
+        "description": "A market-like active system that lists and coordinates knowledge artifacts.",
+        "id": "type-knowledge-market",
+        "label": "Knowledge Market",
+        "type": "entity_types"
+      },
+      {
+        "description": "A research laboratory or comparable scientific working group.",
+        "id": "type-lab",
+        "label": "Lab",
+        "type": "entity_types"
+      },
+      {
+        "description": "Information describing another informational entity.",
+        "id": "type-metadata",
+        "label": "Metadata",
+        "type": "entity_types"
+      },
+      {
+        "description": "A uniquely identified asset representing a specific resource or claim.",
+        "id": "type-non-fungible-asset",
+        "label": "Non-Fungible Asset",
+        "type": "entity_types"
+      },
+      {
+        "description": "A group of active entities organized around a purpose.",
+        "id": "type-organization",
+        "label": "Organization",
+        "type": "entity_types"
+      },
+      {
+        "description": "A scientific paper or comparable scholarly publication.",
+        "id": "type-paper",
+        "label": "Paper",
+        "type": "entity_types"
+      },
+      {
+        "description": "A paper shared before formal publication or review.",
+        "id": "type-preprint",
+        "label": "Preprint",
+        "type": "entity_types"
+      },
+      {
+        "description": "A structured statement of a project's questions, commitments, or norms.",
+        "id": "type-project-catechism",
+        "label": "Project Catechism",
+        "type": "entity_types"
+      },
+      {
+        "description": "An investigator or research group conducting scientific work.",
+        "id": "type-research-investigator",
+        "label": "Research Investigator",
+        "type": "entity_types"
+      },
+      {
+        "description": "Executable code governing a digitally mediated agreement or process.",
+        "id": "type-smart-contract",
+        "label": "Smart Contract",
+        "type": "entity_types"
+      },
+      {
+        "description": "A coordinated group working on a scientific activity or artifact.",
+        "id": "type-team",
+        "label": "Team",
+        "type": "entity_types"
+      }
+    ]
+  },
+  "motifs": [
+    {
+      "area": "area-communication",
+      "context": "cesci",
+      "description": "An academic university communicates asynchronously with a lab through a computer system.",
+      "id": "motif-communication-cesci",
+      "label": "Communication in Centralized Science",
+      "steps": [
+        {
+          "actor": "type-academic-university",
+          "affordance": "affordance-communicates-asynchronously-to",
+          "object": "type-computer-system",
+          "sequence": 1,
+          "target": "type-lab"
+        }
+      ]
+    },
+    {
+      "area": "area-communication",
+      "context": "desci",
+      "description": "A human communicates synchronously with another human through a computer system.",
+      "id": "motif-communication-desci",
+      "label": "Communication in Decentralized Science",
+      "steps": [
+        {
+          "actor": "type-human",
+          "affordance": "affordance-communicates-synchronously-to",
+          "object": "type-computer-system",
+          "sequence": 1,
+          "target": "type-human"
+        }
+      ]
+    },
+    {
+      "area": "area-funding",
+      "context": "cesci",
+      "description": "A team requests funding from and is assessed by a funding agency.",
+      "id": "motif-funding-cesci",
+      "label": "Funding in Centralized Science",
+      "steps": [
+        {
+          "actor": "type-team",
+          "affordance": "affordance-publishes-knowledge-artifact",
+          "sequence": 1,
+          "target": "type-grant"
+        },
+        {
+          "actor": "type-team",
+          "affordance": "affordance-requests-funding-from",
+          "object": "type-grant",
+          "sequence": 2,
+          "target": "type-funding-agency"
+        },
+        {
+          "actor": "type-funding-agency",
+          "affordance": "affordance-scientifically-assesses",
+          "sequence": 3,
+          "target": "type-grant"
+        },
+        {
+          "actor": "type-funding-agency",
+          "affordance": "affordance-sends-fungible-asset",
+          "object": "type-fungible-asset",
+          "sequence": 4,
+          "target": "type-team"
+        }
+      ]
+    },
+    {
+      "area": "area-funding",
+      "context": "desci",
+      "description": "A team requests funding from a DAO that assesses and governs a grant.",
+      "id": "motif-funding-desci",
+      "label": "Funding in Decentralized Science",
+      "steps": [
+        {
+          "actor": "type-team",
+          "affordance": "affordance-publishes-knowledge-artifact",
+          "sequence": 1,
+          "target": "type-grant"
+        },
+        {
+          "actor": "type-team",
+          "affordance": "affordance-requests-funding-from",
+          "object": "type-grant",
+          "sequence": 2,
+          "target": "type-dao"
+        },
+        {
+          "actor": "type-dao",
+          "affordance": "affordance-scientifically-assesses",
+          "sequence": 3,
+          "target": "type-grant"
+        },
+        {
+          "actor": "type-dao",
+          "affordance": "affordance-engages-in-governance",
+          "sequence": 4,
+          "target": "type-grant"
+        },
+        {
+          "actor": "type-dao",
+          "affordance": "affordance-sends-fungible-asset",
+          "object": "type-fungible-asset",
+          "sequence": 5,
+          "target": "type-team"
+        }
+      ]
+    },
+    {
+      "area": "area-publishing",
+      "context": "cesci",
+      "description": "An investigator publishes a paper at a journal after scientific review.",
+      "id": "motif-publishing-cesci",
+      "label": "Publishing in Centralized Science",
+      "steps": [
+        {
+          "actor": "type-journal-publisher",
+          "affordance": "affordance-requests-scientific-review",
+          "object": "type-paper",
+          "sequence": 1,
+          "target": "type-research-investigator"
+        },
+        {
+          "actor": "type-research-investigator",
+          "affordance": "affordance-publishes-knowledge-artifact",
+          "object": "type-paper",
+          "sequence": 2,
+          "target": "type-journal-publisher"
+        }
+      ]
+    },
+    {
+      "area": "area-publishing",
+      "context": "desci",
+      "description": "An investigator publishes a paper on a DAO-produced knowledge market.",
+      "id": "motif-publishing-desci",
+      "label": "Publishing in Decentralized Science",
+      "steps": [
+        {
+          "actor": "type-research-investigator",
+          "affordance": "affordance-publishes-knowledge-artifact",
+          "object": "type-paper",
+          "sequence": 1,
+          "target": "type-knowledge-market"
+        }
+      ]
+    },
+    {
+      "area": "area-research-analysis",
+      "context": "cesci",
+      "description": "Investigators in a lab assess a primary artifact and publish a knowledge artifact.",
+      "id": "motif-research-analysis-cesci",
+      "label": "Research and Analysis in Centralized Science",
+      "steps": [
+        {
+          "actor": "type-research-investigator",
+          "affordance": "affordance-scientifically-assesses",
+          "sequence": 1,
+          "target": "type-knowledge-artifact"
+        },
+        {
+          "actor": "type-lab",
+          "affordance": "affordance-publishes-knowledge-artifact",
+          "sequence": 2,
+          "target": "type-knowledge-artifact"
+        }
+      ]
+    },
+    {
+      "area": "area-research-analysis",
+      "context": "desci",
+      "description": "Investigators in a DAO community assess a primary artifact and publish a knowledge artifact.",
+      "id": "motif-research-analysis-desci",
+      "label": "Research and Analysis in Decentralized Science",
+      "steps": [
+        {
+          "actor": "type-research-investigator",
+          "affordance": "affordance-scientifically-assesses",
+          "sequence": 1,
+          "target": "type-knowledge-artifact"
+        },
+        {
+          "actor": "type-community",
+          "affordance": "affordance-publishes-knowledge-artifact",
+          "sequence": 2,
+          "target": "type-knowledge-artifact"
+        }
+      ]
+    },
+    {
+      "area": "area-scientific-review",
+      "context": "cesci",
+      "description": "A publisher requests review after receiving a paper for publication.",
+      "id": "motif-review-cesci",
+      "label": "Scientific Review in Centralized Science",
+      "steps": [
+        {
+          "actor": "type-research-investigator",
+          "affordance": "affordance-sends-fungible-asset",
+          "object": "type-fungible-asset",
+          "sequence": 1,
+          "target": "type-journal-publisher"
+        },
+        {
+          "actor": "type-research-investigator",
+          "affordance": "affordance-publishes-knowledge-artifact",
+          "object": "type-paper",
+          "sequence": 2,
+          "target": "type-journal-publisher"
+        },
+        {
+          "actor": "type-journal-publisher",
+          "affordance": "affordance-requests-scientific-review",
+          "object": "type-paper",
+          "sequence": 3,
+          "target": "type-research-investigator"
+        }
+      ]
+    },
+    {
+      "area": "area-scientific-review",
+      "context": "desci",
+      "description": "A knowledge market rewards an investigator as a paper is used.",
+      "id": "motif-review-desci",
+      "label": "Scientific Review in Decentralized Science",
+      "steps": [
+        {
+          "actor": "type-research-investigator",
+          "affordance": "affordance-publishes-knowledge-artifact",
+          "object": "type-paper",
+          "sequence": 1,
+          "target": "type-knowledge-market"
+        },
+        {
+          "actor": "type-knowledge-market",
+          "affordance": "affordance-sends-fungible-asset",
+          "object": "type-fungible-asset",
+          "sequence": 2,
+          "target": "type-research-investigator"
+        }
+      ]
+    }
+  ],
+  "ontology": {
+    "description": "A portable, versioned representation of active and informational entities, their roles, affordances, states, and interaction motifs in scientific ecosystems.",
+    "id": "aeos",
+    "license": "CC-BY-4.0",
+    "provenance": {
+      "doi": "https://doi.org/10.5281/zenodo.7484994",
+      "interactive_source": "https://coda.io/@active-inference-institute/active-entity-ontology-for-science-aeos",
+      "publication": "An Active Inference Ontology for Decentralized Science: from Situated Sensemaking to the Epistemic Commons",
+      "source_accessed": "2026-07-17"
+    },
+    "title": "Active Entity Ontology for Science",
+    "version": "1.0.0"
+  },
+  "relationships": [
+    {
+      "description": "Online active entities are mediated by computer systems.",
+      "id": "relationship-active-mediated-by-computer-system",
+      "relation": "mediated-by",
+      "source": "class-active",
+      "target": "type-computer-system"
+    },
+    {
+      "description": "Active entity models partition internal states from niche dependencies.",
+      "id": "relationship-active-partitioned-from-niche",
+      "relation": "partitioned-from",
+      "source": "class-active",
+      "target": "state-sense"
+    },
+    {
+      "description": "Informational entities are acted upon by active entities.",
+      "id": "relationship-informational-acted-upon-by-active",
+      "relation": "acted-upon-by",
+      "source": "class-informational",
+      "target": "class-active"
+    }
+  ],
+  "roles": [
+    {
+      "affordances": [
+        "affordance-modifies-resource"
+      ],
+      "description": "An entity authorized to manage a system or resource in context.",
+      "entity_types": [
+        "type-computer-system",
+        "type-human",
+        "type-organization"
+      ],
+      "id": "role-administrator",
+      "label": "Administrator"
+    },
+    {
+      "affordances": [
+        "affordance-publishes-knowledge-artifact",
+        "affordance-scientifically-assesses"
+      ],
+      "description": "A community role coordinating shared scientific inquiry and learning.",
+      "entity_types": [
+        "type-community",
+        "type-dao",
+        "type-team"
+      ],
+      "id": "role-community-of-practice",
+      "label": "Community of Practice"
+    },
+    {
+      "affordances": [
+        "affordance-sends-fungible-asset"
+      ],
+      "description": "An entity that contributes resources to a research funding pool.",
+      "entity_types": [
+        "type-human",
+        "type-organization"
+      ],
+      "id": "role-donor",
+      "label": "Donor"
+    },
+    {
+      "affordances": [
+        "affordance-provides-funding-to",
+        "affordance-sends-fungible-asset"
+      ],
+      "description": "An entity that provides funding to a research team or project.",
+      "entity_types": [
+        "type-dao",
+        "type-funding-agency",
+        "type-human"
+      ],
+      "id": "role-funding-provider",
+      "label": "Funding Provider"
+    },
+    {
+      "affordances": [
+        "affordance-publishes-knowledge-artifact",
+        "affordance-requests-scientific-review"
+      ],
+      "description": "An entity that coordinates or releases knowledge artifacts.",
+      "entity_types": [
+        "type-dao",
+        "type-journal-publisher",
+        "type-knowledge-market"
+      ],
+      "id": "role-publisher",
+      "label": "Publisher"
+    },
+    {
+      "affordances": [
+        "affordance-publishes-knowledge-artifact",
+        "affordance-scientifically-assesses"
+      ],
+      "description": "An entity that investigates, assesses, and publishes scientific work.",
+      "entity_types": [
+        "type-human",
+        "type-lab",
+        "type-research-investigator",
+        "type-team"
+      ],
+      "id": "role-research-investigator",
+      "label": "Research Investigator"
+    },
+    {
+      "affordances": [
+        "affordance-scientifically-assesses"
+      ],
+      "description": "An entity that evaluates a knowledge artifact for a stated purpose.",
+      "entity_types": [
+        "type-human",
+        "type-lab",
+        "type-research-investigator",
+        "type-team"
+      ],
+      "id": "role-reviewer",
+      "label": "Reviewer"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "source": "data/aeos.yaml",
+  "states": [
+    {
+      "description": "Outgoing statistical dependencies enacted through action selection.",
+      "id": "state-active",
+      "kind": "active",
+      "label": "Active State"
+    },
+    {
+      "description": "State inside the entity, including its modeled generative process.",
+      "id": "state-internal",
+      "kind": "internal",
+      "label": "Internal State"
+    },
+    {
+      "description": "Incoming statistical dependencies from the entity's niche.",
+      "id": "state-sense",
+      "kind": "sense",
+      "label": "Sense State"
+    }
+  ],
+  "summary": {
+    "affordance_count": 14,
+    "area_count": 6,
+    "class_count": 2,
+    "graph_edge_count": 222,
+    "graph_node_count": 58,
+    "motif_count": 10,
+    "relationship_count": 3,
+    "role_count": 7,
+    "state_count": 3,
+    "type_count": 26
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "description": "Release manifest for the Active Entity Ontology for Science repository.",
+  "currentRelease": "v1.0.0",
+  "releases": [
+    {
+      "version": "v1.0.0",
+      "label": "Repository-owned ontology source and export",
+      "status": "current",
+      "date": "2026-07-17",
+      "sourceFiles": [
+        "data/aeos.yaml",
+        "schema/aeos.schema.json",
+        "paper/aeos.md"
+      ],
+      "generatedFiles": [
+        "aeos.json",
+        "paper/aeos-local.pdf",
+        "paper/aeos-local.docx",
+        "paper/aeos-local.html",
+        "paper/aeos-2022-v2.pdf",
+        "paper/aeos-2022-v2.docx"
+      ],
+      "counts": {
+        "entityClasses": 2,
+        "entityTypes": 26,
+        "areasOfConcern": 6,
+        "roles": 7,
+        "affordances": 14,
+        "states": 3,
+        "relationships": 3,
+        "motifs": 10,
+        "graphNodes": 58,
+        "graphEdges": 222
+      },
+      "notes": "Initial repository-owned, explicitly referenced AEOS model derived from the published definitions and interactive motifs."
+    },
+    {
+      "version": "paper-2022-v2",
+      "label": "2022/v2 publication snapshot",
+      "status": "archived",
+      "date": "2022-08-19",
+      "path": "archive/2022-v2",
+      "checksums": "archive/2022-v2/checksums.json",
+      "files": [
+        "README.md",
+        "checksums.json",
+        "ActInf-DeSci-AEOS-2022.docx",
+        "ActInf-DeSci-AEOS-2022.pdf",
+        "7_20_2022_v2_ActInf-DeSci-AEOS-2022.docx",
+        "7_20_2022_v2_ActInf-DeSci-AEOS-2022.pdf"
+      ],
+      "notes": "Original local binary artifacts preserved as source evidence; the DOI publication record is maintained separately."
+    }
+  ]
+}

@@ -1,0 +1,493 @@
+schema_version: "1.0.0"
+ontology:
+  id: aeos
+  version: "1.0.0"
+  title: Active Entity Ontology for Science
+  description: >-
+    A portable, versioned representation of active and informational entities,
+    their roles, affordances, states, and interaction motifs in scientific
+    ecosystems.
+  license: CC-BY-4.0
+  provenance:
+    publication: >-
+      An Active Inference Ontology for Decentralized Science: from Situated
+      Sensemaking to the Epistemic Commons
+    doi: https://doi.org/10.5281/zenodo.7484994
+    interactive_source: https://coda.io/@active-inference-institute/active-entity-ontology-for-science-aeos
+    source_accessed: "2026-07-17"
+
+entity_classes:
+  - id: class-active
+    label: Active Entity
+    description: >-
+      An entity with agency that selects policies and enacts affordances in a
+      niche through perception, cognition, and action.
+  - id: class-informational
+    label: Informational Entity
+    description: >-
+      A computational datum or epistemic resource that contains information and
+      is acted upon by active entities.
+
+entity_types:
+  - id: type-human
+    label: Human
+    class: class-active
+    description: A human participant with agency in a scientific ecosystem.
+  - id: type-computer-system
+    label: Computer System
+    class: class-active
+    description: A computational system that mediates or enacts ecosystem activity.
+  - id: type-organization
+    label: Organization
+    class: class-active
+    description: A group of active entities organized around a purpose.
+  - id: type-team
+    label: Team
+    class: class-active
+    description: A coordinated group working on a scientific activity or artifact.
+  - id: type-dao
+    label: DAO
+    class: class-active
+    description: A decentralized autonomous organization coordinating digital activity.
+  - id: type-academic-university
+    label: Academic University
+    class: class-active
+    description: An academic organization participating in research and communication.
+  - id: type-community
+    label: Community
+    class: class-active
+    description: A community of practice or other social grouping.
+  - id: type-lab
+    label: Lab
+    class: class-active
+    description: A research laboratory or comparable scientific working group.
+  - id: type-funding-agency
+    label: Funding Agency
+    class: class-active
+    description: An organization that provides research funding and constraints.
+  - id: type-journal-publisher
+    label: Journal or Publisher
+    class: class-active
+    description: An entity that publishes knowledge artifacts and coordinates review.
+  - id: type-knowledge-market
+    label: Knowledge Market
+    class: class-active
+    description: A market-like active system that lists and coordinates knowledge artifacts.
+  - id: type-research-investigator
+    label: Research Investigator
+    class: class-active
+    description: An investigator or research group conducting scientific work.
+  - id: type-knowledge-artifact
+    label: Knowledge Artifact
+    class: class-informational
+    description: An informational artifact that contributes to an epistemic commons.
+  - id: type-fungible-asset
+    label: Fungible Asset
+    class: class-informational
+    description: An interchangeable asset used in an ecosystem interaction.
+  - id: type-non-fungible-asset
+    label: Non-Fungible Asset
+    class: class-informational
+    description: A uniquely identified asset representing a specific resource or claim.
+  - id: type-dataset
+    label: Dataset
+    class: class-informational
+    description: A structured collection of observations or other data.
+  - id: type-metadata
+    label: Metadata
+    class: class-informational
+    description: Information describing another informational entity.
+  - id: type-paper
+    label: Paper
+    class: class-informational
+    description: A scientific paper or comparable scholarly publication.
+  - id: type-preprint
+    label: Preprint
+    class: class-informational
+    description: A paper shared before formal publication or review.
+  - id: type-intellectual-property
+    label: Intellectual Property
+    class: class-informational
+    description: A legally or socially recognized intellectual resource.
+  - id: type-code
+    label: Code
+    class: class-informational
+    description: A software artifact used by or produced within scientific work.
+  - id: type-grant
+    label: Grant
+    class: class-informational
+    description: A funding proposal, award, or related knowledge artifact.
+  - id: type-blockchain
+    label: Blockchain
+    class: class-informational
+    description: A cryptographically linked record of transactions or state.
+  - id: type-project-catechism
+    label: Project Catechism
+    class: class-informational
+    description: A structured statement of a project's questions, commitments, or norms.
+  - id: type-cryptographic-identity
+    label: Cryptographic Identity
+    class: class-informational
+    description: A digital identity used to authenticate or authorize interaction.
+  - id: type-smart-contract
+    label: Smart Contract
+    class: class-informational
+    description: Executable code governing a digitally mediated agreement or process.
+
+areas_of_concern:
+  - id: area-funding
+    label: Funding
+    description: Allocation, receipt, governance, and accountability of research resources.
+  - id: area-communication
+    label: Communication
+    description: Synchronous and asynchronous exchange among scientific entities.
+  - id: area-cryptographic-relationship
+    label: Cryptographic Relationship
+    description: Identity, authorization, ownership, and transfer mediated cryptographically.
+  - id: area-scientific-review
+    label: Scientific Review
+    description: Assessment, critique, and feedback on knowledge artifacts.
+  - id: area-research-analysis
+    label: Research and Analysis
+    description: Investigation, analysis, synthesis, and publication of scientific work.
+  - id: area-publishing
+    label: Publishing
+    description: Public release and distribution of knowledge artifacts.
+
+roles:
+  - id: role-administrator
+    label: Administrator
+    description: An entity authorized to manage a system or resource in context.
+    entity_types: [type-human, type-organization, type-computer-system]
+    affordances: [affordance-modifies-resource]
+  - id: role-funding-provider
+    label: Funding Provider
+    description: An entity that provides funding to a research team or project.
+    entity_types: [type-human, type-funding-agency, type-dao]
+    affordances: [affordance-provides-funding-to, affordance-sends-fungible-asset]
+  - id: role-research-investigator
+    label: Research Investigator
+    description: An entity that investigates, assesses, and publishes scientific work.
+    entity_types: [type-human, type-research-investigator, type-team, type-lab]
+    affordances:
+      [affordance-scientifically-assesses, affordance-publishes-knowledge-artifact]
+  - id: role-publisher
+    label: Publisher
+    description: An entity that coordinates or releases knowledge artifacts.
+    entity_types: [type-journal-publisher, type-knowledge-market, type-dao]
+    affordances: [affordance-publishes-knowledge-artifact, affordance-requests-scientific-review]
+  - id: role-reviewer
+    label: Reviewer
+    description: An entity that evaluates a knowledge artifact for a stated purpose.
+    entity_types: [type-human, type-research-investigator, type-team, type-lab]
+    affordances: [affordance-scientifically-assesses]
+  - id: role-donor
+    label: Donor
+    description: An entity that contributes resources to a research funding pool.
+    entity_types: [type-human, type-organization]
+    affordances: [affordance-sends-fungible-asset]
+  - id: role-community-of-practice
+    label: Community of Practice
+    description: A community role coordinating shared scientific inquiry and learning.
+    entity_types: [type-community, type-dao, type-team]
+    affordances:
+      [affordance-scientifically-assesses, affordance-publishes-knowledge-artifact]
+
+affordances:
+  - id: affordance-publishes-knowledge-artifact
+    label: Publishes Knowledge Artifact
+    description: Makes a knowledge artifact available through a publication context.
+    areas: [area-publishing, area-research-analysis]
+    actors: [type-human, type-research-investigator, type-team, type-lab, type-dao]
+    targets: [type-journal-publisher, type-knowledge-market, type-dao]
+    objects: [type-knowledge-artifact, type-paper, type-preprint, type-grant]
+  - id: affordance-requests-funding-from
+    label: Requests Funding From
+    description: Requests resources for a scientific activity or artifact.
+    areas: [area-funding]
+    actors: [type-team, type-lab, type-research-investigator]
+    targets: [type-funding-agency, type-dao]
+    objects: [type-grant]
+  - id: affordance-scientifically-assesses
+    label: Scientifically Assesses
+    description: Evaluates a scientific artifact or proposal.
+    areas: [area-scientific-review, area-research-analysis]
+    actors: [type-human, type-research-investigator, type-team, type-lab, type-dao]
+    targets: [type-knowledge-artifact, type-paper, type-preprint, type-grant]
+    objects: []
+  - id: affordance-provides-opportunity-for-researcher
+    label: Provides Opportunity for Researcher
+    description: Provides an opportunity or enabling condition for research.
+    areas: [area-funding]
+    actors: [type-funding-agency, type-dao, type-organization]
+    targets: [type-human, type-research-investigator, type-team, type-lab]
+    objects: [type-grant]
+  - id: affordance-provides-constraints-for-researcher
+    label: Provides Constraints for Researcher
+    description: Provides requirements, boundaries, or conditions for research.
+    areas: [area-funding]
+    actors: [type-funding-agency, type-dao, type-organization]
+    targets: [type-human, type-research-investigator, type-team, type-lab]
+    objects: [type-grant]
+  - id: affordance-sends-fungible-asset
+    label: Sends Fungible Asset
+    description: Transfers an interchangeable asset to another entity.
+    areas: [area-funding, area-cryptographic-relationship]
+    actors: [type-human, type-funding-agency, type-dao, type-knowledge-market]
+    targets: [type-human, type-research-investigator, type-team, type-lab, type-dao]
+    objects: [type-fungible-asset]
+  - id: affordance-communicates-asynchronously-to
+    label: Communicates Asynchronously To
+    description: Sends a message or artifact for later receipt or response.
+    areas: [area-communication]
+    actors: [type-academic-university, type-organization, type-computer-system]
+    targets: [type-lab, type-team, type-human, type-organization]
+    objects: [type-knowledge-artifact, type-metadata]
+  - id: affordance-communicates-synchronously-to
+    label: Communicates Synchronously To
+    description: Exchanges information in a shared interaction interval.
+    areas: [area-communication]
+    actors: [type-human, type-computer-system]
+    targets: [type-human, type-computer-system]
+    objects: [type-knowledge-artifact, type-metadata]
+  - id: affordance-provides-funding-to
+    label: Provides Funding To
+    description: Directly provides funding to a recipient research entity.
+    areas: [area-funding]
+    actors: [type-human, type-funding-agency, type-dao]
+    targets: [type-team, type-lab, type-research-investigator]
+    objects: [type-fungible-asset, type-grant]
+  - id: affordance-provides-updates-to-funder
+    label: Provides Updates to Funder
+    description: Provides progress or outcome information to a funding entity.
+    areas: [area-cryptographic-relationship, area-communication]
+    actors: [type-research-investigator, type-team, type-lab]
+    targets: [type-funding-agency, type-dao, type-human]
+    objects: [type-knowledge-artifact, type-metadata]
+  - id: affordance-transfers-intellectual-property
+    label: Transfers Intellectual Property
+    description: Transfers an intellectual property resource to another entity.
+    areas: [area-cryptographic-relationship]
+    actors: [type-research-investigator, type-team, type-organization]
+    targets: [type-dao, type-organization, type-cryptographic-identity]
+    objects: [type-intellectual-property, type-non-fungible-asset]
+  - id: affordance-engages-in-governance
+    label: Engages in Governance
+    description: Makes or participates in decisions about a resource or process.
+    areas: [area-funding, area-cryptographic-relationship]
+    actors: [type-dao, type-organization, type-community]
+    targets: [type-grant, type-project-catechism, type-organization]
+    objects: [type-smart-contract, type-blockchain]
+  - id: affordance-requests-scientific-review
+    label: Requests Scientific Review
+    description: Requests assessment of a knowledge artifact from qualified entities.
+    areas: [area-scientific-review]
+    actors: [type-journal-publisher, type-knowledge-market, type-dao]
+    targets: [type-human, type-research-investigator, type-team, type-lab]
+    objects: [type-paper, type-preprint, type-knowledge-artifact]
+  - id: affordance-modifies-resource
+    label: Modifies Resource
+    description: Changes an informational resource under an authorized role and context.
+    areas: [area-communication, area-cryptographic-relationship]
+    actors: [type-human, type-computer-system, type-organization]
+    targets: [type-code, type-metadata, type-project-catechism, type-knowledge-artifact]
+    objects: []
+
+states:
+  - id: state-internal
+    label: Internal State
+    kind: internal
+    description: State inside the entity, including its modeled generative process.
+  - id: state-sense
+    label: Sense State
+    kind: sense
+    description: Incoming statistical dependencies from the entity's niche.
+  - id: state-active
+    label: Active State
+    kind: active
+    description: Outgoing statistical dependencies enacted through action selection.
+
+relationships:
+  - id: relationship-active-mediated-by-computer-system
+    source: class-active
+    relation: mediated-by
+    target: type-computer-system
+    description: Online active entities are mediated by computer systems.
+  - id: relationship-informational-acted-upon-by-active
+    source: class-informational
+    relation: acted-upon-by
+    target: class-active
+    description: Informational entities are acted upon by active entities.
+  - id: relationship-active-partitioned-from-niche
+    source: class-active
+    relation: partitioned-from
+    target: state-sense
+    description: Active entity models partition internal states from niche dependencies.
+
+motifs:
+  - id: motif-funding-cesci
+    label: Funding in Centralized Science
+    area: area-funding
+    context: cesci
+    description: A team requests funding from and is assessed by a funding agency.
+    steps:
+      - sequence: 1
+        actor: type-team
+        affordance: affordance-publishes-knowledge-artifact
+        target: type-grant
+      - sequence: 2
+        actor: type-team
+        affordance: affordance-requests-funding-from
+        target: type-funding-agency
+        object: type-grant
+      - sequence: 3
+        actor: type-funding-agency
+        affordance: affordance-scientifically-assesses
+        target: type-grant
+      - sequence: 4
+        actor: type-funding-agency
+        affordance: affordance-sends-fungible-asset
+        target: type-team
+        object: type-fungible-asset
+  - id: motif-funding-desci
+    label: Funding in Decentralized Science
+    area: area-funding
+    context: desci
+    description: A team requests funding from a DAO that assesses and governs a grant.
+    steps:
+      - sequence: 1
+        actor: type-team
+        affordance: affordance-publishes-knowledge-artifact
+        target: type-grant
+      - sequence: 2
+        actor: type-team
+        affordance: affordance-requests-funding-from
+        target: type-dao
+        object: type-grant
+      - sequence: 3
+        actor: type-dao
+        affordance: affordance-scientifically-assesses
+        target: type-grant
+      - sequence: 4
+        actor: type-dao
+        affordance: affordance-engages-in-governance
+        target: type-grant
+      - sequence: 5
+        actor: type-dao
+        affordance: affordance-sends-fungible-asset
+        target: type-team
+        object: type-fungible-asset
+  - id: motif-communication-cesci
+    label: Communication in Centralized Science
+    area: area-communication
+    context: cesci
+    description: An academic university communicates asynchronously with a lab through a computer system.
+    steps:
+      - sequence: 1
+        actor: type-academic-university
+        affordance: affordance-communicates-asynchronously-to
+        target: type-lab
+        object: type-computer-system
+  - id: motif-communication-desci
+    label: Communication in Decentralized Science
+    area: area-communication
+    context: desci
+    description: A human communicates synchronously with another human through a computer system.
+    steps:
+      - sequence: 1
+        actor: type-human
+        affordance: affordance-communicates-synchronously-to
+        target: type-human
+        object: type-computer-system
+  - id: motif-review-cesci
+    label: Scientific Review in Centralized Science
+    area: area-scientific-review
+    context: cesci
+    description: A publisher requests review after receiving a paper for publication.
+    steps:
+      - sequence: 1
+        actor: type-research-investigator
+        affordance: affordance-sends-fungible-asset
+        target: type-journal-publisher
+        object: type-fungible-asset
+      - sequence: 2
+        actor: type-research-investigator
+        affordance: affordance-publishes-knowledge-artifact
+        target: type-journal-publisher
+        object: type-paper
+      - sequence: 3
+        actor: type-journal-publisher
+        affordance: affordance-requests-scientific-review
+        target: type-research-investigator
+        object: type-paper
+  - id: motif-review-desci
+    label: Scientific Review in Decentralized Science
+    area: area-scientific-review
+    context: desci
+    description: A knowledge market rewards an investigator as a paper is used.
+    steps:
+      - sequence: 1
+        actor: type-research-investigator
+        affordance: affordance-publishes-knowledge-artifact
+        target: type-knowledge-market
+        object: type-paper
+      - sequence: 2
+        actor: type-knowledge-market
+        affordance: affordance-sends-fungible-asset
+        target: type-research-investigator
+        object: type-fungible-asset
+  - id: motif-research-analysis-cesci
+    label: Research and Analysis in Centralized Science
+    area: area-research-analysis
+    context: cesci
+    description: Investigators in a lab assess a primary artifact and publish a knowledge artifact.
+    steps:
+      - sequence: 1
+        actor: type-research-investigator
+        affordance: affordance-scientifically-assesses
+        target: type-knowledge-artifact
+      - sequence: 2
+        actor: type-lab
+        affordance: affordance-publishes-knowledge-artifact
+        target: type-knowledge-artifact
+  - id: motif-research-analysis-desci
+    label: Research and Analysis in Decentralized Science
+    area: area-research-analysis
+    context: desci
+    description: Investigators in a DAO community assess a primary artifact and publish a knowledge artifact.
+    steps:
+      - sequence: 1
+        actor: type-research-investigator
+        affordance: affordance-scientifically-assesses
+        target: type-knowledge-artifact
+      - sequence: 2
+        actor: type-community
+        affordance: affordance-publishes-knowledge-artifact
+        target: type-knowledge-artifact
+  - id: motif-publishing-cesci
+    label: Publishing in Centralized Science
+    area: area-publishing
+    context: cesci
+    description: An investigator publishes a paper at a journal after scientific review.
+    steps:
+      - sequence: 1
+        actor: type-journal-publisher
+        affordance: affordance-requests-scientific-review
+        target: type-research-investigator
+        object: type-paper
+      - sequence: 2
+        actor: type-research-investigator
+        affordance: affordance-publishes-knowledge-artifact
+        target: type-journal-publisher
+        object: type-paper
+  - id: motif-publishing-desci
+    label: Publishing in Decentralized Science
+    area: area-publishing
+    context: desci
+    description: An investigator publishes a paper on a DAO-produced knowledge market.
+    steps:
+      - sequence: 1
+        actor: type-research-investigator
+        affordance: affordance-publishes-knowledge-artifact
+        target: type-knowledge-market
+        object: type-paper
