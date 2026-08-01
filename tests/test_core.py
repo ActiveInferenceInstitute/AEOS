@@ -2,15 +2,21 @@ from __future__ import annotations
 
 import copy
 import json
+from pathlib import Path
 
+import pytest
 from aeos.core import (
     DEFAULT_INPUT,
     DEFAULT_OUTPUT,
     DEFAULT_SCHEMA,
+    OntologyError,
     build_document,
     diff_documents,
     load_schema,
     load_source,
+    read_json,
+    read_yaml,
+    semantic_errors,
     serialize,
     validate_document,
 )
@@ -150,3 +156,98 @@ def test_export_is_json_serializable() -> None:
 def test_diff_ignores_export_wrappers_and_source_order() -> None:
     result = diff_documents(source(), load_source(DEFAULT_OUTPUT))
     assert result["has_changes"] is False
+
+
+def test_diff_reports_removed_records() -> None:
+    old = source()
+    new = copy.deepcopy(old)
+    del new["entity_classes"][0]
+    result = diff_documents(old, new)
+    assert result["has_changes"] is True
+    assert "class-active" in result["removed"]["entity_classes"]
+
+
+def test_read_yaml_missing_input_raises(tmp_path: Path) -> None:
+    with pytest.raises(OntologyError) as excinfo:
+        read_yaml(tmp_path / "absent.yaml")
+    assert excinfo.value.code == "missing-input"
+
+
+def test_read_yaml_malformed_raises(tmp_path: Path) -> None:
+    bad = tmp_path / "bad.yaml"
+    bad.write_text(": :\n  - broken\n", encoding="utf-8")
+    with pytest.raises(OntologyError) as excinfo:
+        read_yaml(bad)
+    assert excinfo.value.code == "yaml-parse"
+
+
+def test_read_yaml_non_mapping_root_raises(tmp_path: Path) -> None:
+    bad = tmp_path / "list.yaml"
+    bad.write_text("- one\n- two\n", encoding="utf-8")
+    with pytest.raises(OntologyError) as excinfo:
+        read_yaml(bad)
+    assert excinfo.value.code == "root-type"
+
+
+def test_read_json_missing_input_raises(tmp_path: Path) -> None:
+    with pytest.raises(OntologyError) as excinfo:
+        read_json(tmp_path / "absent.json")
+    assert excinfo.value.code == "missing-input"
+
+
+def test_read_json_malformed_raises(tmp_path: Path) -> None:
+    bad = tmp_path / "bad.json"
+    bad.write_text("{not json", encoding="utf-8")
+    with pytest.raises(OntologyError) as excinfo:
+        read_json(bad)
+    assert excinfo.value.code == "json-parse"
+
+
+def test_read_json_non_mapping_root_raises(tmp_path: Path) -> None:
+    bad = tmp_path / "array.json"
+    bad.write_text("[]", encoding="utf-8")
+    with pytest.raises(OntologyError) as excinfo:
+        read_json(bad)
+    assert excinfo.value.code == "root-type"
+
+
+def test_non_list_collection_value_is_ignored() -> None:
+    document = source()
+    document["roles"] = "not-a-list"
+    errors = semantic_errors(document)
+    assert isinstance(errors, list)
+
+
+def test_reference_type_mismatch_is_rejected() -> None:
+    document = source()
+    document["roles"][0]["entity_types"] = ["affordance-publishes-knowledge-artifact"]
+    errors = validate_document(document, load_schema(DEFAULT_SCHEMA))
+    assert any(error.code == "reference-type" for error in errors)
+
+
+def test_invalid_kebab_case_id_is_rejected() -> None:
+    document = source()
+    document["entity_types"][0]["id"] = "Bad ID!"
+    errors = semantic_errors(document)
+    assert any(error.code == "invalid-id" for error in errors)
+
+
+def test_non_string_id_is_skipped() -> None:
+    document = source()
+    document["entity_types"][0]["id"] = 123
+    errors = semantic_errors(document)
+    assert not any(error.code == "invalid-id" for error in errors)
+
+
+def test_unknown_relationship_reference_is_rejected() -> None:
+    document = source()
+    document["relationships"][0]["source"] = "does-not-exist"
+    errors = validate_document(document, load_schema(DEFAULT_SCHEMA))
+    assert any(error.code == "unknown-reference" for error in errors)
+
+
+def test_unknown_affordance_object_is_rejected() -> None:
+    document = source()
+    document["affordances"][0]["objects"].append("does-not-exist")
+    errors = validate_document(document, load_schema(DEFAULT_SCHEMA))
+    assert any(error.code == "unknown-reference" for error in errors)

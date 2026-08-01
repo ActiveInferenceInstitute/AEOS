@@ -92,13 +92,18 @@ def load_schema(path: Path = DEFAULT_SCHEMA) -> dict[str, Any]:
 
 
 def error_from_schema(error: Any) -> OntologyError:
-    location = "".join(f"[{part!r}]" if isinstance(part, int) else f".{part}" for part in error.absolute_path).lstrip(".")
+    location = "".join(f"[{part!r}]" if isinstance(part, int) else f".{part}" for part in error.absolute_path).lstrip(
+        "."
+    )
     return OntologyError("schema", error.message, location)
 
 
 def structural_errors(document: dict[str, Any], schema: dict[str, Any]) -> list[OntologyError]:
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
-    return [error_from_schema(error) for error in sorted(validator.iter_errors(document), key=lambda item: list(item.absolute_path))]
+    return [
+        error_from_schema(error)
+        for error in sorted(validator.iter_errors(document), key=lambda item: list(item.absolute_path))
+    ]
 
 
 def _items(document: dict[str, Any], collection: str) -> list[dict[str, Any]]:
@@ -152,13 +157,21 @@ def semantic_errors(document: dict[str, Any]) -> list[OntologyError]:
             if not ID_PATTERN.fullmatch(identifier):
                 errors.append(OntologyError("invalid-id", f"ID is not kebab-case: {identifier}", path))
             if identifier in seen:
-                errors.append(OntologyError("duplicate-id", f"ID {identifier} is duplicated in {seen[identifier]} and {path}.", path))
+                errors.append(
+                    OntologyError(
+                        "duplicate-id", f"ID {identifier} is duplicated in {seen[identifier]} and {path}.", path
+                    )
+                )
             else:
                 seen[identifier] = path
 
     class_ids = _ids(document, "entity_classes")
     if class_ids != {"class-active", "class-informational"}:
-        errors.append(OntologyError("class-contract", "AEOS requires exactly class-active and class-informational.", "entity_classes"))
+        errors.append(
+            OntologyError(
+                "class-contract", "AEOS requires exactly class-active and class-informational.", "entity_classes"
+            )
+        )
 
     for index, item in enumerate(_items(document, "entity_types")):
         _check_ref(errors, records, item.get("class"), f"entity_types[{index}].class", {"entity_classes"})
@@ -176,13 +189,21 @@ def semantic_errors(document: dict[str, Any]) -> list[OntologyError]:
         areas = item.get("areas", [])
         if isinstance(areas, list):
             for ref_index, identifier in enumerate(areas):
-                _check_ref(errors, records, identifier, f"affordances[{index}].areas[{ref_index}]", {"areas_of_concern"})
+                _check_ref(
+                    errors, records, identifier, f"affordances[{index}].areas[{ref_index}]", {"areas_of_concern"}
+                )
         for field in ("actors", "targets", "objects"):
             references = item.get(field, [])
             if not isinstance(references, list):
                 continue
             for ref_index, identifier in enumerate(references):
-                _check_ref(errors, records, identifier, f"affordances[{index}].{field}[{ref_index}]", {"entity_classes", "entity_types"})
+                _check_ref(
+                    errors,
+                    records,
+                    identifier,
+                    f"affordances[{index}].{field}[{ref_index}]",
+                    {"entity_classes", "entity_types"},
+                )
 
     for index, item in enumerate(_items(document, "relationships")):
         _check_ref(errors, records, item.get("source"), f"relationships[{index}].source")
@@ -202,11 +223,21 @@ def semantic_errors(document: dict[str, Any]) -> list[OntologyError]:
                     sequences.append(sequence)
                 _check_ref(errors, records, step.get("actor"), f"{step_path}.actor", {"entity_classes", "entity_types"})
                 _check_ref(errors, records, step.get("affordance"), f"{step_path}.affordance", {"affordances"})
-                _check_ref(errors, records, step.get("target"), f"{step_path}.target", {"entity_classes", "entity_types"})
+                _check_ref(
+                    errors, records, step.get("target"), f"{step_path}.target", {"entity_classes", "entity_types"}
+                )
                 if "object" in step:
-                    _check_ref(errors, records, step.get("object"), f"{step_path}.object", {"entity_classes", "entity_types"})
+                    _check_ref(
+                        errors, records, step.get("object"), f"{step_path}.object", {"entity_classes", "entity_types"}
+                    )
         if sequences and sequences != list(range(1, len(sequences) + 1)):
-            errors.append(OntologyError("sequence-contract", "Motif step sequences must be contiguous starting at 1.", f"motifs[{index}].steps"))
+            errors.append(
+                OntologyError(
+                    "sequence-contract",
+                    "Motif step sequences must be contiguous starting at 1.",
+                    f"motifs[{index}].steps",
+                )
+            )
 
     ontology = document.get("ontology", {})
     if isinstance(ontology, dict):
@@ -242,13 +273,11 @@ def canonical_document(document: dict[str, Any], source_label: str = "data/aeos.
 def graph_for(document: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
     nodes: list[dict[str, Any]] = []
     edges: list[dict[str, Any]] = []
-    labels: dict[str, str] = {}
     for collection in COLLECTIONS:
         if collection in {"relationships", "motifs"}:
             continue
         for item in _items(document, collection):
             identifier = item["id"]
-            labels[identifier] = item.get("label", identifier)
             node = {"id": identifier, "label": item.get("label", identifier), "type": collection}
             if item.get("description"):
                 node["description"] = item["description"]
@@ -262,19 +291,40 @@ def graph_for(document: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
         for identifier in item.get("affordances", []):
             edges.append({"source": item["id"], "target": identifier, "relation": "enables"})
     for item in _items(document, "affordances"):
-        for field, relation in (("areas", "concerns"), ("actors", "actor"), ("targets", "target"), ("objects", "object")):
+        for field, relation in (
+            ("areas", "concerns"),
+            ("actors", "actor"),
+            ("targets", "target"),
+            ("objects", "object"),
+        ):
             for identifier in item.get(field, []):
                 edges.append({"source": item["id"], "target": identifier, "relation": relation})
     for item in _items(document, "relationships"):
-        edges.append({"source": item["source"], "target": item["target"], "relation": item["relation"], "id": item["id"]})
+        edges.append(
+            {"source": item["source"], "target": item["target"], "relation": item["relation"], "id": item["id"]}
+        )
     for motif in _items(document, "motifs"):
         for step in motif.get("steps", []):
-            edge = {"source": step["actor"], "target": step["target"], "relation": step["affordance"], "motif": motif["id"], "sequence": step["sequence"]}
+            edge = {
+                "source": step["actor"],
+                "target": step["target"],
+                "relation": step["affordance"],
+                "motif": motif["id"],
+                "sequence": step["sequence"],
+            }
             if step.get("object"):
                 edge["object"] = step["object"]
             edges.append(edge)
     nodes.sort(key=lambda item: item["id"])
-    edges.sort(key=lambda item: (item["source"], item["relation"], item["target"], item.get("motif", ""), item.get("sequence", 0)))
+    edges.sort(
+        key=lambda item: (
+            item["source"],
+            item["relation"],
+            item["target"],
+            item.get("motif", ""),
+            item.get("sequence", 0),
+        )
+    )
     return {"nodes": nodes, "edges": edges}
 
 
@@ -300,7 +350,9 @@ def serialize(value: dict[str, Any]) -> str:
     return json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
 
 
-def report(document: dict[str, Any], errors: list[OntologyError], source_label: str = "data/aeos.yaml") -> dict[str, Any]:
+def report(
+    document: dict[str, Any], errors: list[OntologyError], source_label: str = "data/aeos.yaml"
+) -> dict[str, Any]:
     if errors:
         summary = {
             "class_count": len(_items(document, "entity_classes")),
@@ -345,7 +397,11 @@ def diff_documents(old: dict[str, Any], new: dict[str, Any]) -> dict[str, Any]:
         new_items = {item.get("id"): item for item in _items(new, collection)}
         added = sorted(set(new_items) - set(old_items))
         removed = sorted(set(old_items) - set(new_items))
-        changed = sorted(identifier for identifier in set(old_items) & set(new_items) if old_items[identifier] != new_items[identifier])
+        changed = sorted(
+            identifier
+            for identifier in set(old_items) & set(new_items)
+            if old_items[identifier] != new_items[identifier]
+        )
         if added:
             result["added"][collection] = added
         if removed:

@@ -2,7 +2,7 @@
 
 The maintained local source is [`aeos.md`](aeos.md). It is a repository-owned
 editable representation of the AEOS publication material and documentation;
-the published DOI record remains authoritative for the 2022/v3 paper.
+the published DOI record remains authoritative for the 2022/v2 paper.
 
 The original 2022/v2 binary artifacts are preserved under
 [`../archive/2022-v2/`](../archive/2022-v2/). Keep their filenames and checksums
@@ -23,7 +23,10 @@ mv /tmp/aeos-local.linearized.pdf paper/aeos-local.pdf
 ```
 
 After rendering, inspect every page and run the publication checks described in
-[`../docs/publication.md`](../docs/publication.md).
+[`../docs/publication.md`](../docs/publication.md) and
+[`../docs/contributing.md`](../docs/contributing.md). `python scripts/check_release.py`
+also enforces that the maintained PDF/DOCX/HTML reflect the current `aeos.md`
+source and that `aeos-2022-v2.pdf` stays faithful to the archived source.
 
 The normalized historical copies are rebuilt from the preserved versioned pair
 with:

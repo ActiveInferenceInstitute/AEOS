@@ -31,7 +31,8 @@ python3 -m venv .venv
 .venv/bin/ruff check src tests scripts
 ```
 
-The core commands are local and deterministic:
+`pytest` runs with the coverage gate (`--cov=src --cov-fail-under=90`), so the
+suite must stay at 90% or higher. The core commands are local and deterministic:
 
 ```bash
 aeos validate --input data/aeos.yaml --schema schema/aeos.schema.json

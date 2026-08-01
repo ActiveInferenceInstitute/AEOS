@@ -16,7 +16,7 @@ aeos validate --format json
 aeos build
 aeos build --check
 aeos report --format json
-pytest
+pytest                       # runs with --cov=src --cov-fail-under=90
 ruff check src tests scripts
 python scripts/render_artifacts.py
 python scripts/check_release.py

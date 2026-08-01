@@ -97,13 +97,22 @@ def command_build(args: argparse.Namespace) -> int:
         document, errors = _load_and_validate(args.input, args.schema)
     except OntologyError as error:
         if args.format == "json":
-            print(json.dumps({"valid": False, "errors": [error.as_dict()]}, ensure_ascii=False, indent=2, sort_keys=True))
+            print(
+                json.dumps({"valid": False, "errors": [error.as_dict()]}, ensure_ascii=False, indent=2, sort_keys=True)
+            )
         else:
             print(f"ERROR {error.code}: {error.message}", file=sys.stderr)
         return 1
     if errors:
         if args.format == "json":
-            print(json.dumps({"valid": False, "errors": [error.as_dict() for error in errors]}, ensure_ascii=False, indent=2, sort_keys=True))
+            print(
+                json.dumps(
+                    {"valid": False, "errors": [error.as_dict() for error in errors]},
+                    ensure_ascii=False,
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
         else:
             for error in errors:
                 print(f"ERROR {error.code} ({error.path}): {error.message}", file=sys.stderr)
@@ -130,7 +139,11 @@ def command_diff(args: argparse.Namespace) -> int:
         result = diff_documents(load_source(args.old), load_source(args.new))
     except OntologyError as error:
         if args.format == "json":
-            print(json.dumps({"has_changes": False, "errors": [error.as_dict()]}, ensure_ascii=False, indent=2, sort_keys=True))
+            print(
+                json.dumps(
+                    {"has_changes": False, "errors": [error.as_dict()]}, ensure_ascii=False, indent=2, sort_keys=True
+                )
+            )
         else:
             print(f"ERROR {error.code}: {error.message}", file=sys.stderr)
         return 1
@@ -147,7 +160,9 @@ def command_diff(args: argparse.Namespace) -> int:
 
 
 def parser() -> argparse.ArgumentParser:
-    root = argparse.ArgumentParser(prog="aeos", description="Validate and export the Active Entity Ontology for Science.")
+    root = argparse.ArgumentParser(
+        prog="aeos", description="Validate and export the Active Entity Ontology for Science."
+    )
     commands = root.add_subparsers(dest="command", required=True)
 
     validate = commands.add_parser("validate", help="Validate an ontology source file.")

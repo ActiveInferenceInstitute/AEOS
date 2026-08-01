@@ -21,7 +21,7 @@ DESCRIPTIONS = {
     "image7.png": "Figure 8. Example scientific review motifs in CeSci and DeSci.",
     "image8.png": "Figure 7. Example communication motifs in CeSci and DeSci.",
 }
-CORE_PROPERTIES = b'''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+CORE_PROPERTIES = b"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties"
  xmlns:dc="http://purl.org/dc/elements/1.1/"
  xmlns:dcterms="http://purl.org/dc/terms/"
@@ -33,7 +33,7 @@ CORE_PROPERTIES = b'''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
  <dcterms:created xsi:type="dcterms:W3CDTF">2022-08-19T00:00:00Z</dcterms:created>
  <dcterms:modified xsi:type="dcterms:W3CDTF">2026-07-17T00:00:00Z</dcterms:modified>
 </cp:coreProperties>
-'''
+"""
 
 
 def update_tag(xml: bytes, tag: bytes) -> tuple[bytes, int]:

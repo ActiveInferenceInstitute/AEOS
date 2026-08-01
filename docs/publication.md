@@ -19,3 +19,10 @@ numbers, and references. Run `qpdf --check` on every active PDF and require no
 warnings. DOCX figures must have descriptive accessibility text and core title
 and creator metadata. The HTML export must retain a language declaration and a
 single descriptive document title.
+
+The release gate (`python scripts/check_release.py`) also verifies that the
+maintained exports stay fresh against their sources: `paper/aeos-local.*` must
+contain every current heading and identity token from `paper/aeos.md`, and
+`paper/aeos-2022-v2.pdf` must remain content-faithful to the archived 2022/v2
+source PDF. This prevents a stale maintained paper from silently passing as
+current.

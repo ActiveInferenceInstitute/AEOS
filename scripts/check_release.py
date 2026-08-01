@@ -27,7 +27,20 @@ from aeos.core import (  # noqa: E402
 )
 
 ACTIVE_TEXT_SUFFIXES = {".md", ".yaml", ".yml", ".json", ".toml", ".py"}
+# Paths exempt from the authored-prose scan: `aeos.json` is the deterministic
+# machine export of `data/aeos.yaml` (already scanned), and `TODO.md` is the
+# project's task backlog whose checklist headings legitimately use the term
+# "todo". Both are covered by their own dedicated checks instead.
+ACTIVE_TEXT_EXEMPT_PATHS = {"TODO.md", "aeos.json"}
 FORBIDDEN_TERMS = ("legacy", "stub", "mock", "placeholder", "todo", "fixme", "tbd", "wip", "dummy", "lorem")
+
+# Distinctive identity tokens that every maintained "local" publication export
+# must contain if it was regenerated from the current paper/aeos.md source.
+PAPER_LOCAL_IDENTITY_TOKENS = (
+    "active entity ontology for science (aeos)",
+    "informational entity",
+    "10.5281/zenodo.7484994",
+)
 
 
 def fail(message: str, failures: list[str]) -> None:
@@ -200,7 +213,9 @@ def check_pdfs(failures: list[str]) -> None:
     qpdf = "qpdf"
     for path in pdfs:
         try:
-            completed = subprocess.run([qpdf, "--check", str(path)], capture_output=True, text=True, check=False)
+            completed = subprocess.run(
+                [qpdf, "--check", str(path)], capture_output=True, text=True, check=False, timeout=60
+            )
         except FileNotFoundError:
             fail("qpdf is required for PDF release checks", failures)
             return
@@ -213,7 +228,9 @@ def check_pdfs(failures: list[str]) -> None:
 def check_pdf_text(failures: list[str]) -> None:
     for path in sorted((ROOT / "paper").glob("*.pdf")):
         try:
-            completed = subprocess.run(["pdftotext", str(path), "-"], capture_output=True, text=True, check=False)
+            completed = subprocess.run(
+                ["pdftotext", str(path), "-"], capture_output=True, text=True, check=False, timeout=60
+            )
         except FileNotFoundError:
             fail("pdftotext is required for PDF text checks", failures)
             return
@@ -249,6 +266,90 @@ def check_html_accessibility(failures: list[str]) -> None:
         fail("HTML export is missing its single descriptive title", failures)
 
 
+def _extract_pdf_text(path: Path) -> str:
+    completed = subprocess.run(["pdftotext", str(path), "-"], capture_output=True, text=True, check=False, timeout=60)
+    if completed.returncode != 0:
+        raise RuntimeError(f"pdftotext failed for {path}")
+    return completed.stdout
+
+
+def _html_text(path: Path) -> str:
+    return re.sub(r"<[^>]+>", " ", path.read_text(encoding="utf-8", errors="replace"))
+
+
+def _docx_text(path: Path) -> str:
+    with zipfile.ZipFile(path) as archive:
+        document = archive.read("word/document.xml").decode("utf-8", errors="replace")
+    return re.sub(r"<[^>]+>", " ", document)
+
+
+def _normalize(text: str) -> str:
+    return " ".join(text.split()).lower()
+
+
+def _paper_headings(source: Path) -> list[str]:
+    text = source.read_text(encoding="utf-8")
+    return [re.sub(r"[#\s]+", " ", line).strip() for line in text.splitlines() if re.match(r"^#{1,2} ", line)]
+
+
+def check_paper_freshness(failures: list[str], root: Path | None = None) -> None:
+    """Verify maintained publication exports reflect the current source.
+
+    The release gate otherwise validates only that the paper artifacts exist
+    and are structurally sound, which lets a stale maintained paper pass as
+    "current". This oracle closes that gap: the local exports must contain
+    every current heading and identity token from paper/aeos.md, and the
+    maintained 2022/v2 PDF must remain content-faithful to the preserved
+    archive source.
+
+    ``root`` defaults to the repository root; callers may pass an alternative
+    root so the oracle is testable against a small synthetic tree.
+    """
+    root = ROOT if root is None else root
+    source = root / "paper" / "aeos.md"
+    try:
+        headings = _paper_headings(source)
+    except OSError as error:
+        fail(f"paper source could not be read: {error}", failures)
+        return
+    identity = list(PAPER_LOCAL_IDENTITY_TOKENS)
+    local_artifacts = {
+        "paper/aeos-local.pdf": _extract_pdf_text,
+        "paper/aeos-local.html": _html_text,
+        "paper/aeos-local.docx": _docx_text,
+    }
+    for relative, extractor in local_artifacts.items():
+        path = root / relative
+        if not path.exists():
+            fail(f"missing maintained paper artifact: {relative}", failures)
+            continue
+        try:
+            text = _normalize(extractor(path))
+        except (OSError, RuntimeError, zipfile.BadZipFile, KeyError) as error:
+            fail(f"could not read {relative}: {error}", failures)
+            continue
+        missing = [heading for heading in headings if heading.lower() not in text]
+        missing += [token for token in identity if token not in text]
+        if missing:
+            fail(
+                f"maintained paper artifact {relative} is stale and does not reflect "
+                f"the current source (missing: {', '.join(missing)})",
+                failures,
+            )
+
+    preserved = root / "archive" / "2022-v2" / "7_20_2022_v2_ActInf-DeSci-AEOS-2022.pdf"
+    maintained_v2 = root / "paper" / "aeos-2022-v2.pdf"
+    if preserved.exists() and maintained_v2.exists():
+        try:
+            preserved_text = _normalize(_extract_pdf_text(preserved))
+            maintained_text = _normalize(_extract_pdf_text(maintained_v2))
+        except (OSError, RuntimeError) as error:
+            fail(f"could not compare the maintained 2022/v2 PDF: {error}", failures)
+            return
+        if preserved_text != maintained_text:
+            fail("paper/aeos-2022-v2.pdf does not match the archived 2022/v2 source PDF", failures)
+
+
 def check_rendering(failures: list[str]) -> None:
     with tempfile.TemporaryDirectory(prefix="aeos-render-check-") as output_dir:
         completed = subprocess.run(
@@ -265,7 +366,7 @@ def check_rendering(failures: list[str]) -> None:
 def check_archive_pdfs(failures: list[str]) -> None:
     for path in sorted((ROOT / "archive").rglob("*.pdf")):
         try:
-            completed = subprocess.run(["pdfinfo", str(path)], capture_output=True, text=True, check=False)
+            completed = subprocess.run(["pdfinfo", str(path)], capture_output=True, text=True, check=False, timeout=60)
         except FileNotFoundError:
             fail("pdfinfo is required for archived PDF inventory checks", failures)
             return
@@ -281,6 +382,8 @@ def check_active_text(failures: list[str]) -> None:
         if ignored_parts.intersection(path.parts):
             continue
         if path == Path(__file__).resolve():
+            continue
+        if path.relative_to(ROOT).as_posix() in ACTIVE_TEXT_EXEMPT_PATHS:
             continue
         text = path.read_text(encoding="utf-8", errors="ignore").lower()
         for term in FORBIDDEN_TERMS:
@@ -301,6 +404,7 @@ def main() -> int:
     check_pdf_text(failures)
     check_docx_accessibility(failures)
     check_html_accessibility(failures)
+    check_paper_freshness(failures)
     check_rendering(failures)
     check_archive_pdfs(failures)
     check_active_text(failures)
