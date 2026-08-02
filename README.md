@@ -22,6 +22,8 @@ The published paper is [An Active Inference Ontology for Decentralized Science](
 
 ## Quick start
 
+Requires Python 3.10 or newer.
+
 ```bash
 python3 -m venv .venv
 .venv/bin/python -m pip install -e '.[test]'
@@ -46,14 +48,17 @@ aeos diff OLD.json NEW.json --format json
 Use `--input`, `--output`, and `--schema` to work with a fork or a separate
 ontology file. The validator checks structure, IDs, references, roles,
 affordances, states, relationships, and motif steps. The export includes a
-derived graph for downstream search and visualization.
+derived graph for downstream search and visualization. The same commands are
+available as `python -m aeos ...`; see the [command-line
+reference](docs/cli.md) for all options, defaults, and exit codes.
 
 ## Contributing
 
 Edit `data/aeos.yaml`, run the validation and test commands, review the JSON
 diff, and document any release-level change in `releases.json`. See
 [`docs/forking.md`](docs/forking.md), [`docs/data-contract.md`](docs/data-contract.md),
-and [`docs/contributing.md`](docs/contributing.md).
+[`docs/contributing.md`](docs/contributing.md), [`docs/model.md`](docs/model.md),
+and [`docs/publication.md`](docs/publication.md).
 
 ## License and attribution
 
