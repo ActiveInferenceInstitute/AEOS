@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use AEOS in your work, please cite it as below."
+title: "Active Entity Ontology for Science (AEOS)"
+abstract: >-
+  A portable, versioned ontology of active and informational entities, their
+  roles, affordances, states, and interaction motifs in scientific
+  ecosystems, with validated local data, a JSON Schema contract, and a
+  deterministic JSON export.
+authors:
+  - name: "Active Inference Institute"
+date-released: "2026-07-17"
+version: "1.0.0"
+doi: "10.5281/zenodo.7484994"
+license: "CC-BY-4.0"
+keywords:
+  - ontology
+  - active inference
+  - decentralized science
+  - entities
+  - motifs
+repository-code: "https://github.com/ActiveInferenceInstitute/AEOS"
