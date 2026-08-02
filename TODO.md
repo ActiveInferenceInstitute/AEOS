@@ -2,13 +2,58 @@
 
 Status: Active (maintained)
 Owner: Active Inference Institute (steward: Daniel Friedman)
-Last reviewed: 2026-08-01
+Last reviewed: 2026-08-02 (docs-deep review)
 
 Review scope: deepest hostile red-team review of the full repository
 (`src/`, `tests/`, `scripts/`, `docs/`, `paper/`, `data/`, `schema/`,
 `.aii/`, and the release gate in `scripts/check_release.py`). Findings were
 graded Minor / Medium / Major. All validated Minor, Medium, and Major
 findings have now been implemented (see Completed/Closed).
+
+## Docs-deep review (2026-08-02)
+
+Scope: full documentation pass over `README.md`, `docs/`, `paper/`,
+`archive/2022-v2/`, `.aii/`, and the CI workflow; every claim checked
+against the actual code, data, and artifacts. Severity definitions: Minor =
+typo, broken link, formatting; Medium = stale section rewrite, doc
+restructure, added missing guide; Major = large doc system overhaul or
+cross-cutting refactor.
+
+### Minor
+
+- [x] **MIN-1 — README quick start omits the Python requirement
+  (completed).** Added "Requires Python 3.10 or newer." to `README.md`,
+  matching `requires-python` in `pyproject.toml`.
+- [x] **MIN-2 — README did not cross-link the full docs set (completed).**
+  The Contributing section now links `docs/model.md` and
+  `docs/publication.md` alongside the existing fork/data/contributing docs.
+- [x] **MIN-3 — docs index omitted the CLI reference and paper notes
+  (completed).** `docs/README.md` now lists the CLI reference and points to
+  `paper/README.md`.
+
+### Medium
+
+- [x] **MED-1 — No CLI reference existed (completed).** Added
+  `docs/cli.md`: every command (`validate`, `build`, `report`, `diff`),
+  option, default, exit code, and JSON payload, verified against
+  `src/aeos/cli.py` and `src/aeos/core.py` and the live `--help` output.
+- [x] **MED-2 — No CITATION.cff for GitHub citation support (completed).**
+  Added `CITATION.cff` (v1.2.0) with title, entity author, DOI, license,
+  version, and release date, all taken from repository metadata
+  (`releases.json`, `pyproject.toml`, `data/aeos.yaml`).
+
+### Major
+
+- [x] **MAJ-1 — No major docs overhaul required (resolved by review).** The
+  documentation set is coherent, accurate, and well cross-linked after the
+  earlier red-team pass; no large restructure or new docs system is
+  warranted. This is recorded rather than deferred because the review found
+  no outstanding major item to scope.
+
+### Open / deferred
+
+- None. All scoped items from this pass are implemented; see the completed
+  entries above and `REVIEW_LOG_2026-08-02.md` for the full audit trail.
 
 ## Completed / Closed — implemented (2026-08-01)
 
