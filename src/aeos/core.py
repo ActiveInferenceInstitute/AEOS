@@ -61,6 +61,14 @@ def read_yaml(path: Path) -> dict[str, Any]:
             document = yaml.safe_load(handle)
     except FileNotFoundError as exc:
         raise OntologyError("missing-input", f"Input file does not exist: {path}") from exc
+    except IsADirectoryError as exc:
+        raise OntologyError("unreadable-input", f"Input path is a directory, not a file: {path}") from exc
+    except PermissionError as exc:
+        raise OntologyError("unreadable-input", f"Input file is not readable: {path}") from exc
+    except OSError as exc:
+        raise OntologyError("unreadable-input", f"Input file could not be read: {path}: {exc}") from exc
+    except UnicodeDecodeError as exc:
+        raise OntologyError("unreadable-input", f"Input file is not valid UTF-8 text: {path}") from exc
     except yaml.YAMLError as exc:
         raise OntologyError("yaml-parse", f"Could not parse YAML in {path}: {exc}") from exc
     if not isinstance(document, dict):
@@ -74,6 +82,14 @@ def read_json(path: Path) -> dict[str, Any]:
             value = json.load(handle)
     except FileNotFoundError as exc:
         raise OntologyError("missing-input", f"Input file does not exist: {path}") from exc
+    except IsADirectoryError as exc:
+        raise OntologyError("unreadable-input", f"Input path is a directory, not a file: {path}") from exc
+    except PermissionError as exc:
+        raise OntologyError("unreadable-input", f"Input file is not readable: {path}") from exc
+    except OSError as exc:
+        raise OntologyError("unreadable-input", f"Input file could not be read: {path}: {exc}") from exc
+    except UnicodeDecodeError as exc:
+        raise OntologyError("unreadable-input", f"Input file is not valid UTF-8 text: {path}") from exc
     except json.JSONDecodeError as exc:
         raise OntologyError("json-parse", f"Could not parse JSON in {path}: {exc}") from exc
     if not isinstance(value, dict):

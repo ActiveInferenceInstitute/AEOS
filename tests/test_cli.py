@@ -207,3 +207,23 @@ def test_cli_module_entrypoint() -> None:
     )
     assert result.returncode == 0
     assert json.loads(result.stdout)["valid"] is True
+
+
+def test_validate_directory_input_is_structured(tmp_path: Path, capsys) -> None:
+    directory = tmp_path / "data"
+    directory.mkdir()
+    result = main(["validate", "--input", str(directory), "--format", "json"])
+    payload = json.loads(capsys.readouterr().out)
+    assert result == 1
+    assert payload["errors"][0]["code"] == "unreadable-input"
+
+
+def test_diff_directory_input_is_structured(tmp_path: Path, capsys) -> None:
+    directory = tmp_path / "data"
+    directory.mkdir()
+    right = tmp_path / "right.yaml"
+    right.write_text("schema_version: '1.0.0'\n", encoding="utf-8")
+    result = main(["diff", str(directory), str(right), "--format", "json"])
+    payload = json.loads(capsys.readouterr().out)
+    assert result == 1
+    assert payload["errors"][0]["code"] == "unreadable-input"

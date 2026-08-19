@@ -251,3 +251,47 @@ def test_unknown_affordance_object_is_rejected() -> None:
     document["affordances"][0]["objects"].append("does-not-exist")
     errors = validate_document(document, load_schema(DEFAULT_SCHEMA))
     assert any(error.code == "unknown-reference" for error in errors)
+
+
+def test_read_yaml_directory_input_raises_structured_error(tmp_path: Path) -> None:
+    directory = tmp_path / "data"
+    directory.mkdir()
+    with pytest.raises(OntologyError) as excinfo:
+        read_yaml(directory)
+    assert excinfo.value.code == "unreadable-input"
+
+
+def test_read_json_directory_input_raises_structured_error(tmp_path: Path) -> None:
+    directory = tmp_path / "data"
+    directory.mkdir()
+    with pytest.raises(OntologyError) as excinfo:
+        read_json(directory)
+    assert excinfo.value.code == "unreadable-input"
+
+
+def test_read_yaml_binary_input_raises_structured_error(tmp_path: Path) -> None:
+    binary = tmp_path / "binary.yaml"
+    binary.write_bytes(b"\x00\x01\x02\xff\xfe")
+    with pytest.raises(OntologyError) as excinfo:
+        read_yaml(binary)
+    assert excinfo.value.code in {"unreadable-input", "yaml-parse"}
+
+
+def test_read_json_binary_input_raises_structured_error(tmp_path: Path) -> None:
+    binary = tmp_path / "binary.json"
+    binary.write_bytes(b"\x00\x01\x02\xff\xfe")
+    with pytest.raises(OntologyError) as excinfo:
+        read_json(binary)
+    assert excinfo.value.code in {"unreadable-input", "json-parse"}
+
+
+def test_read_yaml_unreadable_file_raises_structured_error(tmp_path: Path) -> None:
+    locked = tmp_path / "locked.yaml"
+    locked.write_text("schema_version: '1.0.0'\n", encoding="utf-8")
+    locked.chmod(0o000)
+    try:
+        with pytest.raises(OntologyError) as excinfo:
+            read_yaml(locked)
+        assert excinfo.value.code == "unreadable-input"
+    finally:
+        locked.chmod(0o644)
