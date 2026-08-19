@@ -352,12 +352,17 @@ def check_paper_freshness(failures: list[str], root: Path | None = None) -> None
 
 def check_rendering(failures: list[str]) -> None:
     with tempfile.TemporaryDirectory(prefix="aeos-render-check-") as output_dir:
-        completed = subprocess.run(
-            [sys.executable, str(ROOT / "scripts" / "render_artifacts.py"), "--output-dir", output_dir],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
+        try:
+            completed = subprocess.run(
+                [sys.executable, str(ROOT / "scripts" / "render_artifacts.py"), "--output-dir", output_dir],
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=600,
+            )
+        except subprocess.TimeoutExpired:
+            fail("publication rendering timed out after 600s", failures)
+            return
         if completed.returncode != 0:
             detail = (completed.stderr or completed.stdout).strip()
             fail(f"publication rendering failed: {detail}", failures)
