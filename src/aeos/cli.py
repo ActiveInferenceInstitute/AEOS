@@ -76,7 +76,7 @@ def _load_and_validate(input_path: Path, schema_path: Path) -> tuple[dict, list[
 
 def command_validate(args: argparse.Namespace) -> int:
     try:
-        document, errors = _load_and_validate(args.input, args.schema)
+        _document, errors = _load_and_validate(args.input, args.schema)
     except OntologyError as error:
         errors = [error]
     payload = {"valid": not errors, "errors": [error.as_dict() for error in errors]}

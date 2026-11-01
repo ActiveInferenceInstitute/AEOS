@@ -17,7 +17,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from aeos.core import (  # noqa: E402
+from aeos.core import (
     DEFAULT_INPUT,
     DEFAULT_SCHEMA,
     build_document,
@@ -83,7 +83,7 @@ def check_sidecar(failures: list[str]) -> None:
     sidecar_path = ROOT / ".aii" / "config.yaml"
     try:
         sidecar = yaml.safe_load(sidecar_path.read_text(encoding="utf-8"))
-    except Exception as error:  # pragma: no cover - parser details are dependency-owned
+    except (OSError, yaml.YAMLError) as error:
         fail(f"sidecar parse failed: {error}", failures)
         return
     if not isinstance(sidecar, dict):
@@ -156,6 +156,48 @@ def check_release_manifest(failures: list[str]) -> None:
     for manifest_key, summary_key in expected_counts.items():
         if current.get("counts", {}).get(manifest_key) != document["summary"].get(summary_key):
             fail(f"release manifest count is stale: {manifest_key}", failures)
+
+
+def check_release_digests(failures: list[str], root: Path | None = None) -> None:
+    """Verify the current release's recorded SHA-256 file digests.
+
+    ``releases.json`` binds the current release to the exact bytes of its
+    source and generated files. Without digests the manifest proves only that
+    files exist and that counts match; with them, any edited or regenerated
+    artifact that was not re-recorded fails the gate.
+
+    ``root`` defaults to the repository root; callers may pass an alternative
+    root so the oracle is testable against a small synthetic tree.
+    """
+    root = ROOT if root is None else root
+    try:
+        manifest = json.loads((root / "releases.json").read_text(encoding="utf-8"))
+        current = next(item for item in manifest["releases"] if item.get("status") == "current")
+    except (OSError, json.JSONDecodeError, KeyError, StopIteration, TypeError) as error:
+        fail(f"release digests could not be read: {error}", failures)
+        return
+    digests = current.get("digests")
+    if (
+        not isinstance(digests, dict)
+        or digests.get("algorithm") != "sha256"
+        or not isinstance(digests.get("files"), dict)
+    ):
+        fail("current release must record sha256 file digests", failures)
+        return
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(digests.get("recorded", ""))):
+        fail("release digests must record the date they were taken", failures)
+    for relative, expected in sorted(digests["files"].items()):
+        path = root / relative
+        if not path.is_file():
+            fail(f"release digest file does not exist: {relative}", failures)
+            continue
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        if digest != expected:
+            fail(f"release digest mismatch: {relative}", failures)
+    listed = set(current.get("sourceFiles", [])) | set(current.get("generatedFiles", []))
+    omitted = sorted(listed - set(digests["files"]))
+    if omitted:
+        fail(f"release digests omit listed files: {', '.join(omitted)}", failures)
 
 
 def check_archive_checksums(failures: list[str]) -> None:
@@ -402,6 +444,7 @@ def main() -> int:
     check_ontology(failures)
     check_sidecar(failures)
     check_release_manifest(failures)
+    check_release_digests(failures)
     check_archive_checksums(failures)
     check_version_consistency(failures)
     check_archives(failures)

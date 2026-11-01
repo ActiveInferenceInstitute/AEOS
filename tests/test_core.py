@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 import pytest
+
 from aeos.core import (
     DEFAULT_INPUT,
     DEFAULT_OUTPUT,
