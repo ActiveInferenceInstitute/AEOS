@@ -3,7 +3,7 @@
 schema: aii-sidecar/v1
 meta:
   sidecar_version: 1.0.0
-  updated: '2026-07-17'
+  updated: '2026-11-01'
 repo:
   name: AEOS
   slug: aeos
@@ -25,7 +25,10 @@ ecosystem:
     relation: referenced-by
     note: Federated via the InstituteOS .aii manifest.
   - repo: ActiveInferenceInstitute/Active_Inference_Ontology
-    note: Uses Active Inference Ontology terms.
+    note: >-
+      Related controlled vocabulary; verified 2026-11-01 that 2 of 71 AEOS
+      labels match release v5 terms by normalized label only (state-internal,
+      state-sense) and no identifiers are shared. See docs/ecosystem.md.
   links:
     github: https://github.com/ActiveInferenceInstitute/AEOS
     website: https://www.activeinference.org

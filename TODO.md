@@ -2,13 +2,55 @@
 
 Status: Active (maintained)
 Owner: Active Inference Institute (steward: Daniel Friedman)
-Last reviewed: 2026-08-02 (docs-deep review)
+Last reviewed: 2026-11-01 (GNN alignment and gate repair)
 
 Review scope: deepest hostile red-team review of the full repository
 (`src/`, `tests/`, `scripts/`, `docs/`, `paper/`, `data/`, `schema/`,
 `.aii/`, and the release gate in `scripts/check_release.py`). Findings were
 graded Minor / Medium / Major. All validated Minor, Medium, and Major
 findings have now been implemented (see Completed/Closed).
+
+## GNN alignment and gate repair (2026-11-01)
+
+Scope: audit of the canonical source → deterministic export → schema →
+releases chain, the lint and release gates, release provenance, and the
+cross-reference to the GNN and ontology vocabulary surfaces.
+
+- [x] **Lint gate repaired (CI was red on `main` since 2026-08-01).**
+  `ruff check src tests scripts` passes again: the shebang scripts are
+  executable, the unused `noqa` directives and unused unpacked variable are
+  gone, the sidecar parse catches `OSError`/`yaml.YAMLError` instead of
+  `Exception`, and the test imports are sorted.
+- [x] **Maintained PDF re-linearized across qpdf generations.**
+  `qpdf --check paper/aeos-local.pdf` reported "incorrect object count in
+  outline hint table" for the committed file under qpdf 12.4.2 and, after a
+  plain re-linearization, under the qpdf 11.9.0 the release-checks job
+  installs. The file is now written with
+  `qpdf --object-streams=disable --linearize`, which qpdf 11.9.0 and 12.4.2
+  both report clean; extracted text and rendered pages are byte-identical to
+  the previous file, and `paper/README.md` and `docs/publication.md` record
+  the command and the reason.
+- [x] **Release provenance bound to bytes.** `releases.json` records SHA-256
+  digests for every current-release file plus the date taken, and
+  `scripts/check_release.py` fails on a missing, edited, or unrecorded file;
+  three regression tests cover the oracle.
+- [x] **Ecosystem cross-reference added.** `docs/ecosystem.md` records the
+  verified overlap with ontology release v5 (2 of 71 AEOS labels by
+  normalized label) and with GNN's 64 declared annotation labels (0 of 71),
+  and states that no identifiers are shared or mapped. The sidecar's ontology
+  relation note now records the same verified fact instead of an unsupported
+  claim.
+- [x] **Agent guide added.** Root `AGENTS.md` documents the surfaces, ground
+  rules, gates, and ecosystem boundaries; the sidecar already declared the
+  file, which previously did not exist.
+- [x] **CI and metadata currency.** The workflow uses `actions/checkout@v7`
+  and `actions/setup-python@v7`, adds least-privilege permissions and a
+  Python 3.11/3.14 matrix, and `requires-python` is `>=3.11` (Python 3.10
+  reached end of life on 2026-10-31). The test extra moves to
+  `pytest>=9,<10`, `pytest-cov>=7,<8`, `ruff>=0.17,<1`.
+
+Open items after this pass: none in these areas. The rendering check in
+`scripts/check_release.py` still requires `soffice` locally; CI installs it.
 
 ## Docs-deep review (2026-08-02)
 

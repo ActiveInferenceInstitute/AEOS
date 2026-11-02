@@ -20,9 +20,24 @@ consumed without access to an external application.
 The interactive reference is [AEOS on Coda](https://coda.io/@active-inference-institute/active-entity-ontology-for-science-aeos).
 The published paper is [An Active Inference Ontology for Decentralized Science](https://doi.org/10.5281/zenodo.7484994).
 
+## Related surfaces
+
+- [GNN](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation) —
+  the Institute's notation and 25-step pipeline for specifying, validating,
+  rendering, and executing active inference generative models; see its
+  [integration guides](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/tree/8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1/docs/gnn/integration).
+- [Active Inference Ontology](https://github.com/ActiveInferenceInstitute/Active_Inference_Ontology) —
+  controlled vocabulary of active inference concepts with a generated GNN
+  vocabulary bridge.
+- [ATLAS](https://github.com/ActiveInferenceInstitute/ATLAS) — question-oriented
+  discovery over entity, pattern, and typed-relationship graphs.
+- [docs/ecosystem.md](docs/ecosystem.md) — the verified cross-reference: what
+  overlaps with these surfaces, what does not, and what a real integration
+  would require.
+
 ## Quick start
 
-Requires Python 3.10 or newer.
+Requires Python 3.11 or newer.
 
 ```bash
 python3 -m venv .venv
@@ -55,10 +70,15 @@ reference](docs/cli.md) for all options, defaults, and exit codes.
 ## Contributing
 
 Edit `data/aeos.yaml`, run the validation and test commands, review the JSON
-diff, and document any release-level change in `releases.json`. See
+diff, and document any release-level change in `releases.json`. The current
+release entry records SHA-256 digests of its source and generated files; the
+release gate verifies them, so regenerate and re-record the digests whenever a
+listed artifact changes. See
 [`docs/forking.md`](docs/forking.md), [`docs/data-contract.md`](docs/data-contract.md),
 [`docs/contributing.md`](docs/contributing.md), [`docs/model.md`](docs/model.md),
-and [`docs/publication.md`](docs/publication.md).
+[`docs/ecosystem.md`](docs/ecosystem.md), and [`docs/publication.md`](docs/publication.md).
+The full local gate is `python scripts/check_release.py`; see
+[`docs/contributing.md`](docs/contributing.md) for the complete command list.
 
 ## License and attribution
 

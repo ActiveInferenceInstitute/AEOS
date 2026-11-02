@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import shutil
 import sys
 from pathlib import Path
@@ -9,7 +11,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-import check_release  # noqa: E402
+import check_release
 
 needs_pdftotext = pytest.mark.skipif(
     shutil.which("pdftotext") is None,
@@ -47,3 +49,61 @@ def test_paper_headings_parses_source() -> None:
 
 def test_normalize_collapses_whitespace_and_lowercases() -> None:
     assert check_release._normalize("  Active  Entity \n\tOntology  ") == "active entity ontology"
+
+
+def test_release_digests_pass_on_current_tree() -> None:
+    failures: list[str] = []
+    check_release.check_release_digests(failures)
+    assert failures == []
+
+
+def test_release_digests_detect_edited_artifact(tmp_path: Path) -> None:
+    data = tmp_path / "data"
+    data.mkdir()
+    artifact = data / "aeos.yaml"
+    artifact.write_text('schema_version: "1.0.0"\n', encoding="utf-8")
+    manifest = {
+        "currentRelease": "v1.0.0",
+        "releases": [
+            {
+                "version": "v1.0.0",
+                "status": "current",
+                "sourceFiles": ["data/aeos.yaml"],
+                "generatedFiles": [],
+                "digests": {
+                    "algorithm": "sha256",
+                    "recorded": "2026-11-01",
+                    "files": {"data/aeos.yaml": hashlib.sha256(artifact.read_bytes()).hexdigest()},
+                },
+            }
+        ],
+    }
+    (tmp_path / "releases.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+    failures: list[str] = []
+    check_release.check_release_digests(failures, root=tmp_path)
+    assert failures == []
+
+    artifact.write_text('schema_version: "1.0.1"\n', encoding="utf-8")
+    failures = []
+    check_release.check_release_digests(failures, root=tmp_path)
+    assert any("digest mismatch" in message and "data/aeos.yaml" in message for message in failures)
+
+
+def test_release_digests_require_all_listed_files(tmp_path: Path) -> None:
+    manifest = {
+        "currentRelease": "v1.0.0",
+        "releases": [
+            {
+                "version": "v1.0.0",
+                "status": "current",
+                "sourceFiles": ["data/aeos.yaml"],
+                "generatedFiles": ["aeos.json"],
+                "digests": {"algorithm": "sha256", "recorded": "2026-11-01", "files": {}},
+            }
+        ],
+    }
+    (tmp_path / "releases.json").write_text(json.dumps(manifest), encoding="utf-8")
+    failures: list[str] = []
+    check_release.check_release_digests(failures, root=tmp_path)
+    assert any("omit listed files" in message for message in failures)
