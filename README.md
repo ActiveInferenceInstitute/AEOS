@@ -25,7 +25,9 @@ The published paper is [An Active Inference Ontology for Decentralized Science](
 - [GNN](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation) —
   the Institute's notation and 25-step pipeline for specifying, validating,
   rendering, and executing active inference generative models; see its
-  [integration guides](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/tree/8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1/docs/gnn/integration).
+  [integration guides](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/tree/8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1/docs/gnn/integration)
+  and the [downstream adoption guide](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/main/docs/gnn/integration/downstream_adoption.md)
+  for repositories that consume the notation.
 - [Active Inference Ontology](https://github.com/ActiveInferenceInstitute/Active_Inference_Ontology) —
   controlled vocabulary of active inference concepts with a generated GNN
   vocabulary bridge.
