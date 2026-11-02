@@ -21,10 +21,15 @@ cross-reference to the GNN and ontology vocabulary surfaces.
   executable, the unused `noqa` directives and unused unpacked variable are
   gone, the sidecar parse catches `OSError`/`yaml.YAMLError` instead of
   `Exception`, and the test imports are sorted.
-- [x] **Maintained PDF re-linearized.** `qpdf --check paper/aeos-local.pdf`
-  reported "incorrect object count in outline hint table"; the file was
-  re-linearized with the documented procedure, the extracted text is
-  byte-identical to the previous extraction, and the check is clean.
+- [x] **Maintained PDF re-linearized across qpdf generations.**
+  `qpdf --check paper/aeos-local.pdf` reported "incorrect object count in
+  outline hint table" for the committed file under qpdf 12.4.2 and, after a
+  plain re-linearization, under the qpdf 11.9.0 the release-checks job
+  installs. The file is now written with
+  `qpdf --object-streams=disable --linearize`, which qpdf 11.9.0 and 12.4.2
+  both report clean; extracted text and rendered pages are byte-identical to
+  the previous file, and `paper/README.md` and `docs/publication.md` record
+  the command and the reason.
 - [x] **Release provenance bound to bytes.** `releases.json` records SHA-256
   digests for every current-release file plus the date taken, and
   `scripts/check_release.py` fails on a missing, edited, or unrecorded file;

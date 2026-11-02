@@ -40,14 +40,14 @@
           "schema/aeos.schema.json": "d44f16575183ca6b7245153023c8a796ed2c17f2830dabf1fdec3e0228e1446b",
           "paper/aeos.md": "94c096e17b7e75881f4db688ac8de3b1a474388d7a135e4d6d3d77c170678a74",
           "aeos.json": "9495529828f3a04ff5d644164cd5e97f7acfedca5df29a964f50dd6ebc2e36dd",
-          "paper/aeos-local.pdf": "25aee4d62508e0b7fdd040697b6974aabb75b01b7f78a27f23e9e74f8483e9a6",
+          "paper/aeos-local.pdf": "f5ed1adb576694033e0b2a32251196f7e2e87ddd12be2093ce4ed81e04269837",
           "paper/aeos-local.docx": "340ec3ed9be84c96a71edc4fe3eacbb797b9ff8b2fbd39ec78773246efae68ec",
           "paper/aeos-local.html": "e40e74efd8e5a4c72c78a79b1321ba894e4cf36ef9c7bb8b44e7593ff8c25da0",
           "paper/aeos-2022-v2.pdf": "caa19b14e582aca26d650cca9bf4f7c3e682a60bdf1188d4af349f2281b927f7",
           "paper/aeos-2022-v2.docx": "36974341df5459fa1c5784d654c4bd538ed11bb2f80ebe31c99a278923b90022"
         }
       },
-      "notes": "Initial repository-owned, explicitly referenced AEOS model derived from the published definitions and interactive motifs. SHA-256 digests recorded 2026-11-01 bind the listed source and generated files to their current bytes, and the release gate verifies them; the maintained local PDF was re-linearized on that date so qpdf reports no warnings."
+      "notes": "Initial repository-owned, explicitly referenced AEOS model derived from the published definitions and interactive motifs. SHA-256 digests recorded 2026-11-01 bind the listed source and generated files to their current bytes, and the release gate verifies them; the maintained local PDF was re-linearized on that date with qpdf --object-streams=disable --linearize so that qpdf 11.x and 12.x both report no warnings."
     },
     {
       "version": "paper-2022-v2",

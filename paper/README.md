@@ -18,8 +18,20 @@ maintained source.
 pandoc paper/aeos.md --from=gfm --standalone --pdf-engine=xelatex -o paper/aeos-local.pdf
 pandoc paper/aeos.md --from=gfm --standalone -o paper/aeos-local.docx
 pandoc paper/aeos.md --from=gfm --standalone --metadata lang=en -o paper/aeos-local.html
-qpdf --linearize paper/aeos-local.pdf /tmp/aeos-local.linearized.pdf
+qpdf --linearize --object-streams=disable paper/aeos-local.pdf /tmp/aeos-local.linearized.pdf
 mv /tmp/aeos-local.linearized.pdf paper/aeos-local.pdf
+```
+
+`--object-streams=disable` keeps the linearized PDF acceptable to every qpdf
+generation: qpdf 11.x and 12.x compute the outline hint table differently for
+documents that keep object streams, so the Ubuntu qpdf 11.9.0 the release-checks
+job installs reports "incorrect object count in outline hint table" on a file
+written by qpdf 12.x, and qpdf 12.x reports it on a file written by 11.x. The
+rewrite above is lossless: extracted text and rendered pages are unchanged.
+Verify with the qpdf you have:
+
+```bash
+qpdf --check paper/aeos-local.pdf   # no warnings, "File is linearized"
 ```
 
 After rendering, inspect every page and run the publication checks described in

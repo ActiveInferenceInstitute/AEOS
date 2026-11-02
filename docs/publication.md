@@ -16,7 +16,12 @@ to replace the DOI record.
 Before delivery, render the DOCX and PDF outputs to page images and inspect all
 pages for clipping, overlap, broken tables, missing glyphs, captions, page
 numbers, and references. Run `qpdf --check` on every active PDF and require no
-warnings. DOCX figures must have descriptive accessibility text and core title
+warnings. Linearize maintained PDFs with
+`qpdf --object-streams=disable --linearize` as recorded in
+[`../paper/README.md`](../paper/README.md): qpdf 11.x and 12.x disagree about
+the outline hint table of documents that keep object streams, and both accept
+the file written without them, so the check passes with the qpdf generation the
+environment provides (CI uses the Ubuntu package). DOCX figures must have descriptive accessibility text and core title
 and creator metadata. The HTML export must retain a language declaration and a
 single descriptive document title.
 
