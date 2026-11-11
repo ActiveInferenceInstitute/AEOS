@@ -1,0 +1,11 @@
+{
+  "schema": "aii-readiness/v1",
+  "repo": "ActiveInferenceInstitute/AEOS",
+  "tier": "python-service",
+  "standard_version": "1.0.0",
+  "baseline": {
+    "commit": "21974f6dd0e2d2f345101357177a84cd25ff0b8b",
+    "measured_at": "2026-11-10"
+  },
+  "waivers": []
+}

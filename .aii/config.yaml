@@ -1,22 +1,16 @@
-# AII sidecar — InstituteOS metadata for this repository.
-# Schema: aii-sidecar/v1
-schema: aii-sidecar/v1
+# AII sidecar — InstituteOS metadata. Schema: aii_platform.aii_sidecar
 meta:
-  sidecar_version: 1.0.0
-  updated: '2026-11-01'
+  sidecar_version: 1.2.1
+  updated: '2026-11-10'
 repo:
   name: AEOS
   slug: aeos
   full_name: ActiveInferenceInstitute/AEOS
-  description: >-
-    A portable, versioned ontology of active and informational entities,
+  description: A portable, versioned ontology of active and informational entities,
     roles, affordances, states, and scientific interaction motifs.
-  default_branch: main
   homepage: https://coda.io/@active-inference-institute/active-entity-ontology-for-science-aeos
 institute:
-  affiliation: institute
   category: ontology
-  status: active
   maturity: released
   steward: Active Inference Institute
 ecosystem:
@@ -25,13 +19,13 @@ ecosystem:
     relation: referenced-by
     note: Federated via the InstituteOS .aii manifest.
   - repo: ActiveInferenceInstitute/Active_Inference_Ontology
-    note: >-
-      Related controlled vocabulary; verified 2026-11-01 that 2 of 71 AEOS
-      labels match release v5 terms by normalized label only (state-internal,
-      state-sense) and no identifiers are shared. See docs/ecosystem.md.
+    note: Related controlled vocabulary; verified 2026-11-01 that 2 of 71 AEOS labels
+      match release v5 terms by normalized label only (state-internal, state-sense)
+      and no identifiers are shared. See docs/ecosystem.md.
   links:
     github: https://github.com/ActiveInferenceInstitute/AEOS
     website: https://www.activeinference.org
+    homepage: https://coda.io/@active-inference-institute/active-entity-ontology-for-science-aeos
 artifacts:
 - path: README.md
   kind: doc
@@ -76,7 +70,6 @@ artifacts:
   kind: doc
   description: Preserved 2022/v2 publication snapshot.
 - path: archive/2022-v2/checksums.json
-  kind: other
   description: Machine-readable checksums for the preserved historical binaries.
 - path: LICENSE
   kind: doc
@@ -89,8 +82,6 @@ provenance:
   current_release: v1.0.0
   releases_manifest: releases.json
 instituteos:
-  dashboard_mode: repos
-  registries: []
   tags:
   - aeos
   - entity
@@ -102,6 +93,11 @@ capabilities:
 - json-export
 - release-manifest
 - publication-source
+- python-package
+- tested
+- documentation
+- ci
+- citation
 tasks:
   validate:
     cmd: python -m aeos validate --format json
@@ -135,10 +131,10 @@ tasks:
     cmd: python scripts/render_artifacts.py
     description: Render every maintained PDF and DOCX page to PNG for inspection.
     cwd: .
-integration:
-  analytics: true
-  dashboard: true
-  sync: pull
 docs:
 - README.md
 - AGENTS.md
+- docs/INTEGRATION.md
+- docs/README.md
+- docs/AGENTS.md
+schema: aii-sidecar/v1

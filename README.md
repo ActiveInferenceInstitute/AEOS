@@ -87,3 +87,11 @@ The full local gate is `python scripts/check_release.py`; see
 Repository content is released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 Please preserve the Active Inference Institute attribution, the ontology version,
 and the source publication when redistributing or adapting AEOS.
+
+## InstituteOS sidecar
+
+This repository carries a committed [`.aii/`](.aii/README.md) sidecar with curated
+InstituteOS metadata (`aii-sidecar/v1`): category, maturity, ecosystem relations,
+key artifacts, provenance, and portable tasks. It is read by
+[InstituteOS](https://github.com/ActiveInferenceInstitute/InstituteOS) tooling and
+does not affect the project's build or runtime.
