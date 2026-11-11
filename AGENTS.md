@@ -18,6 +18,10 @@ tooling that validates, exports, and publishes it.
 | `paper/` | Maintained publication source and rendered artifacts. |
 | `archive/2022-v2/` | Preserved 2022/v2 snapshot with its checksum manifest. |
 
+Each code folder carries its own guide: [`scripts/README.md`](scripts/README.md),
+[`src/README.md`](src/README.md), and [`tests/README.md`](tests/README.md). The
+documentation index is [`docs/README.md`](docs/README.md).
+
 ## Ground rules
 
 - Every command is local and deterministic; no command calls a network service.

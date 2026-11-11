@@ -5,6 +5,16 @@ their roles, affordances, states, and interaction motifs in scientific
 ecosystems. The repository is designed to be forked, edited, validated, and
 consumed without access to an external application.
 
+## Contents
+
+- [Canonical surfaces](#canonical-surfaces)
+- [Related surfaces](#related-surfaces)
+- [Status](#status)
+- [Quick start](#quick-start)
+- [Contributing](#contributing)
+- [License and attribution](#license-and-attribution)
+- [InstituteOS sidecar](#instituteos-sidecar)
+
 ## Canonical surfaces
 
 | Path | Purpose |
@@ -36,6 +46,18 @@ The published paper is [An Active Inference Ontology for Decentralized Science](
 - [docs/ecosystem.md](docs/ecosystem.md) — the verified cross-reference: what
   overlaps with these surfaces, what does not, and what a real integration
   would require.
+
+## Status
+
+Active, released as v1.0.0. Everything in this repository runs locally and
+offline: validation, the deterministic export, reporting, diffing, the test
+suite, and the release gate. No command calls Coda, GitHub, Zenodo, or another
+network service. The release gate's artifact-freshness and page-image checks
+need external tools (`soffice`, `qpdf`, `pdftotext`, `pdfinfo`, `pdftoppm`);
+without them, those checks cannot run, but the ontology, manifest, and digest
+checks still do. The GNN conformance workflow downloads the pinned parser at
+CI time and is not reproducible offline. See [`TODO.md`](TODO.md) for the
+known warning-sentinel caveat in that workflow.
 
 ## Quick start
 

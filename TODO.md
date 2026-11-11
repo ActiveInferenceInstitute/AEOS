@@ -10,6 +10,31 @@ Review scope: deepest hostile red-team review of the full repository
 graded Minor / Medium / Major. All validated Minor, Medium, and Major
 findings have now been implemented (see Completed/Closed).
 
+## Known caveats and environment prerequisites (pass 3, 2026-11-11)
+
+Documentation-completeness pass. No open documentation gap was found: the
+`docs/` tree, `README.md`, and `AGENTS.md` already match the code, data, and
+artifacts, and folder guides now exist for `scripts/`, `src/`, and `tests/`.
+Two items are recorded here because they cannot be fixed inside this
+repository:
+
+- **GNN conformance warning sentinel.** The pinned `gnn conformance (pinned)`
+  job ([`.github/GNN.md`](.github/GNN.md), [`.github/workflows/aeos.yml`](.github/workflows/aeos.yml))
+  treats the return value of `GNNTypeChecker().validate_gnn_files(...)` as a
+  boolean (`if not GNNTypeChecker().validate_gnn_files(...): raise`). The
+  upstream checker returns the integer `2` to signal warnings, and `2` is
+  truthy in Python, so a warning-only result is indistinguishable from a clean
+  pass. This is an upstream behavior in the pinned
+  `Generalized_Notation_Notation` revision
+  `8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1` (v5.0.3); do not "fix" it by
+  changing the pin. Track it upstream and, if a stricter check is wanted,
+  compare the return value explicitly (`!= 0`) rather than relying on
+  truthiness.
+- **Local rendering tools.** `python scripts/check_release.py` and
+  `python scripts/render_artifacts.py` need `soffice` (LibreOffice), `qpdf`,
+  `pdftotext`, `pdfinfo`, and `pdftoppm`. These are not installed in every
+  environment; CI installs them. All non-rendering checks pass locally.
+
 ## GNN alignment and gate repair (2026-11-01)
 
 Scope: audit of the canonical source → deterministic export → schema →
