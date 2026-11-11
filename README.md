@@ -56,7 +56,7 @@ network service. The release gate's artifact-freshness and page-image checks
 need external tools (`soffice`, `qpdf`, `pdftotext`, `pdfinfo`, `pdftoppm`);
 without them, those checks cannot run, but the ontology, manifest, and digest
 checks still do. The GNN conformance workflow downloads the pinned parser at
-CI time and is not reproducible offline. See [`TODO.md`](TODO.md) for the
+CI time and is not reproducible offline; the project's task backlog records the
 known warning-sentinel caveat in that workflow.
 
 ## Quick start
