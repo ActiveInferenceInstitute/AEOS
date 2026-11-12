@@ -40,11 +40,12 @@ numbers live only in [`docs/_generated/`](docs/_generated/README.md).
 
 ## Gates
 
-`./run.sh` is the only gate entry point; CI calls the same arms, so a command
-is written down once. Setup once with `./run.sh setup`, then:
+`./run.sh` is the only gate entry point; no argument runs `fast` without
+coverage. Setup once with `./run.sh setup`, then:
 
 ```bash
 ./run.sh gate       # validate, build --check, lint, pytest, docs, gnn pin
+./run.sh ci         # gate plus release in CI's shared project environment
 ./run.sh fast       # pytest without the coverage gate, while editing
 ./run.sh release    # release gate (needs soffice, qpdf, poppler)
 ./run.sh render     # page images for manual inspection

@@ -35,6 +35,12 @@ job with key `gnn-conformance` and display name `gnn conformance (pinned)`
 installs the pinned setup action and calls `./run.sh gnn-parser`, so the parser
 logic cannot drift between CI and a local run.
 
+The setup step uses
+`ActiveInferenceInstitute/.github/.github/actions/setup-python-uv@7159e67315330aac8e414aebae0ad1e999a41448`.
+This separate interpreter is intentional: the parser's Python range differs
+from the project gate. Actions is billing-locked during the estate pass;
+local parser output, not a hosted run, is the available conformance evidence.
+
 ## Known caveat
 
 `GNNTypeChecker().validate_gnn_files(...)` returns the integer `2` for a

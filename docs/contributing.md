@@ -11,9 +11,9 @@
 
 ## Required checks
 
-`./run.sh` is the gate entry point; each arm is exactly one command and CI
-calls the same arms (see [RUN_GUIDE.md](RUN_GUIDE.md)). Install the locked
-environment once with `./run.sh setup`.
+`./run.sh` is the entry point; CI calls the same arm implementations
+(see [RUN_GUIDE.md](RUN_GUIDE.md)). Install the locked environment with
+`./run.sh setup`; no argument selects `fast`, without coverage.
 
 ```bash
 ./run.sh gate      # validate, build --check, lint, pytest, docs, gnn pin
@@ -41,10 +41,11 @@ missing, when its bytes no longer match the recorded digest, or when a listed
 file has no digest. Edit or regenerate an artifact and re-record its digest in
 the same change.
 
-CI runs `./run.sh gate`, `./run.sh compat`, `./run.sh release`, and
-`./run.sh gnn-parser` on pushes and pull requests; the workflow holds no
-command of its own. A release is ready only when source validation,
-generated-file freshness, artifact checks, and document rendering all pass.
+CI's `validate` job runs `./run.sh ci` (gate plus release in one environment).
+The other jobs run `./run.sh compat` and `./run.sh gnn-parser`. GitHub Actions
+is billing-locked during this estate pass; local runs provide acceptance, not
+a hosted CI claim. Release readiness still requires source validation,
+export freshness, artifact checks and document rendering.
 
 Cross-repository references (GNN, the Active Inference Ontology, ATLAS) are
 documented in [ecosystem.md](ecosystem.md). They are cross-references, not
