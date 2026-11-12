@@ -51,25 +51,37 @@ The published paper is [An Active Inference Ontology for Decentralized Science](
 
 Active, released as v1.0.0. Everything in this repository runs locally and
 offline: validation, the deterministic export, reporting, diffing, the test
-suite, and the release gate. No command calls Coda, GitHub, Zenodo, or another
-network service. The release gate's artifact-freshness and page-image checks
+suite, and the release gate. No ontology command calls Coda, GitHub, Zenodo, or
+another network service. The release gate's artifact-freshness and page-image checks
 need external tools (`soffice`, `qpdf`, `pdftotext`, `pdfinfo`, `pdftoppm`);
 without them, those checks cannot run, but the ontology, manifest, and digest
-checks still do. The GNN conformance workflow downloads the pinned parser at
-CI time and is not reproducible offline; the project's task backlog records the
-known warning-sentinel caveat in that workflow.
+checks still do. The GNN conformance pin is `.github/gnn-pin.json`; the offline
+arm `./run.sh gnn` verifies it without network access, and `./run.sh
+gnn-parser` installs the pinned parser and is the only network step in the
+repository. The warning-sentinel behavior of the pinned checker is recorded in
+[`docs/gnn-conformance.md`](docs/gnn-conformance.md).
 
 ## Quick start
 
-Requires Python 3.11 or newer.
+Requires Python 3.11 or newer and [`uv`](https://docs.astral.sh/uv/).
 
 ```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -e '.[test]'
-.venv/bin/aeos validate
-.venv/bin/aeos build
-.venv/bin/pytest
-.venv/bin/ruff check src tests scripts
+./run.sh setup
+./run.sh gate
+```
+
+`./run.sh` is the single gate entry point; CI calls the same arms, so no
+command exists twice. `./run.sh fast` runs the suite without the coverage gate
+while you edit, `./run.sh list` prints every arm, and
+[`docs/RUN_GUIDE.md`](docs/RUN_GUIDE.md) records the exact command behind each
+arm and the CI job that calls it.
+
+The environment comes from `uv.lock`. To call the CLI directly:
+
+```bash
+uv run aeos validate
+uv run aeos build
+uv run aeos report --format json
 ```
 
 `pytest` runs with the coverage gate (`--cov=src --cov-fail-under=90`), so the

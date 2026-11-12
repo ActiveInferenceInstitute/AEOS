@@ -2,9 +2,9 @@
 
 The suite runs entirely offline with `pytest` (configured in
 [`pyproject.toml`](../pyproject.toml) with `--cov=src --cov-fail-under=90`, so
-it must stay at 90% coverage or higher). Install the test extra first:
-`python3 -m pip install -e '.[test]'`, then run `pytest` from the repository
-root.
+it must stay at 90% coverage or higher). Install the locked environment once
+with `./run.sh setup`, then run `./run.sh test` from the repository root;
+`./run.sh fast` runs the same selection without the coverage gate.
 
 | Test module | Covers |
 | --- | --- |

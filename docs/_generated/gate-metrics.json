@@ -1,0 +1,70 @@
+{
+  "arms": [
+    {
+      "name": "setup",
+      "seconds": 0.04,
+      "status": "passed"
+    },
+    {
+      "name": "validate",
+      "seconds": 0.2,
+      "status": "passed"
+    },
+    {
+      "name": "build",
+      "seconds": 0.2,
+      "status": "passed"
+    },
+    {
+      "name": "lint",
+      "seconds": 0.07,
+      "status": "passed"
+    },
+    {
+      "name": "fast",
+      "seconds": 3.09,
+      "status": "passed"
+    },
+    {
+      "name": "test",
+      "seconds": 4.42,
+      "status": "passed"
+    },
+    {
+      "name": "docs",
+      "seconds": 3.78,
+      "status": "passed"
+    },
+    {
+      "name": "gnn",
+      "seconds": 0.13,
+      "status": "passed"
+    },
+    {
+      "name": "gnn-parser",
+      "seconds": 2.25,
+      "status": "passed"
+    },
+    {
+      "name": "release",
+      "seconds": 65.66,
+      "status": "passed"
+    },
+    {
+      "name": "render",
+      "seconds": 53.9,
+      "status": "passed"
+    }
+  ],
+  "host": {
+    "platform": "macOS-27.0.1",
+    "python": "3.15.2",
+    "uv": "0.13.7"
+  },
+  "measured_at": "2026-11-12T13:14:43Z",
+  "schema": "aeos-gate-metrics/v1",
+  "tests": {
+    "collected": 67,
+    "coverage_percent": 97.13
+  }
+}

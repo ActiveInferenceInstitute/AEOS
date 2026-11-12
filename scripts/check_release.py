@@ -56,11 +56,19 @@ def check_paths(failures: list[str]) -> None:
         "schema/aeos.schema.json",
         "releases.json",
         "pyproject.toml",
+        "uv.lock",
+        "run.sh",
         ".gitattributes",
         ".aii/README.md",
         ".aii/AGENTS.md",
         ".github/workflows/aeos.yml",
+        ".github/gnn-pin.json",
+        ".github/GNN.md",
         "docs/",
+        "docs/RUN_GUIDE.md",
+        "docs/gnn-conformance.md",
+        "docs/documentation-index.md",
+        "docs/_generated/gate-metrics.md",
         "paper/",
         "paper/aeos-local.html",
         "archive/2022-v2/",
@@ -422,7 +430,7 @@ def check_archive_pdfs(failures: list[str]) -> None:
 
 
 def check_active_text(failures: list[str]) -> None:
-    ignored_parts = {".git", ".venv", "archive"}
+    ignored_parts = {".git", ".venv", ".venv-gnn", "archive"}
     for path in ROOT.rglob("*"):
         if not path.is_file() or path.suffix.lower() not in ACTIVE_TEXT_SUFFIXES:
             continue

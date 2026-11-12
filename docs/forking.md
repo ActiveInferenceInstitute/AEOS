@@ -1,7 +1,7 @@
 # Forking AEOS
 
-1. Fork or clone the repository and install the package with
-   `python3 -m pip install -e '.[test]'`.
+1. Fork or clone the repository and install the locked environment with
+   `./run.sh setup`.
 2. Copy the current release in `releases.json` and choose a new ontology
    version for your fork.
 3. Edit `data/aeos.yaml`. Keep IDs stable when the concept is unchanged; add a
@@ -9,10 +9,9 @@
 4. Run:
 
    ```bash
-   aeos validate
-   aeos build
-   aeos build --check
-   pytest
+   ./run.sh validate
+   ./run.sh build
+   ./run.sh test
    ```
 
 5. Review the generated JSON and record your source, version, differences, and
