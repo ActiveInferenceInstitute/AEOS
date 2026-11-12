@@ -23,6 +23,30 @@ Changing the parser means editing the pin, then refreshing `.github/GNN.md`,
 this page, and [`ecosystem.md`](ecosystem.md) where they restate the revision.
 `./run.sh gnn` fails on any of those going stale.
 
+## GNN–FEP migration blocker
+
+The [GNN–FEP workflow contract](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/b0da6caca954509894cdead55f52efcaa3aef981/docs/workflows/gnn-fep.md)
+requires AEOS to replace its local pin reader, pointer checks and specification
+validation with the upstream reader, called from the pinned environment:
+
+```bash
+.venv-gnn/bin/python -m gnn.importers check --repo . --require-pointer \
+    --workflow .github/workflows/aeos.yml --job gnn-conformance
+```
+
+The current pin cannot supply that command. The installed distribution's
+`direct_url.json` identifies the pinned revision above, but that distribution
+has no `gnn.importers` module. The upstream file is also absent at that exact
+revision. The contract was merged after the pinned release.
+
+The migration is blocked, not complete. The existing implementation and pin
+remain unchanged; a passing existing `gnn` arm does not prove adoption of the
+shared reader. Unblocking requires a reviewed parser-pin update to an upstream
+revision containing the contract's reader, with the corresponding environment
+provisioning and pin references updated together. Do not copy the reader from
+another checkout or run it through `PYTHONPATH`: that would no longer be the
+reader supplied by this repository's pinned parser.
+
 ## The two arms
 
 | Arm | What it does | Needs |
