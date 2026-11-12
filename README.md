@@ -70,11 +70,11 @@ Requires Python 3.11 or newer and [`uv`](https://docs.astral.sh/uv/).
 ./run.sh gate
 ```
 
-`./run.sh` is the single gate entry point; CI calls the same arms, so no
-command exists twice. `./run.sh fast` runs the suite without the coverage gate
-while you edit, `./run.sh list` prints every arm, and
-[`docs/RUN_GUIDE.md`](docs/RUN_GUIDE.md) records the exact command behind each
-arm and the CI job that calls it.
+`./run.sh` is the single gate entry point; with no argument it runs `fast`
+(the suite without coverage instrumentation). CI's main job calls `./run.sh ci`
+for the complete development and release gates in one environment.
+`./run.sh list` prints every arm; [`docs/RUN_GUIDE.md`](docs/RUN_GUIDE.md)
+records their commands and CI mapping.
 
 The environment comes from `uv.lock`. To call the CLI directly:
 
@@ -113,8 +113,8 @@ listed artifact changes. See
 [`docs/forking.md`](docs/forking.md), [`docs/data-contract.md`](docs/data-contract.md),
 [`docs/contributing.md`](docs/contributing.md), [`docs/model.md`](docs/model.md),
 [`docs/ecosystem.md`](docs/ecosystem.md), and [`docs/publication.md`](docs/publication.md).
-The full local gate is `python scripts/check_release.py`; see
-[`docs/contributing.md`](docs/contributing.md) for the complete command list.
+The complete local main-job gate is `./run.sh ci`; see
+[`docs/contributing.md`](docs/contributing.md) for the required checks.
 
 ## License and attribution
 

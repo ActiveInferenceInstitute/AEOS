@@ -9,7 +9,7 @@ the code they describe.
 - [`../README.md`](../README.md) — project overview and quick start.
 - [`../AGENTS.md`](../AGENTS.md) — working agreement for agents in this repository.
 - [`README.md`](README.md) — documentation hub.
-- [`RUN_GUIDE.md`](RUN_GUIDE.md) — the gate entry point, its arms, and the CI jobs that call them.
+- [`RUN_GUIDE.md`](RUN_GUIDE.md) — fast default, composable gates, shared CI setup and exact local verification.
 
 ## Ontology and data
 
@@ -32,5 +32,5 @@ the code they describe.
 
 ## Generated facts
 
-- [`_generated/gate-metrics.md`](_generated/gate-metrics.md) — measured arm wall times, collected tests, coverage.
+- [`_generated/gate-metrics.md`](_generated/gate-metrics.md) — generated before/after arm wall times and outcomes, collected tests and coverage.
 - [`_generated/README.md`](_generated/README.md) — folder policy for generated documents.

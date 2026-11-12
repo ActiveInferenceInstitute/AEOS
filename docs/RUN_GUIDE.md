@@ -1,91 +1,93 @@
 # Gate and CI run guide
 
-`./run.sh` is the single gate entry point. Each arm runs exactly one command,
-CI calls these same arms, and no command is written down twice. The project
-environment is `uv.lock`; every arm runs through `uv run --locked`, so an
-out-of-date lockfile fails the arm instead of resolving a different set of
-packages. `--frozen` would skip that check, which is why no arm uses it.
-After changing a dependency in `pyproject.toml`, refresh the lock with
-`uv lock` in the same change; `./run.sh lock` and the first step of `gate`
-refuse a stale pair before any build runs.
+`./run.sh` is the single entry point. With no argument it runs `fast`, the
+existing full test selection without coverage instrumentation. `gate` explicitly
+runs the coverage-enforced development gate; `ci` adds the release checks.
+Commands are implemented once in the runner, including the compatibility slice.
+There is no configured static type checker, so there is no types arm.
+
+The project environment comes from `uv.lock`. Project commands use
+`uv run --locked --extra test`; a stale lock fails instead of silently resolving
+a new environment. After changing dependencies, refresh with `uv lock` in the
+same change. `lock` checks freshness without installing packages.
 
 ```bash
-./run.sh help          # arms and what they run
-./run.sh list          # arm names, one per line
-./run.sh gate          # the local gate CI's `validate` job runs
+./run.sh setup         # install the locked project environment
+./run.sh               # default: fast tests, no coverage instrumentation
+./run.sh ci            # main CI job: gate plus release
+./run.sh compat        # supported Python floor in a separate environment
+./run.sh gnn-parser    # pinned parser; network required
+./run.sh list          # all runnable arms
 ```
 
 ## Prerequisites
 
 | Tool | Needed by | Notes |
 | --- | --- | --- |
-| `uv` (0.13 or newer) | every arm | Syncs and runs the locked environment. The workflow installs it through a pinned action, not a floating tag. |
-| Python 3.11 or newer | every arm | The lock declares `requires-python = ">=3.11"`. |
-| Python 3.14 or older for the parser arm | `gnn-parser` | The pinned upstream package declares `>=3.11,<3.15`, so this arm provisions its own interpreter (3.12 by default) in `.venv-gnn`. |
-| Network access | `gnn-parser` | Installs the pinned parser and, when the repository has no sketch, downloads the pinned exemplar. |
-| `soffice` (LibreOffice), `qpdf`, `pdftotext`, `pdfinfo`, `pdftoppm` | `release`, `render` | These arms name the exact missing command and fail; the rest of the gate still runs. |
+| `uv` (0.13 or newer) | every arm | The workflow installs it through the pinned setup action. |
+| Python 3.11 or newer | project arms | `requires-python = ">=3.11"`; local measurements record the actual version. |
+| Python 3.12 by default | `gnn-parser` | The upstream parser requires `>=3.11,<3.15`; `GNN_PYTHON` selects its separate `.venv-gnn` interpreter. |
+| Network access | initial setup, `gnn-parser` | Project arms are offline after setup; parser provisioning and the pinned-exemplar download need network. |
+| `soffice` (LibreOffice), `qpdf`, `pdftotext`, `pdfinfo`, `pdftoppm` | `release`, `render` | Missing commands are errors, not successful skipped rendering. |
 
 ## Arms
 
-| Arm | Command it runs | Notes |
+| Arm | Command or composition | Notes |
 | --- | --- | --- |
-| `setup` | `uv sync --locked --extra test` | Idempotent; arms sync on first use anyway. |
-| `lock` | `uv lock --check` | Refuses a lockfile that is out of date; runs first in `gate` and `compat`. |
-| `validate` | `aeos validate --format json` | Schema and semantic validation of `data/aeos.yaml`. |
-| `build` | `aeos build --check` | Generated export freshness. |
-| `lint` | `ruff check src tests scripts` | The lint gate. |
-| `fast` | `pytest -q --no-cov` | Same selection as the full arm without coverage instrumentation; use it while editing. |
-| `test` | `pytest` | Full arm; `addopts` carries `--cov=src --cov-fail-under=90`. |
-| `docs` | `scripts/check_docs.py`, then `scripts/gate_metrics.py --check` | Relative links and anchors, index completeness, generated metrics freshness. |
-| `gnn` | `scripts/check_gnn.py` | Offline: pin schema, revision, workflow job, and every document that restates them. |
-| `gnn-parser` | `scripts/check_gnn.py --parser` in `.venv-gnn` | Pinned parser conformance; see [gnn-conformance.md](gnn-conformance.md). |
-| `release` | `scripts/check_release.py` | Ontology, sidecar, archive, digest, artifact, freshness, and rendering checks. |
-| `render` | `scripts/render_artifacts.py` | Renders every maintained PDF and DOCX page to `qa/rendered/` for review. |
-| `measure` | `scripts/gate_metrics.py --measure` | Times every arm and rewrites [`_generated/gate-metrics.md`](_generated/gate-metrics.md). |
-| `compat` | `lock`, `validate`, `build`, `fast` | The compatibility slice; runs in its own `.venv-compat` on Python 3.11 (`COMPAT_PYTHON` overrides), so it never moves the shared `.venv`. |
-| `gate` | `lock`, `validate`, `build`, `lint`, `test`, `docs`, `gnn` | What CI's `validate` job runs. |
-| `ci` | `gate`, `release` | Full local reproduction of every CI job except the parser arm. |
+| `setup` | `uv sync --locked --extra test` | Reuses an existing environment. |
+| `lock` | `uv lock --check` | Refuses a stale project/lock pair without rewriting the lock. |
+| `validate` | `aeos validate --format json` | Schema and semantic validation. |
+| `build` | `aeos build --check` | Deterministic export freshness; does not rewrite the export. |
+| `lint` | `ruff check src tests scripts` | One lint implementation. |
+| `fast` | `pytest -q --no-cov` | Default; same test selection as `test`, without coverage. |
+| `test` | `pytest` | Coverage instrumentation and the configured coverage threshold. |
+| `docs` | `python scripts/check_docs.py`, then `python scripts/gate_metrics.py --check` | Relative links, anchors, flat-index completeness and generated-metrics consistency. |
+| `gnn` | `python scripts/check_gnn.py` | Offline pin, pointer, workflow and documentation checks. |
+| `gnn-parser` | `python scripts/check_gnn.py --parser` in `.venv-gnn` | Provisions the pinned parser first; see [GNN conformance](gnn-conformance.md). |
+| `release` | `python scripts/check_release.py` | Release, ontology, digest, archive, accessibility, freshness and rendering checks. |
+| `render` | `python scripts/render_artifacts.py` | Page images under ignored `qa/rendered/`; does not regenerate publication binaries. |
+| `compat` | `lock`, `validate`, `build`, `fast` | Calls the same arm functions with `.venv-compat` and Python 3.11 (`COMPAT_PYTHON` overrides). |
+| `gate` | `lock`, `validate`, `build`, `lint`, `test`, `docs`, `gnn` | Complete offline development gate. |
+| `ci` | `gate`, `release` | Main workflow job; compatibility and network parser checks remain separate. |
+| `measure` | `python scripts/gate_metrics.py --measure` | Single sample of every substantive arm and the default invocation; not recursively itself. |
 
-`test` and `fast` are the only placement of the suite, `lint` the only
-placement of ruff, and `validate`/`build` the only placement of the ontology
-commands; every composite arm and every CI job calls them rather than repeating
-them.
+`help` and `list` are discovery commands, not gates. The measurement producer
+accepts `--baseline PATH` to retain an earlier JSON snapshot and `--output-dir
+PATH` to write evidence outside the source tree. `--record PATH` renders an
+already measured snapshot without rerunning its arms. All commands above are
+owned by `run.sh`, not repeated in workflow shell blocks.
 
 ## CI jobs
 
-Every job checks out the repository, installs uv and one interpreter with
-`ActiveInferenceInstitute/.github/.github/actions/setup-python-uv@7159e67315330aac8e414aebae0ad1e999a41448`,
-then runs one arm. The first arm syncs the lock; later steps reuse it.
+Each job uses
+`ActiveInferenceInstitute/.github/.github/actions/setup-python-uv@7159e67315330aac8e414aebae0ad1e999a41448`.
 
 | Job key | Display name | Arm | Interpreter |
 | --- | --- | --- | --- |
-| `validate` | `validate` | `./run.sh gate` | 3.14 |
+| `validate` | `validate` | `./run.sh ci` | 3.14 |
 | `compat` | `compat` | `./run.sh compat` | 3.11 |
-| `release-checks` | `release-checks` | `./run.sh release` | 3.14 |
-| `gnn-conformance` | `gnn conformance (pinned)` | `./run.sh gnn-parser` | 3.12 (provisioned by the arm) |
+| `gnn-conformance` | `gnn conformance (pinned)` | `./run.sh gnn-parser` | 3.12 |
 
-The `release-checks` job installs `libreoffice`, `poppler-utils`, and `qpdf`
-with `apt-get` before running its arm; it needs `validate` to pass first.
-`compat` exists so the 3.11 floor is still exercised without running the whole
-gate twice on every push.
+The former separate `release-checks` job is folded into `validate`. Its artifact
+validators (`libreoffice`, `poppler-utils`, `qpdf`) are installed there, and gate
+and release reuse the same interpreter, lock and project environment. The other
+jobs intentionally exercise different interpreter/package contracts; no job
+repeats lint or the coverage-enforced suite. The standalone release arm retains
+its own ontology integrity checks so it remains independently runnable.
+
+GitHub Actions is organization billing-locked for this estate pass. Local runs
+are the acceptance gate; neither this guide nor a PR claims hosted CI passed.
 
 ## Measured wall times
 
-Baseline measured once on this host on 2026-11-12, before `run.sh` existed:
-macOS arm64, Python 3.15.2, a fresh `python3 -m venv` plus
-`pip install -e '.[test]'`, then each command run once.
+Before/after timings, test counts, coverage, host and source revision live only
+in [generated gate metrics](_generated/gate-metrics.md), rendered from its JSON
+by `scripts/gate_metrics.py`. These are single warm-environment samples, not a
+statistical speedup claim. Baseline failures remain visible: the old stale-lock
+test depended on uv's error wording when its registry cache was empty. It now
+checks refusal and preservation of the lock bytes rather than a diagnostic word.
 
-| Step | Before (s) |
-| --- | --- |
-| Create the environment (`venv` + `pip install`) | 31.15 |
-| `aeos validate --format json` | 0.52 |
-| `aeos build --check` | 0.47 |
-| `pytest` (67 tests, 97.13% coverage) | 5.65 |
-| `ruff check src tests scripts` | 0.28 |
-| `scripts/check_release.py` | 35.05 (failed: `soffice` absent) |
-| Documentation arm | none existed |
-| GNN conformance | inline workflow logic only; no local command |
-
-Current arm wall times, collected tests, and coverage live in
-[`_generated/gate-metrics.md`](_generated/gate-metrics.md), which
-`./run.sh measure` rewrites; do not copy those numbers into prose.
+The default changed from `gate` to `fast`, so its before/after row compares
+different documented scopes. Full gate and CI rows remain available separately.
+The previous hand-maintained, pre-entry-point timing table is superseded by this
+fresh scripted baseline, not silently treated as comparable evidence.

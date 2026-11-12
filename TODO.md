@@ -20,9 +20,8 @@ by `./run.sh measure`.
 - [x] **Single gate entry point.** `run.sh` defines `validate`, `build`,
   `lint`, `fast`, `test`, `docs`, `gnn`, `gnn-parser`, `release`, `render`,
   `setup`, `lock`, `measure`, and the composite `compat`, `gate`, and `ci`
-  arms. Each
-  arm holds exactly one command, and `.github/workflows/aeos.yml` calls the
-  arms instead of repeating them.
+  arms. With no argument it selects `fast`; composite arms reuse the same
+  command implementations, including the compatibility slice.
 - [x] **One locked environment.** `uv.lock` pins the runtime and test set, and
   every arm runs through `uv run --locked`, so an out-of-date lockfile fails
   the arm instead of resolving different packages; `--frozen` does not check
@@ -30,10 +29,10 @@ by `./run.sh measure`.
   building an environment, and `tests/test_gate.py` pins the refusal against a
   bounded copy of the lockfile inputs. CI installs uv and one interpreter with
   the org's pinned `setup-python-uv` action.
-- [x] **CI deduplicated.** The 3.11/3.14 matrix that ran validation, the suite,
-  and lint twice is replaced by a `validate` job (3.14, `./run.sh gate`), a
-  `compat` job (3.11, `./run.sh compat`), the `release-checks` job, and the
-  `gnn-conformance` job; no job repeats lint, tests, or validation.
+- [x] **CI setup deduplicated.** `validate` (3.14, `./run.sh ci`) now owns
+  both gate and release in one project environment. `compat` (3.11) and
+  `gnn-conformance` (3.12) intentionally retain distinct runtime contracts.
+  The separate `release-checks` job and its repeated setup are removed.
 - [x] **GNN conformance in one implementation.** The inline workflow Python
   moved to `scripts/check_gnn.py`, which validates the pin, its pointer, and
   the documents that restate it, and runs the pinned parser conformance under
@@ -43,9 +42,11 @@ by `./run.sh measure`.
   link and in-page anchor in the tracked Markdown and keeps
   `docs/documentation-index.md` in step with `docs/`. There is no published
   documentation site, so no site build applies.
-- [x] **Generated metrics.** `scripts/gate_metrics.py` times every arm, records
-  collected tests and coverage, and refuses to pass when the Markdown no longer
-  matches its JSON or the recorded test count no longer matches the suite.
+- [x] **Generated before/after metrics.** The producer records every
+  substantive arm, composite and default invocation, with baseline failures
+  retained. JSON/Markdown, test count and arm coverage are checked together.
+- [x] **Offline lock regression repaired.** The stale-lock test checks
+  refusal and unchanged lock bytes, not uv's cache-dependent error wording.
 - [x] **Documentation refresh.** Added `docs/RUN_GUIDE.md`,
   `docs/gnn-conformance.md`, `docs/documentation-index.md`, and
   `docs/_generated/`; updated the hub, `README.md`, `AGENTS.md`,
@@ -71,9 +72,8 @@ repository:
   pass. This is an upstream behavior in the pinned
   `Generalized_Notation_Notation` revision
   `8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1` (v5.0.3); do not "fix" it by
-  changing the pin. Track it upstream and, if a stricter check is wanted,
-  compare the return value explicitly (`!= 0`) rather than relying on
-  truthiness.
+  changing the pin. The clean result is boolean `True`, so `!= 0` is not a
+  valid stricter predicate either; see `docs/gnn-conformance.md`.
 - **Local rendering tools.** `python scripts/check_release.py` and
   `python scripts/render_artifacts.py` need `soffice` (LibreOffice), `qpdf`,
   `pdftotext`, `pdfinfo`, and `pdftoppm`. These are not installed in every
