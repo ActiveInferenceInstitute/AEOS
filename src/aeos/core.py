@@ -5,9 +5,9 @@ from __future__ import annotations
 import copy
 import json
 import re
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
 from pathlib import Path
-from typing import Any
+from typing import IO, Any
 
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
@@ -55,10 +55,15 @@ class OntologyError(Exception):
         return result
 
 
-def read_yaml(path: Path) -> dict[str, Any]:
+def _read_mapping(
+    path: Path,
+    parse: Callable[[IO[str]], Any],
+    syntax: str,
+    parse_code: str,
+) -> dict[str, Any]:
     try:
         with path.open(encoding="utf-8") as handle:
-            document = yaml.safe_load(handle)
+            document = parse(handle)
     except FileNotFoundError as exc:
         raise OntologyError("missing-input", f"Input file does not exist: {path}") from exc
     except IsADirectoryError as exc:
@@ -69,32 +74,19 @@ def read_yaml(path: Path) -> dict[str, Any]:
         raise OntologyError("unreadable-input", f"Input file could not be read: {path}: {exc}") from exc
     except UnicodeDecodeError as exc:
         raise OntologyError("unreadable-input", f"Input file is not valid UTF-8 text: {path}") from exc
-    except yaml.YAMLError as exc:
-        raise OntologyError("yaml-parse", f"Could not parse YAML in {path}: {exc}") from exc
+    except (yaml.YAMLError, json.JSONDecodeError) as exc:
+        raise OntologyError(parse_code, f"Could not parse {syntax} in {path}: {exc}") from exc
     if not isinstance(document, dict):
         raise OntologyError("root-type", "Ontology source must contain a mapping at the root.")
     return document
 
 
+def read_yaml(path: Path) -> dict[str, Any]:
+    return _read_mapping(path, yaml.safe_load, "YAML", "yaml-parse")
+
+
 def read_json(path: Path) -> dict[str, Any]:
-    try:
-        with path.open(encoding="utf-8") as handle:
-            value = json.load(handle)
-    except FileNotFoundError as exc:
-        raise OntologyError("missing-input", f"Input file does not exist: {path}") from exc
-    except IsADirectoryError as exc:
-        raise OntologyError("unreadable-input", f"Input path is a directory, not a file: {path}") from exc
-    except PermissionError as exc:
-        raise OntologyError("unreadable-input", f"Input file is not readable: {path}") from exc
-    except OSError as exc:
-        raise OntologyError("unreadable-input", f"Input file could not be read: {path}: {exc}") from exc
-    except UnicodeDecodeError as exc:
-        raise OntologyError("unreadable-input", f"Input file is not valid UTF-8 text: {path}") from exc
-    except json.JSONDecodeError as exc:
-        raise OntologyError("json-parse", f"Could not parse JSON in {path}: {exc}") from exc
-    if not isinstance(value, dict):
-        raise OntologyError("root-type", "Ontology source must contain a mapping at the root.")
-    return value
+    return _read_mapping(path, json.load, "JSON", "json-parse")
 
 
 def load_source(path: Path) -> dict[str, Any]:
