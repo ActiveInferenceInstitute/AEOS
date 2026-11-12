@@ -35,7 +35,7 @@ The published paper is [An Active Inference Ontology for Decentralized Science](
 - [GNN](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation) —
   the Institute's notation and 25-step pipeline for specifying, validating,
   rendering, and executing active inference generative models; see its
-  [integration guides](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/tree/8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1/docs/gnn/integration)
+  [integration guides](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/tree/75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf/docs/gnn/integration)
   and the [downstream adoption guide](https://github.com/ActiveInferenceInstitute/Generalized_Notation_Notation/blob/main/docs/gnn/integration/downstream_adoption.md)
   for repositories that consume the notation.
 - [Active Inference Ontology](https://github.com/ActiveInferenceInstitute/Active_Inference_Ontology) —
@@ -55,10 +55,10 @@ suite, and the release gate. No ontology command calls Coda, GitHub, Zenodo, or
 another network service. The release gate's artifact-freshness and page-image checks
 need external tools (`soffice`, `qpdf`, `pdftotext`, `pdfinfo`, `pdftoppm`);
 without them, those checks cannot run, but the ontology, manifest, and digest
-checks still do. The GNN conformance pin is `.github/gnn-pin.json`; the offline
-arm `./run.sh gnn` verifies it without network access, and `./run.sh
-gnn-parser` installs the pinned parser and is the only network step in the
-repository. The warning-sentinel behavior of the pinned checker is recorded in
+checks still do. The GNN conformance pin is `.github/gnn-pin.json`; the arm
+`./run.sh gnn` provisions the pinned parser revision in `.venv-gnn` and runs the
+reader that revision ships, and is the only network step in the repository. The
+pin, the pointer and the migration from the interim local reader are recorded in
 [`docs/gnn-conformance.md`](docs/gnn-conformance.md).
 
 ## Quick start

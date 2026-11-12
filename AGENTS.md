@@ -29,8 +29,9 @@ numbers live only in [`docs/_generated/`](docs/_generated/README.md).
 ## Ground rules
 
 - Every ontology command is local and deterministic; none of them calls a
-  network service. The only network step in the repository is the optional
-  `./run.sh gnn-parser` arm, which installs the pinned parser and exemplar.
+  network service. The only network step in the repository is `./run.sh gnn`,
+  which provisions the pinned parser revision in `.venv-gnn` before running the
+  upstream reader.
 - IDs are kebab-case and globally unique, and references must resolve.
 - Edit `data/aeos.yaml` and regenerate `aeos.json`; never hand-edit the export.
 - When a file listed in `releases.json` changes, re-record its digest in the
@@ -53,8 +54,8 @@ coverage. Setup once with `./run.sh setup`, then:
 ```
 
 The individual arms are `./run.sh validate`, `build`, `lint`, `test`, `docs`,
-`gnn`, and `gnn-parser`; [`docs/RUN_GUIDE.md`](docs/RUN_GUIDE.md) lists the
-exact command behind each one and the CI job that calls it.
+and `gnn`; [`docs/RUN_GUIDE.md`](docs/RUN_GUIDE.md) lists the exact command
+behind each one and the CI job that calls it.
 
 `check_release.py` verifies the release manifest and digests, the sidecar,
 archive checksums, PDF/DOCX/HTML accessibility and freshness, and renders the
@@ -62,15 +63,16 @@ maintained publication artifacts to page images. Rendering needs `soffice`
 (LibreOffice), `qpdf`, `pdftotext`, `pdfinfo`, and `pdftoppm`; CI installs
 them. The gate's other checks run without them.
 
-The GNN conformance pin and its two arms are documented in
+The GNN conformance pin and its arm are documented in
 [`docs/gnn-conformance.md`](docs/gnn-conformance.md).
 
 Sidecar conventions for `.aii/` are in [`.aii/AGENTS.md`](.aii/AGENTS.md).
 
 ## Ecosystem
 
-`docs/ecosystem.md` records the verified cross-reference to GNN (v5.0.3,
-commit `8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1`), the Active Inference
+`docs/ecosystem.md` records the verified cross-reference to GNN (measured at
+v5.0.3, commit `8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1`; the pin is now v5.1.0,
+commit `75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf`), the Active Inference
 Ontology release v5 bridge, and ATLAS. These are cross-references, not
 identifier mappings: do not equate AEOS identifiers with another vocabulary,
 and do not add a mapping without the reviewed-input and resolution process the

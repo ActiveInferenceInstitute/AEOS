@@ -17,7 +17,7 @@ index](documentation-index.md) for a flat list, or go straight to a page below.
 | [Gate and CI run guide](RUN_GUIDE.md) | Fast default, explicit full gates, shared CI environment and local acceptance. |
 | [Publication](publication.md) | Source paper, archived artifacts, and rendering rules. |
 | [Ecosystem cross-reference](ecosystem.md) | How AEOS relates to GNN, the Active Inference Ontology, and ATLAS; verified overlaps only. |
-| [GNN conformance](gnn-conformance.md) | The importer pin, the `.github/GNN.md` pointer, and the two conformance arms. |
+| [GNN conformance](gnn-conformance.md) | The importer pin, the `.github/GNN.md` pointer, and the arm that runs the pinned reader. |
 | [Documentation index](documentation-index.md) | The flat index of long-lived documents. |
 | [Generated metrics](_generated/gate-metrics.md) | Scripted before/after arm wall times, results, collected tests and coverage. |
 

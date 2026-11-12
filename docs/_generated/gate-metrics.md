@@ -4,13 +4,13 @@
 
 One wall-time sample per arm on this host, with existing environments (warm setup).
 Times include child startup and arm work, not the outer admission supervisor.
-These are observations, not a statistical speedup claim. Parser provisioning and
-exemplar retrieval require network; the other arms run offline.
+These are observations, not a statistical speedup claim. Parser provisioning
+requires network; the other arms run offline.
 
 | Fact | Before | After |
 | --- | --- | --- |
-| Measured at | 2026-11-12T13:48:57+00:00 | 2026-11-12T13:54:42+00:00 |
-| Source HEAD (working-tree edits may be present) | c41e5481d88010a2ebde96555c7d8df51f55a1d5 | 9fd578d578c241f94d429754f11f5cf549594df5 |
+| Measured at | 2026-11-12T13:54:42+00:00 | 2026-11-12T16:22:04+00:00 |
+| Source HEAD (working-tree edits may be present) | 9fd578d578c241f94d429754f11f5cf549594df5 | b5e157045f1eb4c3d00f89ca93f9a563ac8d0377 |
 | Host | macOS-27.0.1 | macOS-27.0.1 |
 | Python | 3.15.2 | 3.15.2 |
 | uv | uv 0.13.7 (Homebrew 2026-11-03 aarch64-apple-darwin) | uv 0.13.7 (Homebrew 2026-11-03 aarch64-apple-darwin) |
@@ -21,19 +21,18 @@ exemplar retrieval require network; the other arms run offline.
 
 | Arm | Command | Before (s) | After (s) | Before / after result |
 | --- | --- | --- | --- | --- |
-| setup | `./run.sh setup` | 0.11 | 0.04 | passed / passed |
-| lock | `./run.sh lock` | 0.04 | 0.10 | passed / passed |
-| validate | `./run.sh validate` | 0.31 | 0.16 | passed / passed |
-| build | `./run.sh build` | 0.19 | 0.14 | passed / passed |
-| lint | `./run.sh lint` | 0.09 | 0.06 | passed / passed |
-| fast | `./run.sh fast` | 4.11 | 2.40 | failed (1) / passed |
-| test | `./run.sh test` | 4.21 | 2.20 | failed (1) / passed |
-| compat | `./run.sh compat` | 3.92 | 2.51 | failed (1) / passed |
-| docs | `./run.sh docs` | 1.89 | 1.10 | passed / passed |
-| gnn | `./run.sh gnn` | 0.14 | 0.16 | passed / passed |
-| gnn-parser | `./run.sh gnn-parser` | 1.66 | 1.63 | passed / passed |
-| release | `./run.sh release` | 45.36 | 28.61 | passed / passed |
-| render | `./run.sh render` | 38.89 | 26.17 | passed / passed |
-| gate | `./run.sh gate` | 2.33 | 3.60 | failed (1) / passed |
-| ci | `./run.sh ci` | 2.29 | 27.85 | failed (1) / passed |
-| default | `./run.sh` | 2.32 | 1.68 | failed (1) / passed |
+| setup | `./run.sh setup` | 0.04 | 0.04 | passed / passed |
+| lock | `./run.sh lock` | 0.10 | 0.03 | passed / passed |
+| validate | `./run.sh validate` | 0.16 | 0.15 | passed / passed |
+| build | `./run.sh build` | 0.14 | 0.15 | passed / passed |
+| lint | `./run.sh lint` | 0.06 | 0.05 | passed / passed |
+| fast | `./run.sh fast` | 2.40 | 1.78 | passed / passed |
+| test | `./run.sh test` | 2.20 | 2.16 | passed / passed |
+| compat | `./run.sh compat` | 2.51 | 2.33 | passed / passed |
+| docs | `./run.sh docs` | 1.10 | 1.13 | passed / passed |
+| gnn | `./run.sh gnn` | 0.16 | 0.57 | passed / passed |
+| release | `./run.sh release` | 28.61 | 23.89 | passed / passed |
+| render | `./run.sh render` | 26.17 | 26.90 | passed / passed |
+| gate | `./run.sh gate` | 3.60 | 5.24 | passed / passed |
+| ci | `./run.sh ci` | 27.85 | 51.97 | passed / passed |
+| default | `./run.sh` | 1.68 | 2.98 | passed / passed |
