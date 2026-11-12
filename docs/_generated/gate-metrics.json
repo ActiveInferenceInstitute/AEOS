@@ -7,77 +7,72 @@
     },
     {
       "name": "lock",
-      "seconds": 0.1,
+      "seconds": 0.03,
       "status": "passed"
     },
     {
       "name": "validate",
-      "seconds": 0.16,
+      "seconds": 0.15,
       "status": "passed"
     },
     {
       "name": "build",
-      "seconds": 0.14,
+      "seconds": 0.15,
       "status": "passed"
     },
     {
       "name": "lint",
-      "seconds": 0.06,
+      "seconds": 0.05,
       "status": "passed"
     },
     {
       "name": "fast",
-      "seconds": 2.4,
+      "seconds": 1.78,
       "status": "passed"
     },
     {
       "name": "test",
-      "seconds": 2.2,
+      "seconds": 2.16,
       "status": "passed"
     },
     {
       "name": "compat",
-      "seconds": 2.51,
+      "seconds": 2.33,
       "status": "passed"
     },
     {
       "name": "docs",
-      "seconds": 1.1,
+      "seconds": 1.13,
       "status": "passed"
     },
     {
       "name": "gnn",
-      "seconds": 0.16,
-      "status": "passed"
-    },
-    {
-      "name": "gnn-parser",
-      "seconds": 1.63,
+      "seconds": 0.57,
       "status": "passed"
     },
     {
       "name": "release",
-      "seconds": 28.61,
+      "seconds": 23.89,
       "status": "passed"
     },
     {
       "name": "render",
-      "seconds": 26.17,
+      "seconds": 26.9,
       "status": "passed"
     },
     {
       "name": "gate",
-      "seconds": 3.6,
+      "seconds": 5.24,
       "status": "passed"
     },
     {
       "name": "ci",
-      "seconds": 27.85,
+      "seconds": 51.97,
       "status": "passed"
     },
     {
       "name": "default",
-      "seconds": 1.68,
+      "seconds": 2.98,
       "status": "passed"
     }
   ],
@@ -85,83 +80,78 @@
     "arms": [
       {
         "name": "setup",
-        "seconds": 0.11,
-        "status": "passed"
-      },
-      {
-        "name": "lock",
         "seconds": 0.04,
         "status": "passed"
       },
       {
+        "name": "lock",
+        "seconds": 0.1,
+        "status": "passed"
+      },
+      {
         "name": "validate",
-        "seconds": 0.31,
+        "seconds": 0.16,
         "status": "passed"
       },
       {
         "name": "build",
-        "seconds": 0.19,
-        "status": "passed"
-      },
-      {
-        "name": "lint",
-        "seconds": 0.09,
-        "status": "passed"
-      },
-      {
-        "name": "fast",
-        "seconds": 4.11,
-        "status": "failed (1)"
-      },
-      {
-        "name": "test",
-        "seconds": 4.21,
-        "status": "failed (1)"
-      },
-      {
-        "name": "compat",
-        "seconds": 3.92,
-        "status": "failed (1)"
-      },
-      {
-        "name": "docs",
-        "seconds": 1.89,
-        "status": "passed"
-      },
-      {
-        "name": "gnn",
         "seconds": 0.14,
         "status": "passed"
       },
       {
-        "name": "gnn-parser",
-        "seconds": 1.66,
+        "name": "lint",
+        "seconds": 0.06,
+        "status": "passed"
+      },
+      {
+        "name": "fast",
+        "seconds": 2.4,
+        "status": "passed"
+      },
+      {
+        "name": "test",
+        "seconds": 2.2,
+        "status": "passed"
+      },
+      {
+        "name": "compat",
+        "seconds": 2.51,
+        "status": "passed"
+      },
+      {
+        "name": "docs",
+        "seconds": 1.1,
+        "status": "passed"
+      },
+      {
+        "name": "gnn",
+        "seconds": 0.16,
         "status": "passed"
       },
       {
         "name": "release",
-        "seconds": 45.36,
+        "seconds": 28.61,
         "status": "passed"
       },
       {
         "name": "render",
-        "seconds": 38.89,
+        "seconds": 26.17,
         "status": "passed"
       },
       {
         "name": "gate",
-        "seconds": 2.33,
-        "status": "failed (1)"
+        "seconds": 3.6,
+        "status": "passed"
       },
       {
         "name": "ci",
-        "seconds": 2.29,
-        "status": "failed (1)"
+        "seconds": 27.85,
+        "status": "passed"
       },
       {
         "name": "default",
-        "seconds": 2.32,
-        "status": "failed (1)"
+        "seconds": 1.68,
+        "status": "passed"
       }
     ],
     "host": {
@@ -169,9 +159,9 @@
       "python": "3.15.2",
       "uv": "uv 0.13.7 (Homebrew 2026-11-03 aarch64-apple-darwin)"
     },
-    "measured_at": "2026-11-12T13:48:57+00:00",
+    "measured_at": "2026-11-12T13:54:42+00:00",
     "schema": "aeos-gate-metrics/v2",
-    "source_revision": "c41e5481d88010a2ebde96555c7d8df51f55a1d5",
+    "source_revision": "9fd578d578c241f94d429754f11f5cf549594df5",
     "tests": {
       "collected": 68,
       "coverage_percent": 97.13
@@ -182,9 +172,9 @@
     "python": "3.15.2",
     "uv": "uv 0.13.7 (Homebrew 2026-11-03 aarch64-apple-darwin)"
   },
-  "measured_at": "2026-11-12T13:54:42+00:00",
+  "measured_at": "2026-11-12T16:22:04+00:00",
   "schema": "aeos-gate-metrics/v2",
-  "source_revision": "9fd578d578c241f94d429754f11f5cf549594df5",
+  "source_revision": "b5e157045f1eb4c3d00f89ca93f9a563ac8d0377",
   "tests": {
     "collected": 68,
     "coverage_percent": 97.13

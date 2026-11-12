@@ -42,7 +42,7 @@ file has no digest. Edit or regenerate an artifact and re-record its digest in
 the same change.
 
 CI's `validate` job runs `./run.sh ci` (gate plus release in one environment).
-The other jobs run `./run.sh compat` and `./run.sh gnn-parser`. GitHub Actions
+The other jobs run `./run.sh compat` and `./run.sh gnn`. GitHub Actions
 is billing-locked during this estate pass; local runs provide acceptance, not
 a hosted CI claim. Release readiness still requires source validation,
 export freshness, artifact checks and document rendering.

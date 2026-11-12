@@ -16,7 +16,7 @@ same change. `lock` checks freshness without installing packages.
 ./run.sh               # default: fast tests, no coverage instrumentation
 ./run.sh ci            # main CI job: gate plus release
 ./run.sh compat        # supported Python floor in a separate environment
-./run.sh gnn-parser    # pinned parser; network required
+./run.sh gnn           # pin, pointer and specs via the pinned reader; network required
 ./run.sh list          # all runnable arms
 ```
 
@@ -26,8 +26,8 @@ same change. `lock` checks freshness without installing packages.
 | --- | --- | --- |
 | `uv` (0.13 or newer) | every arm | The workflow installs it through the pinned setup action. |
 | Python 3.11 or newer | project arms | `requires-python = ">=3.11"`; local measurements record the actual version. |
-| Python 3.12 by default | `gnn-parser` | The upstream parser requires `>=3.11,<3.15`; `GNN_PYTHON` selects its separate `.venv-gnn` interpreter. |
-| Network access | initial setup, `gnn-parser` | Project arms are offline after setup; parser provisioning and the pinned-exemplar download need network. |
+| Python 3.12 by default | `gnn` | The upstream parser requires `>=3.11,<3.15`; `GNN_PYTHON` selects its separate `.venv-gnn` interpreter. |
+| Network access | initial setup, `gnn` | Project arms are offline after setup; `.venv-gnn` is provisioned from the revision the pin names, which needs network. |
 | `soffice` (LibreOffice), `qpdf`, `pdftotext`, `pdfinfo`, `pdftoppm` | `release`, `render` | Missing commands are errors, not successful skipped rendering. |
 
 ## Arms
@@ -42,13 +42,12 @@ same change. `lock` checks freshness without installing packages.
 | `fast` | `pytest -q --no-cov` | Default; same test selection as `test`, without coverage. |
 | `test` | `pytest` | Coverage instrumentation and the configured coverage threshold. |
 | `docs` | `python scripts/check_docs.py`, then `python scripts/gate_metrics.py --check` | Relative links, anchors, flat-index completeness and generated-metrics consistency. |
-| `gnn` | `python scripts/check_gnn.py` | Offline pin, pointer, workflow and documentation checks. |
-| `gnn-parser` | `python scripts/check_gnn.py --parser` in `.venv-gnn` | Provisions the pinned parser first; see [GNN conformance](gnn-conformance.md). |
+| `gnn` | `python -m gnn.importers check --repo . --require-pointer --workflow .github/workflows/aeos.yml --job gnn-conformance` in `.venv-gnn` | Provisions the pinned parser revision first, then runs the reader that revision ships; see [GNN conformance](gnn-conformance.md). |
 | `release` | `python scripts/check_release.py` | Release, ontology, digest, archive, accessibility, freshness and rendering checks. |
 | `render` | `python scripts/render_artifacts.py` | Page images under ignored `qa/rendered/`; does not regenerate publication binaries. |
 | `compat` | `lock`, `validate`, `build`, `fast` | Calls the same arm functions with `.venv-compat` and Python 3.11 (`COMPAT_PYTHON` overrides). |
-| `gate` | `lock`, `validate`, `build`, `lint`, `test`, `docs`, `gnn` | Complete offline development gate. |
-| `ci` | `gate`, `release` | Main workflow job; compatibility and network parser checks remain separate. |
+| `gate` | `lock`, `validate`, `build`, `lint`, `test`, `docs`, `gnn` | Complete development gate; only `gnn` provisioning needs network. |
+| `ci` | `gate`, `release` | Main workflow job; the compatibility slice remains separate. |
 | `measure` | `python scripts/gate_metrics.py --measure` | Single sample of every substantive arm and the default invocation; not recursively itself. |
 
 `help` and `list` are discovery commands, not gates. The measurement producer
@@ -66,7 +65,7 @@ Each job uses
 | --- | --- | --- | --- |
 | `validate` | `validate` | `./run.sh ci` | 3.14 |
 | `compat` | `compat` | `./run.sh compat` | 3.11 |
-| `gnn-conformance` | `gnn conformance (pinned)` | `./run.sh gnn-parser` | 3.12 |
+| `gnn-conformance` | `gnn conformance (pinned)` | `./run.sh gnn` | 3.12 |
 
 The former separate `release-checks` job is folded into `validate`. Its artifact
 validators (`libreoffice`, `poppler-utils`, `qpdf`) are installed there, and gate

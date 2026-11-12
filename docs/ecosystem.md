@@ -6,16 +6,21 @@ not a semantic mapping: AEOS identifiers are never equated with identifiers
 from another vocabulary, and every statement below was checked against the
 pinned revision named in the table.
 
-The GNN revision below is the one recorded in `.github/gnn-pin.json`
-(schema `gnn-importer-pin/v1`) and exercised by the `gnn-conformance` job named
-`gnn conformance (pinned)`; see [`gnn-conformance.md`](gnn-conformance.md) for
-the pin fields and both local arms.
+The GNN pin recorded in `.github/gnn-pin.json` (schema
+`gnn-importer-pin/v1`) is `v5.1.0` (`75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf`),
+exercised by the `gnn-conformance` job named `gnn conformance (pinned)`; see
+[`gnn-conformance.md`](gnn-conformance.md) for the pin fields and the arm.
+
+The overlap results below were measured at `v5.0.3`
+(`8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1`), the pin when the cross-reference
+was taken. They have not been re-measured at the current pin, so each row names
+the revision it was checked at.
 
 ## Surfaces
 
 | Surface | Repository | Revision used for this cross-reference | Role |
 | --- | --- | --- | --- |
-| GNN | `ActiveInferenceInstitute/Generalized_Notation_Notation` | v5.0.3, commit `8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1` | Notation and 25-step pipeline for specifying, validating, rendering, and executing active inference generative models. |
+| GNN | `ActiveInferenceInstitute/Generalized_Notation_Notation` | v5.0.3, commit `8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1` (current pin: v5.1.0, commit `75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf`) | Notation and 25-step pipeline for specifying, validating, rendering, and executing active inference generative models. |
 | Active Inference Ontology | `ActiveInferenceInstitute/Active_Inference_Ontology` | release v5, `main` = `0e127a5b5ed5db33a9fdd06be65c1dfca730dcf4`; bridge artifact `GNN/act_inf_ontology_terms.json` SHA-256 `b19e3d4c70cb7d47276978f4b1f21777089243f6a8514e86656b9e15f639656a` (64 declared labels, 12 resolved, 52 unresolved) | Controlled vocabulary of active inference and FEP concepts (429 terms, 238 typed relations) with a generated GNN vocabulary bridge. |
 | ATLAS | `ActiveInferenceInstitute/ATLAS` | `main` | Question-oriented discovery over entity, pattern, and typed-relationship graphs. |
 | AEOS | this repository | release v1.0.0 | Domain ontology of active and informational entities, roles, affordances, states, and interaction motifs in scientific ecosystems. |

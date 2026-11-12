@@ -18,7 +18,7 @@ documentation surfaces that record it. Measured arm wall times live in
 by `./run.sh measure`.
 
 - [x] **Single gate entry point.** `run.sh` defines `validate`, `build`,
-  `lint`, `fast`, `test`, `docs`, `gnn`, `gnn-parser`, `release`, `render`,
+  `lint`, `fast`, `test`, `docs`, `gnn`, `release`, `render`,
   `setup`, `lock`, `measure`, and the composite `compat`, `gate`, and `ci`
   arms. With no argument it selects `fast`; composite arms reuse the same
   command implementations, including the compatibility slice.
@@ -34,10 +34,20 @@ by `./run.sh measure`.
   `gnn-conformance` (3.12) intentionally retain distinct runtime contracts.
   The separate `release-checks` job and its repeated setup are removed.
 - [x] **GNN conformance in one implementation.** The inline workflow Python
-  moved to `scripts/check_gnn.py`, which validates the pin, its pointer, and
-  the documents that restate it, and runs the pinned parser conformance under
-  `--parser`. `./run.sh gnn` is offline; `./run.sh gnn-parser` provisions
-  `.venv-gnn` and is the workflow's command.
+  moved to `scripts/check_gnn.py`, which validated the pin, its pointer, and
+  the documents that restated it, and ran the pinned parser conformance under
+  `--parser`. That local reader was the interim state; see the GNN–FEP cutover
+  below.
+- [x] **GNN–FEP cutover to the shipped reader.** `scripts/check_gnn.py` is
+  deleted. The pin advances from `v5.0.3`
+  (`8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1`) to `v5.1.0`
+  (`75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf`), the release that ships
+  `src/gnn/importers.py`, and `./run.sh gnn` provisions that revision in
+  `.venv-gnn` and runs
+  `python -m gnn.importers check --repo . --require-pointer --workflow
+  .github/workflows/aeos.yml --job gnn-conformance`. The `gnn-parser` arm is
+  gone: parsing specifications is the reader's step. See
+  `docs/gnn-conformance.md`.
 - [x] **Documentation gate.** `scripts/check_docs.py` resolves every relative
   link and in-page anchor in the tracked Markdown and keeps
   `docs/documentation-index.md` in step with `docs/`. There is no published
@@ -63,17 +73,14 @@ artifacts, and folder guides now exist for `scripts/`, `src/`, and `tests/`.
 Two items are recorded here because they cannot be fixed inside this
 repository:
 
-- **GNN conformance warning sentinel.** The pinned `gnn conformance (pinned)`
-  job ([`.github/GNN.md`](.github/GNN.md), [`.github/workflows/aeos.yml`](.github/workflows/aeos.yml))
-  treats the return value of `GNNTypeChecker().validate_gnn_files(...)` as a
-  boolean (`if not GNNTypeChecker().validate_gnn_files(...): raise`). The
-  upstream checker returns the integer `2` to signal warnings, and `2` is
-  truthy in Python, so a warning-only result is indistinguishable from a clean
-  pass. This is an upstream behavior in the pinned
-  `Generalized_Notation_Notation` revision
-  `8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1` (v5.0.3); do not "fix" it by
-  changing the pin. The clean result is boolean `True`, so `!= 0` is not a
-  valid stricter predicate either; see `docs/gnn-conformance.md`.
+- **No GNN specification to validate.** The reader shipped by the pinned
+  revision reports `spec-absent` as a warning because this repository carries
+  no `*.gnn.md` file. The pin and the pointer still pass, and the arm claims
+  nothing about a model. A specification added later under the same pin is
+  validated by the same arm, with no second gate. The former
+  `GNNTypeChecker().validate_gnn_files(...)` warning-sentinel caveat belonged to
+  the deleted `--parser` path and no longer applies; see
+  `docs/gnn-conformance.md`.
 - **Local rendering tools.** `python scripts/check_release.py` and
   `python scripts/render_artifacts.py` need `soffice` (LibreOffice), `qpdf`,
   `pdftotext`, `pdfinfo`, and `pdftoppm`. These are not installed in every
