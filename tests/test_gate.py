@@ -23,6 +23,7 @@ def gate_copy(destination: Path) -> Path:
 def test_lock_arm_refuses_stale_lockfile(tmp_path: Path) -> None:
     """A dependency change without `uv lock` must fail before any arm runs."""
     runner = gate_copy(tmp_path)
+    original_lock = (tmp_path / "uv.lock").read_bytes()
     fresh = subprocess.run(
         [str(runner), "lock"], cwd=tmp_path, capture_output=True, text=True, check=False, timeout=120
     )
@@ -36,4 +37,4 @@ def test_lock_arm_refuses_stale_lockfile(tmp_path: Path) -> None:
         [str(runner), "lock"], cwd=tmp_path, capture_output=True, text=True, check=False, timeout=120
     )
     assert stale.returncode != 0
-    assert "lockfile" in (stale.stderr + stale.stdout).lower()
+    assert (tmp_path / "uv.lock").read_bytes() == original_lock

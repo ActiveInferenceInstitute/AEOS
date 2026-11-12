@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 # AEOS gate entry point.
 #
-# Every arm below runs exactly one command. CI calls these same arms, so a
-# command never exists in two places. Run `./run.sh help` for the list.
+# Each command has one implementation below; composites and CI reuse it.
+# Run `./run.sh help` for the list. With no argument, run the fast tests.
 set -euo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-PIN=".github/gnn-pin.json"
 GNN_VENV=".venv-gnn"
 GNN_PYTHON="${GNN_PYTHON:-3.12}"
 
@@ -36,7 +35,7 @@ arm_docs()     { run python scripts/check_docs.py; run python scripts/gate_metri
 arm_gnn()      { run python scripts/check_gnn.py; }
 arm_release()  { run python scripts/check_release.py; }
 arm_render()   { run python scripts/render_artifacts.py "$@"; }
-arm_measure()  { run python scripts/gate_metrics.py --measure; }
+arm_measure()  { run python scripts/gate_metrics.py --measure "$@"; }
 
 arm_gnn_parser() {
   ensure_gnn_env
@@ -45,17 +44,13 @@ arm_gnn_parser() {
 
 # The compatibility slice gets its own environment so that running it never
 # leaves the shared `.venv` on the older interpreter.
-compat_run() {
-  UV_PROJECT_ENVIRONMENT=.venv-compat UV_PYTHON="${COMPAT_PYTHON:-3.11}" \
-    uv run --locked --extra test "$@"
-}
-
-arm_compat() {
+arm_compat() (
+  export UV_PROJECT_ENVIRONMENT=.venv-compat UV_PYTHON="${COMPAT_PYTHON:-3.11}"
   arm_lock
-  compat_run aeos validate --format json
-  compat_run aeos build --check
-  compat_run pytest -q --no-cov
-}
+  arm_validate
+  arm_build
+  arm_fast
+)
 arm_gate()   { arm_lock; arm_validate; arm_build; arm_lint; arm_test; arm_docs; arm_gnn; }
 arm_ci()     { arm_gate; arm_release; }
 
@@ -67,7 +62,7 @@ arm_list() {
 
 arm_help() {
   cat <<'TXT'
-AEOS gate: ./run.sh <arm> [args]
+AEOS gate: ./run.sh [arm] [args]  (default: fast)
 
 Environment
   setup        Install the locked project environment (uv sync --locked).
@@ -88,7 +83,7 @@ Full gates
   gnn-parser   Pinned upstream GNN parser conformance in .venv-gnn.
   release      scripts/check_release.py (needs soffice, qpdf, poppler, pdftoppm).
   render       Render every maintained artifact to page images for review.
-  gate         lock, validate, build, lint, test, docs, gnn  (CI's gate job)
+  gate         lock, validate, build, lint, test, docs, gnn
   ci           gate plus release.
 
 Selection
@@ -97,7 +92,7 @@ Selection
 TXT
 }
 
-arm="${1:-gate}"
+arm="${1:-fast}"
 if [ "$#" -gt 0 ]; then shift; fi
 
 case "$arm" in

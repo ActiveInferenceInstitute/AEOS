@@ -12,14 +12,13 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# Every step below runs one `./run.sh` arm. The arm owns its command, the
-# lockfile, and the interpreter, so this file never repeats a gate command and
-# no job installs a package set that another job already installed.
+# Gate commands live only in run.sh. The main gate and release share one
+# Python 3.14 environment; compatibility and the pinned parser need other versions.
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     env:
       UV_PYTHON: "3.14"
     steps:
@@ -28,8 +27,12 @@ jobs:
         uses: ActiveInferenceInstitute/.github/.github/actions/setup-python-uv@7159e67315330aac8e414aebae0ad1e999a41448
         with:
           python-version: "3.14"
-      - name: Gate
-        run: ./run.sh gate
+      - name: Install artifact validators
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libreoffice poppler-utils qpdf
+      - name: Gate and release checks
+        run: ./run.sh ci
 
   compat:
     runs-on: ubuntu-latest
@@ -44,25 +47,6 @@ jobs:
           python-version: "3.11"
       - name: Compatibility slice
         run: ./run.sh compat
-
-  release-checks:
-    runs-on: ubuntu-latest
-    needs: validate
-    timeout-minutes: 20
-    env:
-      UV_PYTHON: "3.14"
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Set up Python with uv
-        uses: ActiveInferenceInstitute/.github/.github/actions/setup-python-uv@7159e67315330aac8e414aebae0ad1e999a41448
-        with:
-          python-version: "3.14"
-      - name: Install artifact validators
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libreoffice poppler-utils qpdf
-      - name: Release checks
-        run: ./run.sh release
 
   # GNN pin: .github/gnn-pin.json (v5.0.3, 8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1)
   gnn-conformance:
