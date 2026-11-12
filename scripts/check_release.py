@@ -430,7 +430,7 @@ def check_archive_pdfs(failures: list[str]) -> None:
 
 
 def check_active_text(failures: list[str]) -> None:
-    ignored_parts = {".git", ".venv", "archive"}
+    ignored_parts = {".git", ".venv", ".venv-gnn", "archive"}
     for path in ROOT.rglob("*"):
         if not path.is_file() or path.suffix.lower() not in ACTIVE_TEXT_SUFFIXES:
             continue
