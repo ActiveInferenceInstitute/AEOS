@@ -8,9 +8,9 @@ file no longer matches `gate-metrics.json` or the recorded test count.
 
 | Fact | Value |
 | --- | --- |
-| Collected tests | 67 |
+| Collected tests | 68 |
 | Coverage | 97.13% |
-| Measured at | 2026-11-12T13:14:43Z |
+| Measured at | 2026-11-12T13:29:42Z |
 | Host | macOS-27.0.1 |
 | Python | 3.15.2 |
 | uv | 0.13.7 |
@@ -19,14 +19,15 @@ file no longer matches `gate-metrics.json` or the recorded test count.
 
 | Arm | Command | Seconds | Result |
 | --- | --- | --- | --- |
-| setup | `./run.sh setup` | 0.04 | passed |
-| validate | `./run.sh validate` | 0.20 | passed |
-| build | `./run.sh build` | 0.20 | passed |
-| lint | `./run.sh lint` | 0.07 | passed |
-| fast | `./run.sh fast` | 3.09 | passed |
-| test | `./run.sh test` | 4.42 | passed |
-| docs | `./run.sh docs` | 3.78 | passed |
-| gnn | `./run.sh gnn` | 0.13 | passed |
-| gnn-parser | `./run.sh gnn-parser` | 2.25 | passed |
-| release | `./run.sh release` | 65.66 | passed |
-| render | `./run.sh render` | 53.90 | passed |
+| setup | `./run.sh setup` | 0.06 | passed |
+| lock | `./run.sh lock` | 0.03 | passed |
+| validate | `./run.sh validate` | 0.45 | passed |
+| build | `./run.sh build` | 0.51 | passed |
+| lint | `./run.sh lint` | 0.12 | passed |
+| fast | `./run.sh fast` | 6.40 | passed |
+| test | `./run.sh test` | 6.66 | passed |
+| docs | `./run.sh docs` | 1.10 | passed |
+| gnn | `./run.sh gnn` | 0.15 | passed |
+| gnn-parser | `./run.sh gnn-parser` | 2.82 | passed |
+| release | `./run.sh release` | 84.34 | passed |
+| render | `./run.sh render` | 41.32 | passed |

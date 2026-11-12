@@ -2,57 +2,62 @@
   "arms": [
     {
       "name": "setup",
-      "seconds": 0.04,
+      "seconds": 0.06,
+      "status": "passed"
+    },
+    {
+      "name": "lock",
+      "seconds": 0.03,
       "status": "passed"
     },
     {
       "name": "validate",
-      "seconds": 0.2,
+      "seconds": 0.45,
       "status": "passed"
     },
     {
       "name": "build",
-      "seconds": 0.2,
+      "seconds": 0.51,
       "status": "passed"
     },
     {
       "name": "lint",
-      "seconds": 0.07,
+      "seconds": 0.12,
       "status": "passed"
     },
     {
       "name": "fast",
-      "seconds": 3.09,
+      "seconds": 6.4,
       "status": "passed"
     },
     {
       "name": "test",
-      "seconds": 4.42,
+      "seconds": 6.66,
       "status": "passed"
     },
     {
       "name": "docs",
-      "seconds": 3.78,
+      "seconds": 1.1,
       "status": "passed"
     },
     {
       "name": "gnn",
-      "seconds": 0.13,
+      "seconds": 0.15,
       "status": "passed"
     },
     {
       "name": "gnn-parser",
-      "seconds": 2.25,
+      "seconds": 2.82,
       "status": "passed"
     },
     {
       "name": "release",
-      "seconds": 65.66,
+      "seconds": 84.34,
       "status": "passed"
     },
     {
       "name": "render",
-      "seconds": 53.9,
+      "seconds": 41.32,
       "status": "passed"
     }
   ],
@@ -61,10 +66,10 @@
     "python": "3.15.2",
     "uv": "0.13.7"
   },
-  "measured_at": "2026-11-12T13:14:43Z",
+  "measured_at": "2026-11-12T13:29:42Z",
   "schema": "aeos-gate-metrics/v1",
   "tests": {
-    "collected": 67,
+    "collected": 68,
     "coverage_percent": 97.13
   }
 }
