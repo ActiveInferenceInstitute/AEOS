@@ -2,7 +2,7 @@
 
 Status: Active (maintained)
 Owner: Active Inference Institute (steward: Daniel Friedman)
-Last reviewed: 2026-11-01 (GNN alignment and gate repair)
+Last reviewed: 2026-11-12 (GNN reader cutover, gate entry point, docs estate)
 
 Review scope: deepest hostile red-team review of the full repository
 (`src/`, `tests/`, `scripts/`, `docs/`, `paper/`, `data/`, `schema/`,
@@ -21,18 +21,21 @@ by `./run.sh measure`.
   `lint`, `fast`, `test`, `docs`, `gnn`, `release`, `render`,
   `setup`, `lock`, `measure`, and the composite `compat`, `gate`, and `ci`
   arms. With no argument it selects `fast`; composite arms reuse the same
-  command implementations, including the compatibility slice.
+  command implementations, including the compatibility slice. (PR #8,
+  `17e5e71`; extended by `c41e548` and `49ad17e`.)
 - [x] **One locked environment.** `uv.lock` pins the runtime and test set, and
   every arm runs through `uv run --locked`, so an out-of-date lockfile fails
   the arm instead of resolving different packages; `--frozen` does not check
   freshness, so no arm uses it. `./run.sh lock` makes the same check without
   building an environment, and `tests/test_gate.py` pins the refusal against a
   bounded copy of the lockfile inputs. CI installs uv and one interpreter with
-  the org's pinned `setup-python-uv` action.
+  the org's pinned `setup-python-uv` action. (PR #9, `c41e548`; the byte
+  comparison of the lockfile is PR #10, `49ad17e`.)
 - [x] **CI setup deduplicated.** `validate` (3.14, `./run.sh ci`) now owns
   both gate and release in one project environment. `compat` (3.11) and
   `gnn-conformance` (3.12) intentionally retain distinct runtime contracts.
   The separate `release-checks` job and its repeated setup are removed.
+  (PR #10, `49ad17e`.)
 - [x] **GNN conformance in one implementation.** The inline workflow Python
   moved to `scripts/check_gnn.py`, which validated the pin, its pointer, and
   the documents that restated it, and ran the pinned parser conformance under
@@ -47,7 +50,8 @@ by `./run.sh measure`.
   `python -m gnn.importers check --repo . --require-pointer --workflow
   .github/workflows/aeos.yml --job gnn-conformance`. The `gnn-parser` arm is
   gone: parsing specifications is the reader's step. See
-  `docs/gnn-conformance.md`.
+  `docs/gnn-conformance.md`. Merged as `a7e9d28` (PR #11); `./run.sh gnn`
+  reports `verdict: ok` with one expected `spec-absent` warning.
 - [x] **Documentation gate.** `scripts/check_docs.py` resolves every relative
   link and in-page anchor in the tracked Markdown and keeps
   `docs/documentation-index.md` in step with `docs/`. There is no published
@@ -65,12 +69,32 @@ by `./run.sh measure`.
   `docs` list still match the sidecar renderer that produced
   `.aii/docs/INTEGRATION.md`.
 
+### Open after this pass
+
+- **Re-measure the GNN overlap at the current pin.** `docs/ecosystem.md`
+  records 0 of 71 AEOS labels matching GNN's 64 declared annotation labels at
+  `v5.0.3` (`8f293d9`) and says those rows have not been re-measured at the
+  current pin. The pin is now `v5.1.0` (`75c834bd`); the pinned revision's
+  `docs/gnn/advanced/ontology_system.md` still declares 64 labels, but the label
+  set itself has not been compared. Next action: apply the documented
+  normalization rule to the pinned vocabulary copy and update the revision
+  column. Owner: this repository's maintainer. Blocker: none in the
+  repository; it needs network access to the pinned revision.
+- **Refresh the measured gate record for the cutover.**
+  `docs/_generated/gate-metrics.md` was sampled at `b5e1570`, before the reader
+  cutover, so its `gnn`, `gate`, and `ci` rows describe the deleted
+  `scripts/check_gnn.py` arm (`gnn`: 0.57 s) rather than the pinned importer.
+  `./run.sh measure` rewrites the record from the current `run.sh`;
+  `./run.sh docs` only checks that the record is self-consistent, so it does not
+  catch this drift. Owner: this repository's maintainer. Blocker: none; the
+  `gnn` step needs network access to provision `.venv-gnn`.
+
 ## Known caveats and environment prerequisites (pass 3, 2026-11-11)
 
 Documentation-completeness pass. No open documentation gap was found: the
 `docs/` tree, `README.md`, and `AGENTS.md` already match the code, data, and
 artifacts, and folder guides now exist for `scripts/`, `src/`, and `tests/`.
-Two items are recorded here because they cannot be fixed inside this
+Three items are recorded here because they cannot be fixed inside this
 repository:
 
 - **No GNN specification to validate.** The reader shipped by the pinned
@@ -83,8 +107,18 @@ repository:
   `docs/gnn-conformance.md`.
 - **Local rendering tools.** `python scripts/check_release.py` and
   `python scripts/render_artifacts.py` need `soffice` (LibreOffice), `qpdf`,
-  `pdftotext`, `pdfinfo`, and `pdftoppm`. These are not installed in every
-  environment; CI installs them. All non-rendering checks pass locally.
+  `pdftotext`, `pdfinfo`, and `pdftoppm`. A bare environment without them fails
+  those two arms instead of skipping checks; the workflow installs them
+  (`.github/workflows/aeos.yml`). On the development host all five are present
+  and `./run.sh release` passes.
+- **Hosted CI cannot be observed.** GitHub Actions is locked for the
+  organization, so no workflow run is evidence. Run `43258159526` on `main` at
+  `a7e9d28` failed in 2–3 s with "The job was not started because your account
+  is locked due to a billing issue", and the five most recent runs in
+  `gh run list -L 5` all fail in under 10 s. Treat the workflow files as the
+  contract and `./run.sh` as the proof; nothing in this backlog is closed on a
+  hosted-run badge, and a red `AEOS validation` badge on `main` reflects the
+  lock, not this code.
 
 ## GNN alignment and gate repair (2026-11-01)
 
@@ -113,7 +147,9 @@ cross-reference to the GNN and ontology vocabulary surfaces.
 - [x] **Ecosystem cross-reference added.** `docs/ecosystem.md` records the
   verified overlap with ontology release v5 (2 of 71 AEOS labels by
   normalized label) and with GNN's 64 declared annotation labels (0 of 71),
-  and states that no identifiers are shared or mapped. The sidecar's ontology
+  and states that no identifiers are shared or mapped. The GNN rows were
+  measured at the then-current `v5.0.3`; re-measuring at `v5.1.0` is the open
+  item in the 2026-11-12 section above. The sidecar's ontology
   relation note now records the same verified fact instead of an unsupported
   claim.
 - [x] **Agent guide added.** Root `AGENTS.md` documents the surfaces, ground
@@ -125,8 +161,9 @@ cross-reference to the GNN and ontology vocabulary surfaces.
   reached end of life on 2026-10-31). The test extra moves to
   `pytest>=9,<10`, `pytest-cov>=7,<8`, `ruff>=0.17,<1`.
 
-Open items after this pass: none in these areas. The rendering check in
-`scripts/check_release.py` still requires `soffice` locally; CI installs it.
+Open items after this pass: none in these areas. The rendering checks still
+require the LibreOffice, qpdf, and poppler binaries; they are installed on the
+development host, and the workflow installs them.
 
 ## Docs-deep review (2026-08-02)
 
@@ -140,8 +177,10 @@ cross-cutting refactor.
 ### Minor
 
 - [x] **MIN-1 — README quick start omits the Python requirement
-  (completed).** Added "Requires Python 3.10 or newer." to `README.md`,
-  matching `requires-python` in `pyproject.toml`.
+  (completed).** `README.md` now states "Requires Python 3.11 or newer",
+  matching `requires-python = ">=3.11"` in `pyproject.toml`. The line read
+  3.10 when this item closed; `requires-python` moved to 3.11 in `57f1b2c`
+  and `README.md` followed in `728ab85`.
 - [x] **MIN-2 — README did not cross-link the full docs set (completed).**
   The Contributing section now links `docs/model.md` and
   `docs/publication.md` alongside the existing fork/data/contributing docs.
@@ -206,9 +245,10 @@ cross-cutting refactor.
 
 ## Notes
 
-- The release gate's only local failure is the missing `soffice` (LibreOffice)
-  binary; CI installs it (`apt-get install libreoffice ...`). All non-rendering
-  checks pass locally.
+- Verified on 2026-11-12: `./run.sh ci` passes end to end (68 tests, 97.13%
+  coverage, 25.67 s) with `soffice`, `qpdf`, `pdftotext`, `pdfinfo`, and
+  `pdftoppm` installed, so the release gate runs every check rather than
+  failing on a missing tool.
 - The deep review found no remaining open findings; the sole Major
   (paper-freshness) and all Minor/Medium items have been implemented and are
   recorded above.
