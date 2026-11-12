@@ -14,7 +14,7 @@ tooling that validates, exports, and publishes it.
 | `schema/aeos.schema.json` | Structural contract for the source. |
 | `releases.json` | Release manifest with counts and SHA-256 digests for the current release. |
 | `run.sh` | Single gate entry point; every arm and the CI jobs call it. |
-| `uv.lock` | Locked environment that every arm runs through `uv run --frozen`. |
+| `uv.lock` | Locked environment that every arm runs through `uv run --locked`. |
 | `scripts/check_release.py` | Full release gate (see below). |
 | `docs/` | Model, data contract, CLI, forking, contributing, publication, ecosystem, run guide, GNN conformance. |
 | `paper/` | Maintained publication source and rendered artifacts. |

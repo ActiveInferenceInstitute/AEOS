@@ -2,10 +2,12 @@
 
 `./run.sh` is the single gate entry point. Each arm runs exactly one command,
 CI calls these same arms, and no command is written down twice. The project
-environment is `uv.lock`; every arm runs through `uv run --frozen`, so an
+environment is `uv.lock`; every arm runs through `uv run --locked`, so an
 out-of-date lockfile fails the arm instead of resolving a different set of
-packages. After changing a dependency in `pyproject.toml`, refresh the lock
-with `uv lock` in the same change.
+packages. `--frozen` would skip that check, which is why no arm uses it.
+After changing a dependency in `pyproject.toml`, refresh the lock with
+`uv lock` in the same change; `./run.sh lock` and the first step of `gate`
+refuse a stale pair before any build runs.
 
 ```bash
 ./run.sh help          # arms and what they run
@@ -27,7 +29,8 @@ with `uv lock` in the same change.
 
 | Arm | Command it runs | Notes |
 | --- | --- | --- |
-| `setup` | `uv sync --frozen --extra test` | Idempotent; arms sync on first use anyway. |
+| `setup` | `uv sync --locked --extra test` | Idempotent; arms sync on first use anyway. |
+| `lock` | `uv lock --check` | Refuses a lockfile that is out of date; runs first in `gate` and `compat`. |
 | `validate` | `aeos validate --format json` | Schema and semantic validation of `data/aeos.yaml`. |
 | `build` | `aeos build --check` | Generated export freshness. |
 | `lint` | `ruff check src tests scripts` | The lint gate. |
@@ -39,8 +42,8 @@ with `uv lock` in the same change.
 | `release` | `scripts/check_release.py` | Ontology, sidecar, archive, digest, artifact, freshness, and rendering checks. |
 | `render` | `scripts/render_artifacts.py` | Renders every maintained PDF and DOCX page to `qa/rendered/` for review. |
 | `measure` | `scripts/gate_metrics.py --measure` | Times every arm and rewrites [`_generated/gate-metrics.md`](_generated/gate-metrics.md). |
-| `compat` | `validate`, `build`, `fast` | The Python-version compatibility slice. |
-| `gate` | `validate`, `build`, `lint`, `test`, `docs`, `gnn` | What CI's `validate` job runs. |
+| `compat` | `lock`, `validate`, `build`, `fast` | The compatibility slice; runs in its own `.venv-compat` on Python 3.11 (`COMPAT_PYTHON` overrides), so it never moves the shared `.venv`. |
+| `gate` | `lock`, `validate`, `build`, `lint`, `test`, `docs`, `gnn` | What CI's `validate` job runs. |
 | `ci` | `gate`, `release` | Full local reproduction of every CI job except the parser arm. |
 
 `test` and `fast` are the only placement of the suite, `lint` the only

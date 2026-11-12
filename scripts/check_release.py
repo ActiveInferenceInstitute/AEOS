@@ -429,12 +429,16 @@ def check_archive_pdfs(failures: list[str]) -> None:
             fail(f"archived PDF inventory failed for {path}: {completed.stderr.strip()}", failures)
 
 
+def _ignored_parts(parts: tuple[str, ...]) -> bool:
+    """Environments and preserved captures are not authored text."""
+    return bool({".git", "archive"}.intersection(parts)) or any(part.startswith(".venv") for part in parts)
+
+
 def check_active_text(failures: list[str]) -> None:
-    ignored_parts = {".git", ".venv", ".venv-gnn", "archive"}
     for path in ROOT.rglob("*"):
         if not path.is_file() or path.suffix.lower() not in ACTIVE_TEXT_SUFFIXES:
             continue
-        if ignored_parts.intersection(path.parts):
+        if _ignored_parts(path.parts):
             continue
         if path == Path(__file__).resolve():
             continue

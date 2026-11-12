@@ -19,13 +19,17 @@ by `./run.sh measure`.
 
 - [x] **Single gate entry point.** `run.sh` defines `validate`, `build`,
   `lint`, `fast`, `test`, `docs`, `gnn`, `gnn-parser`, `release`, `render`,
-  `setup`, `measure`, and the composite `compat`, `gate`, and `ci` arms. Each
+  `setup`, `lock`, `measure`, and the composite `compat`, `gate`, and `ci`
+  arms. Each
   arm holds exactly one command, and `.github/workflows/aeos.yml` calls the
   arms instead of repeating them.
 - [x] **One locked environment.** `uv.lock` pins the runtime and test set, and
-  every arm runs through `uv run --frozen`, so an out-of-date lockfile fails
-  the arm instead of resolving different packages. CI installs uv and one
-  interpreter with the org's pinned `setup-python-uv` action.
+  every arm runs through `uv run --locked`, so an out-of-date lockfile fails
+  the arm instead of resolving different packages; `--frozen` does not check
+  freshness, so no arm uses it. `./run.sh lock` makes the same check without
+  building an environment, and `tests/test_gate.py` pins the refusal against a
+  bounded copy of the lockfile inputs. CI installs uv and one interpreter with
+  the org's pinned `setup-python-uv` action.
 - [x] **CI deduplicated.** The 3.11/3.14 matrix that ran validation, the suite,
   and lint twice is replaced by a `validate` job (3.14, `./run.sh gate`), a
   `compat` job (3.11, `./run.sh compat`), the `release-checks` job, and the
