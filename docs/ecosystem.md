@@ -6,6 +6,11 @@ not a semantic mapping: AEOS identifiers are never equated with identifiers
 from another vocabulary, and every statement below was checked against the
 pinned revision named in the table.
 
+The GNN revision below is the one recorded in `.github/gnn-pin.json`
+(schema `gnn-importer-pin/v1`) and exercised by the `gnn-conformance` job named
+`gnn conformance (pinned)`; see [`gnn-conformance.md`](gnn-conformance.md) for
+the pin fields and both local arms.
+
 ## Surfaces
 
 | Surface | Repository | Revision used for this cross-reference | Role |

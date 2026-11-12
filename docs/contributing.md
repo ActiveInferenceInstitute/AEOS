@@ -11,16 +11,22 @@
 
 ## Required checks
 
+`./run.sh` is the gate entry point; each arm is exactly one command and CI
+calls the same arms (see [RUN_GUIDE.md](RUN_GUIDE.md)). Install the locked
+environment once with `./run.sh setup`.
+
 ```bash
-aeos validate --format json
-aeos build
-aeos build --check
-aeos report --format json
-pytest                       # runs with --cov=src --cov-fail-under=90
-ruff check src tests scripts
-python scripts/render_artifacts.py
-python scripts/check_release.py
+./run.sh gate      # validate, build --check, lint, pytest, docs, gnn pin
+./run.sh release   # release gate; needs soffice, qpdf, poppler
+./run.sh render    # page images for manual inspection
 ```
+
+Use a single arm while working: `./run.sh fast` for the suite without the
+coverage gate, or `./run.sh lint`, `./run.sh validate`, `./run.sh build`,
+`./run.sh docs`, `./run.sh gnn`. `./run.sh list` prints every arm. The full
+arm is `./run.sh test`, which carries `--cov=src --cov-fail-under=90`.
+`aeos report --format json` still gives a machine-readable summary without
+running the gate.
 
 ## Release record
 
@@ -35,9 +41,10 @@ missing, when its bytes no longer match the recorded digest, or when a listed
 file has no digest. Edit or regenerate an artifact and re-record its digest in
 the same change.
 
-The CI workflow runs the same checks on pushes and pull requests. A release is
-ready only when source validation, generated-file freshness, artifact checks,
-and document rendering all pass.
+CI runs `./run.sh gate`, `./run.sh compat`, `./run.sh release`, and
+`./run.sh gnn-parser` on pushes and pull requests; the workflow holds no
+command of its own. A release is ready only when source validation,
+generated-file freshness, artifact checks, and document rendering all pass.
 
 Cross-repository references (GNN, the Active Inference Ontology, ATLAS) are
 documented in [ecosystem.md](ecosystem.md). They are cross-references, not

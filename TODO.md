@@ -10,6 +10,46 @@ Review scope: deepest hostile red-team review of the full repository
 graded Minor / Medium / Major. All validated Minor, Medium, and Major
 findings have now been implemented (see Completed/Closed).
 
+## Gate entry point and documentation estate (2026-11-12)
+
+Scope: one composable gate entry point, CI without repeated work, and the
+documentation surfaces that record it. Measured arm wall times live in
+[`docs/_generated/gate-metrics.md`](docs/_generated/gate-metrics.md), produced
+by `./run.sh measure`.
+
+- [x] **Single gate entry point.** `run.sh` defines `validate`, `build`,
+  `lint`, `fast`, `test`, `docs`, `gnn`, `gnn-parser`, `release`, `render`,
+  `setup`, `measure`, and the composite `compat`, `gate`, and `ci` arms. Each
+  arm holds exactly one command, and `.github/workflows/aeos.yml` calls the
+  arms instead of repeating them.
+- [x] **One locked environment.** `uv.lock` pins the runtime and test set, and
+  every arm runs through `uv run --frozen`, so an out-of-date lockfile fails
+  the arm instead of resolving different packages. CI installs uv and one
+  interpreter with the org's pinned `setup-python-uv` action.
+- [x] **CI deduplicated.** The 3.11/3.14 matrix that ran validation, the suite,
+  and lint twice is replaced by a `validate` job (3.14, `./run.sh gate`), a
+  `compat` job (3.11, `./run.sh compat`), the `release-checks` job, and the
+  `gnn-conformance` job; no job repeats lint, tests, or validation.
+- [x] **GNN conformance in one implementation.** The inline workflow Python
+  moved to `scripts/check_gnn.py`, which validates the pin, its pointer, and
+  the documents that restate it, and runs the pinned parser conformance under
+  `--parser`. `./run.sh gnn` is offline; `./run.sh gnn-parser` provisions
+  `.venv-gnn` and is the workflow's command.
+- [x] **Documentation gate.** `scripts/check_docs.py` resolves every relative
+  link and in-page anchor in the tracked Markdown and keeps
+  `docs/documentation-index.md` in step with `docs/`. There is no published
+  documentation site, so no site build applies.
+- [x] **Generated metrics.** `scripts/gate_metrics.py` times every arm, records
+  collected tests and coverage, and refuses to pass when the Markdown no longer
+  matches its JSON or the recorded test count no longer matches the suite.
+- [x] **Documentation refresh.** Added `docs/RUN_GUIDE.md`,
+  `docs/gnn-conformance.md`, `docs/documentation-index.md`, and
+  `docs/_generated/`; updated the hub, `README.md`, `AGENTS.md`,
+  `docs/contributing.md`, `docs/forking.md`, and the `scripts/`, `src/`, and
+  `tests/` folder guides. `.aii/` is unchanged: its declared task commands and
+  `docs` list still match the sidecar renderer that produced
+  `.aii/docs/INTEGRATION.md`.
+
 ## Known caveats and environment prerequisites (pass 3, 2026-11-11)
 
 Documentation-completeness pass. No open documentation gap was found: the

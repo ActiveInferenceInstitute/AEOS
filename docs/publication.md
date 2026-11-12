@@ -31,3 +31,8 @@ contain every current heading and identity token from `paper/aeos.md`, and
 `paper/aeos-2022-v2.pdf` must remain content-faithful to the archived 2022/v2
 source PDF. This prevents a stale maintained paper from silently passing as
 current.
+
+Two gate arms cover this page: `./run.sh render` renders every maintained PDF
+and DOCX page to images for inspection, and `./run.sh release` runs the full
+release gate including that rendering check. [`RUN_GUIDE.md`](RUN_GUIDE.md)
+lists both with their prerequisites.

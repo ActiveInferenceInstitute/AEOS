@@ -1,8 +1,9 @@
 # `src/` — the `aeos` Python package
 
 Installable package (`src` layout) backing the `aeos` console script and the
-`python -m aeos` entry point. Install with
-`python3 -m pip install -e '.[test]'` from the repository root.
+`python -m aeos` entry point. `./run.sh setup` builds the locked `.venv` from
+the repository root; commands then run as `./run.sh <arm>` or
+`uv run aeos <command>`.
 
 | Module | Responsibility |
 | --- | --- |
