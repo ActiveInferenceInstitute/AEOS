@@ -42,7 +42,7 @@ COMPOSITE_ACTION = (
 )
 PARSER_DEPENDENCIES = ("defusedxml", "psutil", "pyyaml")
 EXEMPLAR = "input/gnn_files/basics/static_perception.md"
-SKIP_PARTS = {".git", ".venv", ".venv-gnn", "qa", "node_modules"}
+SKIP_PARTS = {".git", "qa", "node_modules"}
 
 
 def fail(message: str, failures: list[str]) -> None:
@@ -148,6 +148,7 @@ def repository_sketches() -> list[Path]:
         path
         for path in ROOT.rglob("*.gnn.md")
         if not SKIP_PARTS.intersection(path.relative_to(ROOT).parts)
+        and not any(part.startswith(".venv") for part in path.relative_to(ROOT).parts)
     )
 
 

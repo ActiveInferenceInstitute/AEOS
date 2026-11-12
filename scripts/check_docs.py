@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 HUB = DOCS / "README.md"
 INDEX = DOCS / "documentation-index.md"
-SKIP_PARTS = {".git", ".venv", ".venv-gnn", ".pytest_cache", ".ruff_cache", "qa", "node_modules"}
+SKIP_PARTS = {".git", ".pytest_cache", ".ruff_cache", "qa", "node_modules"}
 INDEX_EXEMPT = {"README.md", "documentation-index.md"}
 
 LINK = re.compile(r"!?\[(?P<text>[^\]]*)\]\((?P<target>[^)\s]+)(?:\s+\"[^\"]*\")?\)")
@@ -35,6 +35,7 @@ def markdown_files() -> list[Path]:
         path
         for path in ROOT.rglob("*.md")
         if not SKIP_PARTS.intersection(path.relative_to(ROOT).parts)
+        and not any(part.startswith(".venv") for part in path.relative_to(ROOT).parts)
     )
 
 

@@ -31,6 +31,7 @@ SCHEMA = "aeos-gate-metrics/v1"
 
 MEASURED_ARMS = (
     "setup",
+    "lock",
     "validate",
     "build",
     "lint",

@@ -11,10 +11,11 @@ PIN=".github/gnn-pin.json"
 GNN_VENV=".venv-gnn"
 GNN_PYTHON="${GNN_PYTHON:-3.12}"
 
-# The project environment is the lockfile, not an ad-hoc install: `--frozen`
-# fails when `uv.lock` is out of date with `pyproject.toml`.
+# The project environment is the lockfile, not an ad-hoc install: `--locked`
+# refuses to run when `uv.lock` is out of date with `pyproject.toml`, and the
+# `lock` arm checks the same condition without building an environment.
 run() {
-  uv run --frozen --extra test "$@"
+  uv run --locked --extra test "$@"
 }
 
 ensure_gnn_env() {
@@ -24,7 +25,8 @@ ensure_gnn_env() {
   printf '%s\n' "$requirements" | uv pip install --quiet --python "$GNN_VENV/bin/python" --requirements -
 }
 
-arm_setup()    { uv sync --frozen --extra test; }
+arm_lock()     { uv lock --check; }
+arm_setup()    { uv sync --locked --extra test; }
 arm_validate() { run aeos validate --format json; }
 arm_build()    { run aeos build --check; }
 arm_lint()     { run ruff check src tests scripts; }
@@ -41,11 +43,23 @@ arm_gnn_parser() {
   "$GNN_VENV/bin/python" scripts/check_gnn.py --parser "$@"
 }
 
-arm_compat() { arm_validate; arm_build; arm_fast; }
-arm_gate()   { arm_validate; arm_build; arm_lint; arm_test; arm_docs; arm_gnn; }
+# The compatibility slice gets its own environment so that running it never
+# leaves the shared `.venv` on the older interpreter.
+compat_run() {
+  UV_PROJECT_ENVIRONMENT=.venv-compat UV_PYTHON="${COMPAT_PYTHON:-3.11}" \
+    uv run --locked --extra test "$@"
+}
+
+arm_compat() {
+  arm_lock
+  compat_run aeos validate --format json
+  compat_run aeos build --check
+  compat_run pytest -q --no-cov
+}
+arm_gate()   { arm_lock; arm_validate; arm_build; arm_lint; arm_test; arm_docs; arm_gnn; }
 arm_ci()     { arm_gate; arm_release; }
 
-ARMS="setup validate build lint fast test compat docs gnn gnn-parser release render measure gate ci"
+ARMS="setup lock validate build lint fast test compat docs gnn gnn-parser release render measure gate ci"
 
 arm_list() {
   for name in $ARMS; do printf '%s\n' "$name"; done
@@ -56,7 +70,8 @@ arm_help() {
 AEOS gate: ./run.sh <arm> [args]
 
 Environment
-  setup        Install the locked project environment (uv sync --frozen).
+  setup        Install the locked project environment (uv sync --locked).
+  lock         uv lock --check: refuse a lockfile that is out of date.
   measure      Time every arm on this host and refresh docs/_generated/gate-metrics.{json,md}.
 
 Fast feedback
@@ -69,11 +84,11 @@ Fast feedback
 
 Full gates
   test         pytest with --cov=src --cov-fail-under=90
-  compat       Python-version compatibility slice: validate, build, fast.
+  compat       Compatibility slice in .venv-compat: lock, validate, build, fast.
   gnn-parser   Pinned upstream GNN parser conformance in .venv-gnn.
   release      scripts/check_release.py (needs soffice, qpdf, poppler, pdftoppm).
   render       Render every maintained artifact to page images for review.
-  gate         validate, build, lint, test, docs, gnn  (what CI's gate job runs)
+  gate         lock, validate, build, lint, test, docs, gnn  (CI's gate job)
   ci           gate plus release.
 
 Selection
@@ -87,6 +102,7 @@ if [ "$#" -gt 0 ]; then shift; fi
 
 case "$arm" in
   setup)      arm_setup "$@" ;;
+  lock)       arm_lock "$@" ;;
   validate)   arm_validate "$@" ;;
   build)      arm_build "$@" ;;
   lint)       arm_lint "$@" ;;
