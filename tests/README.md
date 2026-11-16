@@ -14,6 +14,8 @@ with `./run.sh setup`, then run `./run.sh test` from the repository root;
 | [`test_gate.py`](test_gate.py) | A fresh lock passes; changed dependencies refuse without modifying the lock, independent of uv's diagnostic wording or registry cache. |
 | [`test_render_artifacts.py`](test_render_artifacts.py) | Disposable filesystem regressions for unsafe output refusal, existing-content preservation, staging failures and replacement of owned page images; no external renderer required. |
 
+| [`test_gate_metrics.py`](test_gate_metrics.py) | Historical/current metric identity, preserved observations, and source-drift refusal. |
+
 No test needs a network service, Coda, GitHub, Zenodo, or an external
 application. The release-checks tests exercise the non-rendering checks; the
 rendering path additionally needs the external tools listed in

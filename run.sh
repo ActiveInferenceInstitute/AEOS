@@ -66,10 +66,12 @@ arm_compat() (
   arm_build
   arm_fast
 )
-arm_gate()   { arm_lock; arm_validate; arm_build; arm_lint; arm_test; arm_docs; arm_gnn; }
-arm_ci()     { arm_gate; arm_release; }
+arm_project()    { arm_lock; arm_validate; arm_build; arm_lint; arm_test; arm_docs; }
+arm_gate()       { arm_project; arm_gnn; }
+arm_ci_project() { arm_project; arm_release; }
+arm_ci()         { arm_gate; arm_release; }
 
-ARMS="setup lock validate build lint fast test compat docs gnn release render measure gate ci"
+ARMS="setup lock validate build lint fast test compat docs gnn release render measure gate ci-project ci"
 
 arm_list() {
   for name in $ARMS; do printf '%s\n' "$name"; done
@@ -98,6 +100,7 @@ Full gates
   release      scripts/check_release.py (needs soffice, qpdf, poppler, pdftoppm).
   render       Render every maintained artifact to page images for review.
   gate         lock, validate, build, lint, test, docs, gnn
+  ci-project   lock, validate, build, lint, test, docs, release (hosted project job).
   ci           gate plus release.
 
 Selection
@@ -124,6 +127,7 @@ case "$arm" in
   render)     arm_render "$@" ;;
   measure)    arm_measure "$@" ;;
   gate)       arm_gate "$@" ;;
+  ci-project) arm_ci_project "$@" ;;
   ci)         arm_ci "$@" ;;
   list)       arm_list ;;
   help|-h|--help) arm_help ;;

@@ -20,5 +20,7 @@ that logic. This repository carries no `*.gnn.md` specification, so the reader
 reports `spec-absent` as a warning: the pin and the pointer pass, and the job
 makes no claim that AEOS ships a GNN model.
 
+The dedicated `gnn-conformance` job is the sole hosted GNN owner; hosted `validate` uses `ci-project` without duplication. Full local `gate`/`ci` retain GNN. Exact pin and historical label-overlap provenance remain unchanged.
+
 [`docs/gnn-conformance.md`](../docs/gnn-conformance.md) records the pin fields,
 the arm, and the migration from the interim local reader.

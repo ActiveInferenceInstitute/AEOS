@@ -1,182 +1,280 @@
 {
-  "arms": [
-    {
-      "name": "setup",
-      "seconds": 0.04,
-      "status": "passed"
-    },
-    {
-      "name": "lock",
-      "seconds": 0.03,
-      "status": "passed"
-    },
-    {
-      "name": "validate",
-      "seconds": 0.15,
-      "status": "passed"
-    },
-    {
-      "name": "build",
-      "seconds": 0.15,
-      "status": "passed"
-    },
-    {
-      "name": "lint",
-      "seconds": 0.05,
-      "status": "passed"
-    },
-    {
-      "name": "fast",
-      "seconds": 1.78,
-      "status": "passed"
-    },
-    {
-      "name": "test",
-      "seconds": 2.16,
-      "status": "passed"
-    },
-    {
-      "name": "compat",
-      "seconds": 2.33,
-      "status": "passed"
-    },
-    {
-      "name": "docs",
-      "seconds": 1.13,
-      "status": "passed"
-    },
-    {
-      "name": "gnn",
-      "seconds": 0.57,
-      "status": "passed"
-    },
-    {
-      "name": "release",
-      "seconds": 23.89,
-      "status": "passed"
-    },
-    {
-      "name": "render",
-      "seconds": 26.9,
-      "status": "passed"
-    },
-    {
-      "name": "gate",
-      "seconds": 5.24,
-      "status": "passed"
-    },
-    {
-      "name": "ci",
-      "seconds": 51.97,
-      "status": "passed"
-    },
-    {
-      "name": "default",
-      "seconds": 2.98,
-      "status": "passed"
-    }
-  ],
-  "baseline": {
+  "current": {
     "arms": [
       {
         "name": "setup",
-        "seconds": 0.04,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "lock",
-        "seconds": 0.1,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "validate",
-        "seconds": 0.16,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "build",
-        "seconds": 0.14,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "lint",
-        "seconds": 0.06,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "fast",
-        "seconds": 2.4,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "test",
-        "seconds": 2.2,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "compat",
-        "seconds": 2.51,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "docs",
-        "seconds": 1.1,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "gnn",
-        "seconds": 0.16,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "release",
-        "seconds": 28.61,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "render",
-        "seconds": 26.17,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "gate",
-        "seconds": 3.6,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
+      },
+      {
+        "name": "ci-project",
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "ci",
-        "seconds": 27.85,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       },
       {
         "name": "default",
-        "seconds": 1.68,
-        "status": "passed"
+        "seconds": null,
+        "status": "unmeasured"
       }
     ],
-    "host": {
-      "platform": "macOS-27.0.1",
-      "python": "3.15.2",
-      "uv": "uv 0.13.7 (Homebrew 2026-11-03 aarch64-apple-darwin)"
-    },
-    "measured_at": "2026-11-12T13:54:42+00:00",
-    "schema": "aeos-gate-metrics/v2",
-    "source_revision": "9fd578d578c241f94d429754f11f5cf549594df5",
+    "host": null,
+    "input_binding": null,
+    "measured_at": null,
+    "schema": "aeos-gate-observation/v1",
+    "source_revision": null,
     "tests": {
-      "collected": 68,
-      "coverage_percent": 97.13
+      "collected": null,
+      "coverage_percent": null
     }
   },
-  "host": {
-    "platform": "macOS-27.0.1",
-    "python": "3.15.2",
-    "uv": "uv 0.13.7 (Homebrew 2026-11-03 aarch64-apple-darwin)"
-  },
-  "measured_at": "2026-11-12T16:22:04+00:00",
-  "schema": "aeos-gate-metrics/v2",
-  "source_revision": "b5e157045f1eb4c3d00f89ca93f9a563ac8d0377",
-  "tests": {
-    "collected": 68,
-    "coverage_percent": 97.13
-  }
+  "history": [
+    {
+      "arms": [
+        {
+          "name": "setup",
+          "seconds": 0.04,
+          "status": "passed"
+        },
+        {
+          "name": "lock",
+          "seconds": 0.03,
+          "status": "passed"
+        },
+        {
+          "name": "validate",
+          "seconds": 0.15,
+          "status": "passed"
+        },
+        {
+          "name": "build",
+          "seconds": 0.15,
+          "status": "passed"
+        },
+        {
+          "name": "lint",
+          "seconds": 0.05,
+          "status": "passed"
+        },
+        {
+          "name": "fast",
+          "seconds": 1.78,
+          "status": "passed"
+        },
+        {
+          "name": "test",
+          "seconds": 2.16,
+          "status": "passed"
+        },
+        {
+          "name": "compat",
+          "seconds": 2.33,
+          "status": "passed"
+        },
+        {
+          "name": "docs",
+          "seconds": 1.13,
+          "status": "passed"
+        },
+        {
+          "name": "gnn",
+          "seconds": 0.57,
+          "status": "passed"
+        },
+        {
+          "name": "release",
+          "seconds": 23.89,
+          "status": "passed"
+        },
+        {
+          "name": "render",
+          "seconds": 26.9,
+          "status": "passed"
+        },
+        {
+          "name": "gate",
+          "seconds": 5.24,
+          "status": "passed"
+        },
+        {
+          "name": "ci",
+          "seconds": 51.97,
+          "status": "passed"
+        },
+        {
+          "name": "default",
+          "seconds": 2.98,
+          "status": "passed"
+        }
+      ],
+      "baseline": {
+        "arms": [
+          {
+            "name": "setup",
+            "seconds": 0.04,
+            "status": "passed"
+          },
+          {
+            "name": "lock",
+            "seconds": 0.1,
+            "status": "passed"
+          },
+          {
+            "name": "validate",
+            "seconds": 0.16,
+            "status": "passed"
+          },
+          {
+            "name": "build",
+            "seconds": 0.14,
+            "status": "passed"
+          },
+          {
+            "name": "lint",
+            "seconds": 0.06,
+            "status": "passed"
+          },
+          {
+            "name": "fast",
+            "seconds": 2.4,
+            "status": "passed"
+          },
+          {
+            "name": "test",
+            "seconds": 2.2,
+            "status": "passed"
+          },
+          {
+            "name": "compat",
+            "seconds": 2.51,
+            "status": "passed"
+          },
+          {
+            "name": "docs",
+            "seconds": 1.1,
+            "status": "passed"
+          },
+          {
+            "name": "gnn",
+            "seconds": 0.16,
+            "status": "passed"
+          },
+          {
+            "name": "release",
+            "seconds": 28.61,
+            "status": "passed"
+          },
+          {
+            "name": "render",
+            "seconds": 26.17,
+            "status": "passed"
+          },
+          {
+            "name": "gate",
+            "seconds": 3.6,
+            "status": "passed"
+          },
+          {
+            "name": "ci",
+            "seconds": 27.85,
+            "status": "passed"
+          },
+          {
+            "name": "default",
+            "seconds": 1.68,
+            "status": "passed"
+          }
+        ],
+        "host": {
+          "platform": "macOS-27.0.1",
+          "python": "3.15.2",
+          "uv": "uv 0.13.7 (Homebrew 2026-11-03 aarch64-apple-darwin)"
+        },
+        "measured_at": "2026-11-12T13:54:42+00:00",
+        "schema": "aeos-gate-metrics/v2",
+        "source_revision": "9fd578d578c241f94d429754f11f5cf549594df5",
+        "tests": {
+          "collected": 68,
+          "coverage_percent": 97.13
+        }
+      },
+      "host": {
+        "platform": "macOS-27.0.1",
+        "python": "3.15.2",
+        "uv": "uv 0.13.7 (Homebrew 2026-11-03 aarch64-apple-darwin)"
+      },
+      "measured_at": "2026-11-12T16:22:04+00:00",
+      "schema": "aeos-gate-metrics/v2",
+      "source_revision": "b5e157045f1eb4c3d00f89ca93f9a563ac8d0377",
+      "tests": {
+        "collected": 68,
+        "coverage_percent": 97.13
+      }
+    }
+  ],
+  "schema": "aeos-gate-metrics/v3"
 }

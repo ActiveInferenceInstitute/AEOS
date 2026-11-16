@@ -46,7 +46,7 @@ coverage. Setup once with `./run.sh setup`, then:
 
 ```bash
 ./run.sh gate       # validate, build --check, lint, pytest, docs, gnn pin
-./run.sh ci         # gate plus release in CI's shared project environment
+./run.sh ci-project # hosted validate; dedicated gnn-conformance owns hosted GNN
 ./run.sh fast       # pytest without the coverage gate, while editing
 ./run.sh release    # release gate (needs soffice, qpdf, poppler)
 ./run.sh render     # page images for manual inspection
