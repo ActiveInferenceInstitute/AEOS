@@ -278,7 +278,7 @@ def test_main_preserves_previous_pages_on_incomplete_render(workspace, commands,
             is_pdf_input = Path(command[-2]).parent == paper
             if is_pdf_input == (incomplete == "pdf"):
                 prefix = Path(command[-1])
-                sorted(prefix.parent.glob(f"{prefix.name}-*.png"))[-1].unlink()
+                max(prefix.parent.glob(f"{prefix.name}-*.png")).unlink()
         return completed
 
     monkeypatch.setattr(render_artifacts, "run", incomplete_run)

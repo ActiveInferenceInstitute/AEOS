@@ -241,3 +241,9 @@ def test_explicit_missing_baseline_is_not_silently_replaced(tree: Path, monkeypa
 
     monkeypatch.setattr(gate_metrics, "measure_arm", prohibited)
     assert gate_metrics.main(["--measure", "--baseline", str(tree / "absent.json")]) == 1
+
+
+@pytest.mark.parametrize("value", [None, [], 0, ""])
+def test_nonmapping_metrics_raise_type_error(value) -> None:
+    with pytest.raises(TypeError, match="metrics must be a mapping"):
+        gate_metrics.validate(value)

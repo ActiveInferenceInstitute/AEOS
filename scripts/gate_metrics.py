@@ -187,7 +187,7 @@ def _validate_observation(data: dict[str, Any]) -> None:
 
 def validate(data: dict[str, Any]) -> None:
     if not isinstance(data, dict):
-        raise ValueError("metrics must be a mapping")
+        raise TypeError("metrics must be a mapping")
     if data.get("schema") == LEGACY_SCHEMA:
         _validate_observation(data)
         return
