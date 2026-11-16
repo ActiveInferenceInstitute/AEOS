@@ -24,6 +24,11 @@ and runs in CI's `validate` job through `./run.sh ci`
 [`docs/RUN_GUIDE.md`](../docs/RUN_GUIDE.md) for every arm and the exact command
 it runs.
 
+Rendering validates inputs and output paths before mutation. Repository/input
+overlaps, symlinks and unknown output contents are refused rather than removed.
+New pages are staged before replacing renderer-owned page images; a custom
+`--output-dir` is not permission to recursively delete caller-owned content.
+
 `check_release.py` is the oracle for the digests recorded in
 [`releases.json`](../releases.json): when a listed file changes, re-record its
 digest in the same change or the gate fails.
