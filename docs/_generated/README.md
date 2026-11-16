@@ -5,17 +5,14 @@ hand fails `./run.sh docs`.
 
 | File | Producer | Check |
 | --- | --- | --- |
-| [`gate-metrics.json`](gate-metrics.json) | `./run.sh measure` | Schema, complete arm set and live test count. |
-| [`gate-metrics.md`](gate-metrics.md) | `./run.sh measure` | Exact rendering of the JSON's before/after observations. |
+| [`gate-metrics.json`](gate-metrics.json) | `scripts/gate_metrics.py` | v3 current/history separation and input/command/environment identity; preserved complete prior observations. |
+| [`gate-metrics.md`](gate-metrics.md) | `scripts/gate_metrics.py` | Exact projection of current/unmeasured and retained historical observations. |
 
-`./run.sh docs` re-collects the suite and checks the recorded test count.
-The producer measures every substantive arm, including composites and the
-default invocation. `measure` itself and the discovery commands are excluded.
-Use `./run.sh measure --baseline PATH --output-dir PATH` to retain a saved
-baseline and keep new evidence outside the source tree. To publish evidence
-already measured once, run `uv run --locked --extra test python
-scripts/gate_metrics.py --record PATH --baseline BASELINE`.
-Failed baseline samples remain failures; they are not speedup evidence.
+Current evidence binds content, membership, commands, requested per-arm interpreter overrides, and runner implementation. Host Python identifies the measurement driver; HEAD is descriptive, and generated metrics do not fingerprint themselves.
+
+Use `--record PATH --historical --output-dir PATH` to preserve prior observations without executing arms or relabeling them as current. `ci-project` may remain null/unmeasured. Historical consistency does not prove current measurements; source drift refuses publication and measured failures remain failures.
+
+Full measurement requires all final inputs and actual tool/network/runtime admission. Apply documentation first. No duration, success, or source binding may be invented to fill an unmeasured row.
 
 Numbers belong here, not in prose: link this folder from a guide instead of
 copying a count, a duration, or a percentage into it.

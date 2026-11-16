@@ -12,6 +12,9 @@ with `./run.sh setup`, then run `./run.sh test` from the repository root;
 | [`test_cli.py`](test_cli.py) | The `validate`, `build`, `report`, and `diff` commands in text and JSON modes, their error paths, and the `python -m aeos` / `python -m aeos.cli` entry points. |
 | [`test_release_checks.py`](test_release_checks.py) | Regression coverage for [`scripts/check_release.py`](../scripts/check_release.py): release digest and manifest verification, and the paper-freshness oracle. |
 | [`test_gate.py`](test_gate.py) | A fresh lock passes; changed dependencies refuse without modifying the lock, independent of uv's diagnostic wording or registry cache. |
+| [`test_render_artifacts.py`](test_render_artifacts.py) | Disposable filesystem regressions for unsafe output refusal, existing-content preservation, staging failures and replacement of owned page images; no external renderer required. |
+
+| [`test_gate_metrics.py`](test_gate_metrics.py) | Historical/current metric identity, preserved observations, and source-drift refusal. |
 
 No test needs a network service, Coda, GitHub, Zenodo, or an external
 application. The release-checks tests exercise the non-rendering checks; the

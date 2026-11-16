@@ -14,7 +14,7 @@ same change. `lock` checks freshness without installing packages.
 ```bash
 ./run.sh setup         # install the locked project environment
 ./run.sh               # default: fast tests, no coverage instrumentation
-./run.sh ci            # main CI job: gate plus release
+./run.sh ci-project    # hosted validate: shared project checks plus release, no duplicate GNN
 ./run.sh compat        # supported Python floor in a separate environment
 ./run.sh gnn           # pin, pointer and specs via the pinned reader; network required
 ./run.sh list          # all runnable arms
@@ -46,8 +46,9 @@ same change. `lock` checks freshness without installing packages.
 | `release` | `python scripts/check_release.py` | Release, ontology, digest, archive, accessibility, freshness and rendering checks. |
 | `render` | `python scripts/render_artifacts.py` | Page images under ignored `qa/rendered/`; does not regenerate publication binaries. |
 | `compat` | `lock`, `validate`, `build`, `fast` | Calls the same arm functions with `.venv-compat` and Python 3.11 (`COMPAT_PYTHON` overrides). |
-| `gate` | `lock`, `validate`, `build`, `lint`, `test`, `docs`, `gnn` | Complete development gate; only `gnn` provisioning needs network. |
-| `ci` | `gate`, `release` | Main workflow job; the compatibility slice remains separate. |
+| `gate` | Shared project gate plus `gnn` | Full local development gate retains GNN. |
+| `ci` | Full local gate plus `release` | Full local qualification retains GNN. |
+| `ci-project` | Shared project checks plus `release`, excluding GNN | Hosted `validate`; dedicated `gnn-conformance` alone owns hosted GNN. |
 | `measure` | `python scripts/gate_metrics.py --measure` | Single sample of every substantive arm and the default invocation; not recursively itself. |
 
 `help` and `list` are discovery commands, not gates. The measurement producer
@@ -63,7 +64,7 @@ Each job uses
 
 | Job key | Display name | Arm | Interpreter |
 | --- | --- | --- | --- |
-| `validate` | `validate` | `./run.sh ci` | 3.14 |
+| `validate` | `validate` | `./run.sh ci-project` | 3.14 |
 | `compat` | `compat` | `./run.sh compat` | 3.11 |
 | `gnn-conformance` | `gnn conformance (pinned)` | `./run.sh gnn` | 3.12 |
 
@@ -79,14 +80,6 @@ are the acceptance gate; neither this guide nor a PR claims hosted CI passed.
 
 ## Measured wall times
 
-Before/after timings, test counts, coverage, host and source revision live only
-in [generated gate metrics](_generated/gate-metrics.md), rendered from its JSON
-by `scripts/gate_metrics.py`. These are single warm-environment samples, not a
-statistical speedup claim. Baseline failures remain visible: the old stale-lock
-test depended on uv's error wording when its registry cache was empty. It now
-checks refusal and preservation of the lock bytes rather than a diagnostic word.
+Generated v3 metrics separate current evidence from complete retained v2 observations. Content, membership, command/environment identity and runner implementation bind current observations; HEAD is descriptive, host Python names the measurement driver, and generated outputs do not fingerprint themselves.
 
-The default changed from `gate` to `fast`, so its before/after row compares
-different documented scopes. Full gate and CI rows remain available separately.
-The previous hand-maintained, pre-entry-point timing table is superseded by this
-fresh scripted baseline, not silently treated as comparable evidence.
+`--record PATH --historical --output-dir PATH` preserves old observations without executing or promoting them. `ci-project` can be explicitly null/unmeasured. Actual current measurements require final source/docs plus all admitted tools/network/runtime; missing evidence and failures are not speedups. See [the generated evidence contract](_generated/README.md).

@@ -39,6 +39,8 @@ The provisioning step reads only the pin's `repository` and `revision` to build
 the git URL it installs. Every decision about the pin's shape, the pointer and
 the specifications belongs to `gnn.importers` in the pinned revision.
 
+Hosted `validate` uses `ci-project`; the dedicated `gnn-conformance` job alone owns hosted GNN. Full local `gate` and `ci` still include GNN through the shared project composition. This changes ownership, not pins, importer behavior, absent-model boundaries, or historical overlap evidence.
+
 ## The workflow
 
 The `gnn-conformance` job, display name `gnn conformance (pinned)`, runs

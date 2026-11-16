@@ -71,8 +71,7 @@ Requires Python 3.11 or newer and [`uv`](https://docs.astral.sh/uv/).
 ```
 
 `./run.sh` is the single gate entry point; with no argument it runs `fast`
-(the suite without coverage instrumentation). CI's main job calls `./run.sh ci`
-for the complete development and release gates in one environment.
+(the suite without coverage instrumentation). Hosted `validate` calls `./run.sh ci-project`; dedicated `gnn-conformance` alone owns hosted GNN. Full local `gate` and `ci` retain GNN and shared project checks.
 `./run.sh list` prints every arm; [`docs/RUN_GUIDE.md`](docs/RUN_GUIDE.md)
 records their commands and CI mapping.
 
@@ -113,7 +112,7 @@ listed artifact changes. See
 [`docs/forking.md`](docs/forking.md), [`docs/data-contract.md`](docs/data-contract.md),
 [`docs/contributing.md`](docs/contributing.md), [`docs/model.md`](docs/model.md),
 [`docs/ecosystem.md`](docs/ecosystem.md), and [`docs/publication.md`](docs/publication.md).
-The complete local main-job gate is `./run.sh ci`; see
+The complete local gate is `./run.sh ci`; hosted `validate` uses `ci-project` without repeating its dedicated GNN job. See
 [`docs/contributing.md`](docs/contributing.md) for the required checks.
 
 ## License and attribution
