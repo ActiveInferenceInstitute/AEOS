@@ -60,7 +60,7 @@ arm_measure()  { run python scripts/gate_metrics.py --measure "$@"; }
 # The compatibility slice gets its own environment so that running it never
 # leaves the shared `.venv` on the older interpreter.
 arm_compat() (
-  export UV_PROJECT_ENVIRONMENT=.venv-compat UV_PYTHON="${COMPAT_PYTHON:-3.11}"
+  export UV_PROJECT_ENVIRONMENT=.venv-compat UV_PYTHON="${COMPAT_PYTHON:-3.12}"
   arm_lock
   arm_validate
   arm_build
