@@ -7,7 +7,7 @@ name = "aeos"
 version = "1.0.0"
 description = "Portable, validated Active Entity Ontology for Science data and tooling"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 license = {file = "LICENSE"}
 authors = [{name = "Active Inference Institute"}]
 dependencies = [

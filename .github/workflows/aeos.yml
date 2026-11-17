@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
       UV_PYTHON: "3.14"
@@ -35,23 +35,23 @@ jobs:
         run: ./run.sh ci-project
 
   compat:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     env:
-      UV_PYTHON: "3.11"
+      UV_PYTHON: "3.12"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Set up Python with uv
         uses: ActiveInferenceInstitute/.github/.github/actions/setup-python-uv@7159e67315330aac8e414aebae0ad1e999a41448
         with:
-          python-version: "3.11"
+          python-version: "3.12"
       - name: Compatibility slice
         run: ./run.sh compat
 
   # GNN pin: .github/gnn-pin.json (v5.1.0, 75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf)
   gnn-conformance:
     name: gnn conformance (pinned)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
