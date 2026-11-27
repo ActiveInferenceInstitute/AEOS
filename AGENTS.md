@@ -17,7 +17,8 @@ tooling that validates, exports, and publishes it.
 | `uv.lock` | Locked environment that every arm runs through `uv run --locked`. |
 | `scripts/check_release.py` | Full release gate (see below). |
 | `docs/` | Model, data contract, CLI, forking, contributing, publication, ecosystem, run guide, GNN conformance. |
-| `paper/` | Maintained publication source and rendered artifacts. |
+| `docs/manuscript/` | Maintained publication source and template render instructions. |
+| `paper/` | Retained standalone and historical publication artifacts. |
 | `archive/2022-v2/` | Preserved 2022/v2 snapshot with its checksum manifest. |
 
 Each code folder carries its own guide: [`scripts/README.md`](scripts/README.md),
@@ -70,7 +71,7 @@ Sidecar conventions for `.aii/` are in [`.aii/AGENTS.md`](.aii/AGENTS.md).
 
 ## Ecosystem
 
-`docs/ecosystem.md` records the verified cross-reference to GNN (measured at
+`docs/reference/ecosystem.md` records the verified cross-reference to GNN (measured at
 v5.0.3, commit `8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1`; the pin is now v5.1.0,
 commit `75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf`), the Active Inference
 Ontology release v5 bridge, and ATLAS. These are cross-references, not

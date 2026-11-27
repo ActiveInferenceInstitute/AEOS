@@ -33,6 +33,6 @@ New pages are staged before replacing renderer-owned page images; a custom
 [`releases.json`](../releases.json): when a listed file changes, re-record its
 digest in the same change or the gate fails.
 
-See [`docs/publication.md`](../docs/publication.md) for the artifact rendering
-rules and [`docs/contributing.md`](../docs/contributing.md) for the required
+See [`docs/guides/publication.md`](../docs/guides/publication.md) for the artifact rendering
+rules and [`docs/guides/contributing.md`](../docs/guides/contributing.md) for the required
 checks.

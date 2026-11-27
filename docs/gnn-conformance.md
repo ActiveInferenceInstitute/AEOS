@@ -20,7 +20,7 @@ conformance workflow and the job key. The reader checks that those four facts
 appear in it, so the pointer cannot drift from the pin it describes.
 
 Changing the parser means editing the pin, then refreshing `.github/GNN.md`,
-this page, and [`ecosystem.md`](ecosystem.md) where they restate the revision.
+this page, and [`ecosystem.md`](reference/ecosystem.md) where they restate the revision.
 
 ## The arm
 
@@ -70,7 +70,7 @@ The cutover, in this change:
   `src/gnn/importers.py`.
 - `./run.sh gnn` calls that reader from `.venv-gnn`, and the separate
   `gnn-parser` arm is gone: parsing specifications is what the reader does.
-- `.github/GNN.md`, this page, [`ecosystem.md`](ecosystem.md),
+- `.github/GNN.md`, this page, [`ecosystem.md`](reference/ecosystem.md),
   [`RUN_GUIDE.md`](RUN_GUIDE.md), and the workflow record the new revision.
 
 The previous page recorded an upstream `GNNTypeChecker` warning sentinel

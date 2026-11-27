@@ -35,7 +35,7 @@ ACTIVE_TEXT_EXEMPT_PATHS = {"TODO.md", "aeos.json"}
 FORBIDDEN_TERMS = ("legacy", "stub", "mock", "placeholder", "todo", "fixme", "tbd", "wip", "dummy", "lorem")
 
 # Distinctive identity tokens that every maintained "local" publication export
-# must contain if it was regenerated from the current paper/aeos.md source.
+# must contain if it was regenerated from the current docs/manuscript/01_aeos.md source.
 PAPER_LOCAL_IDENTITY_TOKENS = (
     "active entity ontology for science (aeos)",
     "informational entity",
@@ -69,6 +69,7 @@ def check_paths(failures: list[str]) -> None:
         "docs/gnn-conformance.md",
         "docs/documentation-index.md",
         "docs/_generated/gate-metrics.md",
+        "docs/manuscript/01_aeos.md",
         "paper/",
         "paper/aeos-local.html",
         "archive/2022-v2/",
@@ -348,7 +349,7 @@ def check_paper_freshness(failures: list[str], root: Path | None = None) -> None
     The release gate otherwise validates only that the paper artifacts exist
     and are structurally sound, which lets a stale maintained paper pass as
     "current". This oracle closes that gap: the local exports must contain
-    every current heading and identity token from paper/aeos.md, and the
+    every current heading and identity token from docs/manuscript/01_aeos.md, and the
     maintained 2022/v2 PDF must remain content-faithful to the preserved
     archive source.
 
@@ -356,7 +357,7 @@ def check_paper_freshness(failures: list[str], root: Path | None = None) -> None
     root so the oracle is testable against a small synthetic tree.
     """
     root = ROOT if root is None else root
-    source = root / "paper" / "aeos.md"
+    source = root / "docs" / "manuscript" / "01_aeos.md"
     try:
         headings = _paper_headings(source)
     except OSError as error:
@@ -431,7 +432,7 @@ def check_archive_pdfs(failures: list[str]) -> None:
 
 def _ignored_parts(parts: tuple[str, ...]) -> bool:
     """Environments and preserved captures are not authored text."""
-    return bool({".git", "archive"}.intersection(parts)) or any(part.startswith(".venv") for part in parts)
+    return bool({".git", "archive", "output"}.intersection(parts)) or any(part.startswith(".venv") for part in parts)
 
 
 def check_active_text(failures: list[str]) -> None:

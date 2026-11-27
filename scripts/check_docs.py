@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 HUB = DOCS / "README.md"
 INDEX = DOCS / "documentation-index.md"
-SKIP_PARTS = {".git", ".pytest_cache", ".ruff_cache", "qa", "node_modules"}
+SKIP_PARTS = {".git", ".pytest_cache", ".ruff_cache", "qa", "node_modules", "output"}
 INDEX_EXEMPT = {"README.md", "documentation-index.md"}
 
 LINK = re.compile(r"!?\[(?P<text>[^\]]*)\]\((?P<target>[^)\s]+)(?:\s+\"[^\"]*\")?\)")
@@ -103,8 +103,10 @@ def indexed_documents() -> set[str]:
         if SCHEME.match(target) or target.startswith(("/", "#")):
             continue
         path = (INDEX.parent / target.partition("#")[0]).resolve()
-        if path.parent == DOCS.resolve() and path.suffix == ".md":
-            linked.add(path.name)
+        if path.is_relative_to(DOCS.resolve()) and path.suffix == ".md":
+            relative = path.relative_to(DOCS.resolve())
+            if relative.parts[0] != "_generated":
+                linked.add(relative.as_posix())
     return linked
 
 
@@ -112,7 +114,11 @@ def check_index(failures: list[str]) -> None:
     if not INDEX.exists():
         fail(f"{INDEX.relative_to(ROOT)} is missing", failures)
         return
-    present = {path.name for path in DOCS.glob("*.md")} - INDEX_EXEMPT
+    present = {
+        path.relative_to(DOCS).as_posix()
+        for path in DOCS.rglob("*.md")
+        if path.relative_to(DOCS).parts[0] != "_generated"
+    } - INDEX_EXEMPT
     linked = indexed_documents()
     for name in sorted(present - linked):
         fail(f"docs/{name} is not listed in docs/documentation-index.md", failures)

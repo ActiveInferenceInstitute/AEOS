@@ -29,7 +29,9 @@ def test_paper_freshness_passes_on_maintained_artifacts() -> None:
 def test_paper_freshness_detects_stale_html(tmp_path: Path) -> None:
     paper = tmp_path / "paper"
     paper.mkdir()
-    (paper / "aeos.md").write_text("# Title\n\n## Alpha\n\n## Beta\n\n", encoding="utf-8")
+    source = tmp_path / "docs" / "manuscript" / "01_aeos.md"
+    source.parent.mkdir(parents=True)
+    source.write_text("# Title\n\n## Alpha\n\n## Beta\n\n", encoding="utf-8")
     (paper / "aeos-local.html").write_text(
         "<html><body><h1>Active Entity Ontology for Science (AEOS)</h1>"
         "<p>informational entity</p><p>10.5281/zenodo.7484994</p><h2>Alpha</h2></body></html>",
@@ -42,7 +44,7 @@ def test_paper_freshness_detects_stale_html(tmp_path: Path) -> None:
 
 
 def test_paper_headings_parses_source() -> None:
-    headings = check_release._paper_headings(ROOT / "paper" / "aeos.md")
+    headings = check_release._paper_headings(ROOT / "docs" / "manuscript" / "01_aeos.md")
     assert "Abstract" in headings
     assert "Interaction motifs" in headings
 

@@ -12,6 +12,6 @@ the repository root; commands then run as `./run.sh <arm>` or
 | [`aeos/cli.py`](aeos/cli.py) | `argparse` command-line interface: `validate`, `build`, `report`, `diff`, their options, output modes, and exit codes. |
 | [`aeos/core.py`](aeos/core.py) | Loading, schema and semantic validation, deterministic export building (including the derived graph), reporting, and document diffing. Defines the default `data/aeos.yaml`, `schema/aeos.schema.json`, and `aeos.json` paths. |
 
-The CLI is documented end to end in [`docs/cli.md`](../docs/cli.md); the data
-contract it enforces is in [`docs/data-contract.md`](../docs/data-contract.md)
-and the conceptual model in [`docs/model.md`](../docs/model.md).
+The CLI is documented end to end in [`docs/reference/cli.md`](../docs/reference/cli.md); the data
+contract it enforces is in [`docs/reference/data-contract.md`](../docs/reference/data-contract.md)
+and the conceptual model in [`docs/reference/model.md`](../docs/reference/model.md).
