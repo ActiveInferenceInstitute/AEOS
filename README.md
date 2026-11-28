@@ -24,7 +24,8 @@ consumed without access to an external application.
 | [`schema/aeos.schema.json`](schema/aeos.schema.json) | Structural data contract. |
 | [`releases.json`](releases.json) | Release and provenance manifest. |
 | [`docs/`](docs/) | Model, data, fork, curation, and publication guidance. |
-| [`paper/`](paper/) | Maintained publication source and artifact notes. |
+| [`docs/manuscript/`](docs/manuscript/README.md) | Maintained publication source and template render instructions. |
+| [`paper/`](paper/) | Retained standalone and historical publication artifacts. |
 | [`archive/`](archive/) | Preserved 2022/v2 source artifacts. |
 
 The interactive reference is [AEOS on Coda](https://coda.io/@active-inference-institute/active-entity-ontology-for-science-aeos).
@@ -43,7 +44,7 @@ The published paper is [An Active Inference Ontology for Decentralized Science](
   vocabulary bridge.
 - [ATLAS](https://github.com/ActiveInferenceInstitute/ATLAS) — question-oriented
   discovery over entity, pattern, and typed-relationship graphs.
-- [docs/ecosystem.md](docs/ecosystem.md) — the verified cross-reference: what
+- [docs/reference/ecosystem.md](docs/reference/ecosystem.md) — the verified cross-reference: what
   overlaps with these surfaces, what does not, and what a real integration
   would require.
 
@@ -100,7 +101,7 @@ ontology file. The validator checks structure, IDs, references, roles,
 affordances, states, relationships, and motif steps. The export includes a
 derived graph for downstream search and visualization. The same commands are
 available as `python -m aeos ...`; see the [command-line
-reference](docs/cli.md) for all options, defaults, and exit codes.
+reference](docs/reference/cli.md) for all options, defaults, and exit codes.
 
 ## Contributing
 
@@ -109,11 +110,11 @@ diff, and document any release-level change in `releases.json`. The current
 release entry records SHA-256 digests of its source and generated files; the
 release gate verifies them, so regenerate and re-record the digests whenever a
 listed artifact changes. See
-[`docs/forking.md`](docs/forking.md), [`docs/data-contract.md`](docs/data-contract.md),
-[`docs/contributing.md`](docs/contributing.md), [`docs/model.md`](docs/model.md),
-[`docs/ecosystem.md`](docs/ecosystem.md), and [`docs/publication.md`](docs/publication.md).
+[`docs/guides/forking.md`](docs/guides/forking.md), [`docs/reference/data-contract.md`](docs/reference/data-contract.md),
+[`docs/guides/contributing.md`](docs/guides/contributing.md), [`docs/reference/model.md`](docs/reference/model.md),
+[`docs/reference/ecosystem.md`](docs/reference/ecosystem.md), and [`docs/guides/publication.md`](docs/guides/publication.md).
 The complete local gate is `./run.sh ci`; hosted `validate` uses `ci-project` without repeating its dedicated GNN job. See
-[`docs/contributing.md`](docs/contributing.md) for the required checks.
+[`docs/guides/contributing.md`](docs/guides/contributing.md) for the required checks.
 
 ## License and attribution
 

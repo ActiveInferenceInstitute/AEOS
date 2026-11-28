@@ -1,6 +1,6 @@
 # AEOS publication source
 
-The maintained local source is [`aeos.md`](aeos.md). It is a repository-owned
+The maintained local source is [`docs/manuscript/01_aeos.md`](../docs/manuscript/01_aeos.md). It is a repository-owned
 editable representation of the AEOS publication material and documentation;
 the published DOI record remains authoritative for the 2022/v2 paper.
 
@@ -12,12 +12,17 @@ new generated artifacts.
 `paper/aeos-local.html` is the accessible browser-readable export of the same
 maintained source.
 
-## Rendering
+## Rendering the retained standalone exports
+
+For the complete combined build, use the [pinned template renderer](../docs/manuscript/README.md#render-and-validate). The compatibility commands below preserve links relative to `paper/` in the standalone exports.
 
 ```bash
-pandoc paper/aeos.md --from=gfm --standalone --pdf-engine=xelatex -o paper/aeos-local.pdf
-pandoc paper/aeos.md --from=gfm --standalone -o paper/aeos-local.docx
-pandoc paper/aeos.md --from=gfm --standalone --metadata lang=en -o paper/aeos-local.html
+source_file=$(mktemp)
+sed -e 's|](../../|](../|g' -e 's| \[@original\]||g' docs/manuscript/01_aeos.md > "$source_file"
+trap 'rm -f "$source_file"' EXIT
+pandoc "$source_file" --from=gfm --standalone --pdf-engine=xelatex -o paper/aeos-local.pdf
+pandoc "$source_file" --from=gfm --standalone -o paper/aeos-local.docx
+pandoc "$source_file" --from=gfm --standalone --metadata lang=en -o paper/aeos-local.html
 qpdf --linearize --object-streams=disable paper/aeos-local.pdf /tmp/aeos-local.linearized.pdf
 mv /tmp/aeos-local.linearized.pdf paper/aeos-local.pdf
 ```
@@ -35,9 +40,9 @@ qpdf --check paper/aeos-local.pdf   # no warnings, "File is linearized"
 ```
 
 After rendering, inspect every page and run the publication checks described in
-[`../docs/publication.md`](../docs/publication.md) and
-[`../docs/contributing.md`](../docs/contributing.md). `python scripts/check_release.py`
-also enforces that the maintained PDF/DOCX/HTML reflect the current `aeos.md`
+[`../docs/publication.md`](../docs/guides/publication.md) and
+[`../docs/contributing.md`](../docs/guides/contributing.md). `python scripts/check_release.py`
+also enforces that the maintained PDF/DOCX/HTML reflect the current `docs/manuscript/01_aeos.md`
 source and that `aeos-2022-v2.pdf` stays faithful to the archived source.
 
 The normalized historical copies are rebuilt from the preserved versioned pair

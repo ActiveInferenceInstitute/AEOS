@@ -64,14 +64,14 @@ by `./run.sh measure`.
 - [x] **Documentation refresh.** Added `docs/RUN_GUIDE.md`,
   `docs/gnn-conformance.md`, `docs/documentation-index.md`, and
   `docs/_generated/`; updated the hub, `README.md`, `AGENTS.md`,
-  `docs/contributing.md`, `docs/forking.md`, and the `scripts/`, `src/`, and
+  `docs/guides/contributing.md`, `docs/guides/forking.md`, and the `scripts/`, `src/`, and
   `tests/` folder guides. `.aii/` is unchanged: its declared task commands and
   `docs` list still match the sidecar renderer that produced
   `.aii/docs/INTEGRATION.md`.
 
 ### Open after this pass
 
-- **Re-measure the GNN overlap at the current pin.** `docs/ecosystem.md`
+- **Re-measure the GNN overlap at the current pin.** `docs/reference/ecosystem.md`
   records 0 of 71 AEOS labels matching GNN's 64 declared annotation labels at
   `v5.0.3` (`8f293d9`) and says those rows have not been re-measured at the
   current pin. The pin is now `v5.1.0` (`75c834bd`); the pinned revision's
@@ -138,13 +138,13 @@ cross-reference to the GNN and ontology vocabulary surfaces.
   installs. The file is now written with
   `qpdf --object-streams=disable --linearize`, which qpdf 11.9.0 and 12.4.2
   both report clean; extracted text and rendered pages are byte-identical to
-  the previous file, and `paper/README.md` and `docs/publication.md` record
+  the previous file, and `paper/README.md` and `docs/guides/publication.md` record
   the command and the reason.
 - [x] **Release provenance bound to bytes.** `releases.json` records SHA-256
   digests for every current-release file plus the date taken, and
   `scripts/check_release.py` fails on a missing, edited, or unrecorded file;
   three regression tests cover the oracle.
-- [x] **Ecosystem cross-reference added.** `docs/ecosystem.md` records the
+- [x] **Ecosystem cross-reference added.** `docs/reference/ecosystem.md` records the
   verified overlap with ontology release v5 (2 of 71 AEOS labels by
   normalized label) and with GNN's 64 declared annotation labels (0 of 71),
   and states that no identifiers are shared or mapped. The GNN rows were
@@ -182,8 +182,8 @@ cross-cutting refactor.
   3.10 when this item closed; `requires-python` moved to 3.11 in `57f1b2c`
   and `README.md` followed in `728ab85`.
 - [x] **MIN-2 — README did not cross-link the full docs set (completed).**
-  The Contributing section now links `docs/model.md` and
-  `docs/publication.md` alongside the existing fork/data/contributing docs.
+  The Contributing section now links `docs/reference/model.md` and
+  `docs/guides/publication.md` alongside the existing fork/data/contributing docs.
 - [x] **MIN-3 — docs index omitted the CLI reference and paper notes
   (completed).** `docs/README.md` now lists the CLI reference and points to
   `paper/README.md`.
@@ -191,7 +191,7 @@ cross-cutting refactor.
 ### Medium
 
 - [x] **MED-1 — No CLI reference existed (completed).** Added
-  `docs/cli.md`: every command (`validate`, `build`, `report`, `diff`),
+  `docs/reference/cli.md`: every command (`validate`, `build`, `report`, `diff`),
   option, default, exit code, and JSON payload, verified against
   `src/aeos/cli.py` and `src/aeos/core.py` and the live `--help` output.
 - [x] **MED-2 — No CITATION.cff for GitHub citation support (completed).**
@@ -222,7 +222,7 @@ cross-cutting refactor.
   identity token from `paper/aeos.md`, and that `paper/aeos-2022-v2.pdf`
   remains content-faithful to the archived 2022/v2 source PDF (extracted-text
   equality). See `scripts/check_release.py` and `tests/test_release_checks.py`,
-  and the notes in `docs/publication.md` / `paper/README.md`.
+  and the notes in `docs/guides/publication.md` / `paper/README.md`.
 - [x] **Coverage gate enforced (MEDIUM).** Added `pytest-cov` to the `test`
   extra and `--cov=src --cov-fail-under=90` to pytest `addopts`, then raised
   aggregate coverage from 84% to 97% by adding real (no-`mock`) tests for the
@@ -241,7 +241,7 @@ cross-cutting refactor.
   `check_pdf_text`, `check_archive_pdfs`) so a hung external tool cannot hang
   the gate (MINOR). See `scripts/check_release.py`.
 - [x] **Documented the coverage gate** in `README.md` and
-  `docs/contributing.md` (MINOR).
+  `docs/guides/contributing.md` (MINOR).
 
 ## Notes
 

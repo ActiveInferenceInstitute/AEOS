@@ -2,7 +2,7 @@
 
 The `aeos` package provides four local, deterministic commands for working
 with an AEOS ontology source. Install the package (see the repository
-[`README.md`](../README.md)) to get the `aeos` console script; the same
+[`README.md`](../../README.md)) to get the `aeos` console script; the same
 interface is available as `python -m aeos` or `python -m aeos.cli`.
 
 All commands operate on local files only. None of them call Coda, GitHub,
@@ -94,9 +94,9 @@ are.
 
 ## See also
 
-- [`README.md`](../README.md) — quick start and canonical surfaces.
+- [`README.md`](../../README.md) — quick start and canonical surfaces.
 - [`model.md`](model.md) — the conceptual model behind the data.
 - [`data-contract.md`](data-contract.md) — source fields, IDs, references,
   and export stability.
-- [`contributing.md`](contributing.md) — the required check commands,
+- [`contributing.md`](../guides/contributing.md) — the required check commands,
   including the coverage gate.

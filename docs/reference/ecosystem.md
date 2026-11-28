@@ -9,7 +9,7 @@ pinned revision named in the table.
 The GNN pin recorded in `.github/gnn-pin.json` (schema
 `gnn-importer-pin/v1`) is `v5.1.0` (`75c834bd8519dc7b5adc4d24f16bf393cfd1ecdf`),
 exercised by the `gnn-conformance` job named `gnn conformance (pinned)`; see
-[`gnn-conformance.md`](gnn-conformance.md) for the pin fields and the arm.
+[`gnn-conformance.md`](../gnn-conformance.md) for the pin fields and the arm.
 
 The overlap results below were measured at `v5.0.3`
 (`8f293d9ba810e6eda5c09842d9c7ed9ffa5f92c1`), the pin when the cross-reference

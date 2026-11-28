@@ -12,7 +12,7 @@
 ## Required checks
 
 `./run.sh` is the entry point; CI calls the same arm implementations
-(see [RUN_GUIDE.md](RUN_GUIDE.md)). Install the locked environment with
+(see [RUN_GUIDE.md](../RUN_GUIDE.md)). Install the locked environment with
 `./run.sh setup`; no argument selects `fast`, without coverage.
 
 ```bash
@@ -48,6 +48,6 @@ a hosted CI claim. Release readiness still requires source validation,
 export freshness, artifact checks and document rendering.
 
 Cross-repository references (GNN, the Active Inference Ontology, ATLAS) are
-documented in [ecosystem.md](ecosystem.md). They are cross-references, not
+documented in [ecosystem.md](../reference/ecosystem.md). They are cross-references, not
 identifier mappings; do not add a mapping without the reviewed-input and
 resolution process described there.

@@ -1,0 +1,30 @@
+paper:
+  title: "Active Entity Ontology for Science (AEOS)"
+  subtitle: "A portable, versioned model for scientific entities and interaction motifs"
+
+authors:
+  - name: "Active Inference Institute"
+
+publication:
+  repository_url: "https://github.com/ActiveInferenceInstitute/AEOS"
+  release_status: "unreleased"
+
+metadata:
+  language: "en"
+  license: "CC-BY-4.0"
+
+keywords:
+  - "ontology"
+  - "scientific ecosystem"
+  - "affordances"
+  - "interaction motifs"
+
+manuscript_dir: "docs/manuscript"
+
+render:
+  formats:
+    pdf: true
+    html: true
+    slides: false
+    docx: false
+    epub: false

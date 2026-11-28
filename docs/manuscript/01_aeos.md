@@ -13,8 +13,8 @@ portable, versioned, and locally validated ontology model. It is intended to
 support forks, downstream tools, and future publication revisions.
 
 The complete 2022/v2 binary source snapshot is preserved in
-[`../archive/2022-v2/`](../archive/2022-v2/). The published work is identified
-by [DOI 10.5281/zenodo.7484994](https://doi.org/10.5281/zenodo.7484994).
+[`../archive/2022-v2/`](../../archive/2022-v2/). The published work is identified
+by [DOI 10.5281/zenodo.7484994](https://doi.org/10.5281/zenodo.7484994) [@original].
 
 # Abstract
 
@@ -43,7 +43,7 @@ grants, code, intellectual property, assets, metadata, blockchains,
 cryptographic identities, smart contracts, and project catechisms.
 
 Each type belongs to exactly one class. The complete versioned list and each
-definition are maintained in [`../data/aeos.yaml`](../data/aeos.yaml).
+definition are maintained in [`../data/aeos.yaml`](../../data/aeos.yaml).
 
 ## States, roles, and affordances
 
@@ -73,9 +73,9 @@ aeos build
 aeos build --check
 ```
 
-The generated [`../aeos.json`](../aeos.json) contains the source collections
+The generated [`../aeos.json`](../../aeos.json) contains the source collections
 and a derived graph of typed nodes and edges. See
-[`../docs/data-contract.md`](../docs/data-contract.md) for the stable contract.
+[`../docs/data-contract.md`](../reference/data-contract.md) for the stable contract.
 
 # Attribution
 

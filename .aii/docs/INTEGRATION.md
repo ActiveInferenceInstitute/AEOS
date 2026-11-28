@@ -31,7 +31,7 @@
 | Repository | Relation | Note |
 | --- | --- | --- |
 | `ActiveInferenceInstitute/InstituteOS` | `referenced-by` | Federated via the InstituteOS .aii manifest. |
-| `ActiveInferenceInstitute/Active_Inference_Ontology` | `references` | Related controlled vocabulary; verified 2026-11-01 that 2 of 71 AEOS labels match release v5 terms by normalized label only (state-internal, state-sense) and no identifiers are shared. See docs/ecosystem.md. |
+| `ActiveInferenceInstitute/Active_Inference_Ontology` | `references` | Related controlled vocabulary; verified 2026-11-01 that 2 of 71 AEOS labels match release v5 terms by normalized label only (state-internal, state-sense) and no identifiers are shared. See docs/reference/ecosystem.md. |
 
 ## Key artifacts
 
@@ -43,8 +43,8 @@
 | `schema/aeos.schema.json` | `model` | JSON Schema and structural data contract. |
 | `releases.json` | `doc` | Release and provenance manifest. |
 | `docs/` | `doc` | Model, integration, fork, curation, and publication documentation. |
-| `paper/` | `doc` | Maintained publication source and artifact notes. |
-| `paper/aeos.md` | `source` | Maintained editable publication source. |
+| `paper/` | `doc` | Standalone and historical publication artifact notes. |
+| `docs/manuscript/01_aeos.md` | `source` | Maintained editable publication source. |
 | `paper/aeos-local.pdf` | `export` | Reproducible local PDF generated from the maintained source. |
 | `paper/aeos-local.docx` | `export` | Editable DOCX generated from the maintained source. |
 | `paper/aeos-local.html` | `export` | Accessible browser-readable export generated from the maintained source. |

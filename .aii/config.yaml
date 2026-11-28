@@ -22,7 +22,7 @@ ecosystem:
   - repo: ActiveInferenceInstitute/Active_Inference_Ontology
     note: Related controlled vocabulary; verified 2026-11-01 that 2 of 71 AEOS labels
       match release v5 terms by normalized label only (state-internal, state-sense)
-      and no identifiers are shared. See docs/ecosystem.md.
+      and no identifiers are shared. See docs/reference/ecosystem.md.
   links:
     github: https://github.com/ActiveInferenceInstitute/AEOS
     website: https://www.activeinference.org
@@ -48,8 +48,8 @@ artifacts:
   description: Model, integration, fork, curation, and publication documentation.
 - path: paper/
   kind: doc
-  description: Maintained publication source and artifact notes.
-- path: paper/aeos.md
+  description: Standalone and historical publication artifact notes.
+- path: docs/manuscript/01_aeos.md
   kind: source
   description: Maintained editable publication source.
 - path: paper/aeos-local.pdf

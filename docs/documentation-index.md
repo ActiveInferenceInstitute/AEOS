@@ -13,20 +13,20 @@ the code they describe.
 
 ## Ontology and data
 
-- [`model.md`](model.md) — entity classes, states, roles, affordances, motifs.
-- [`data-contract.md`](data-contract.md) — source fields, identifiers, references, export stability.
-- [`cli.md`](cli.md) — every command, option, default, exit code, and JSON payload.
+- [`model.md`](reference/model.md) — entity classes, states, roles, affordances, motifs.
+- [`data-contract.md`](reference/data-contract.md) — source fields, identifiers, references, export stability.
+- [`cli.md`](reference/cli.md) — every command, option, default, exit code, and JSON payload.
 
 ## Curation and release
 
-- [`contributing.md`](contributing.md) — curation, required gates, release record.
-- [`forking.md`](forking.md) — creating an independent, validated derivative.
-- [`publication.md`](publication.md) — maintained paper, archived artifacts, rendering rules.
+- [`contributing.md`](guides/contributing.md) — curation, required gates, release record.
+- [`forking.md`](guides/forking.md) — creating an independent, validated derivative.
+- [`publication.md`](guides/publication.md) — maintained paper, archived artifacts, rendering rules.
 - [`../paper/README.md`](../paper/README.md) — paper source lineage and rendering commands.
 
 ## Ecosystem and conformance
 
-- [`ecosystem.md`](ecosystem.md) — verified overlap with GNN, the Active Inference Ontology, and ATLAS.
+- [`ecosystem.md`](reference/ecosystem.md) — verified overlap with GNN, the Active Inference Ontology, and ATLAS.
 - [`gnn-conformance.md`](gnn-conformance.md) — the GNN importer pin, its pointer file, and the conformance job.
 - [`../.github/GNN.md`](../.github/GNN.md) — what the conformance job parses and checks.
 
@@ -34,3 +34,15 @@ the code they describe.
 
 - [`_generated/gate-metrics.md`](_generated/gate-metrics.md) — generated before/after arm wall times and outcomes, collected tests and coverage.
 - [`_generated/README.md`](_generated/README.md) — folder policy for generated documents.
+
+## Retained publication links
+
+- [Data contract entry point](data-contract.md)
+
+## Manuscript
+
+- [`manuscript/01_aeos.md`](manuscript/01_aeos.md)
+- [`manuscript/99_references.md`](manuscript/99_references.md)
+- [`manuscript/AGENTS.md`](manuscript/AGENTS.md)
+- [`manuscript/README.md`](manuscript/README.md)
+- [`manuscript/preamble.md`](manuscript/preamble.md)
